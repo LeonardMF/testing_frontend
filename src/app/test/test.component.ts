@@ -61,7 +61,7 @@ export class TestComponent implements OnInit, OnDestroy {
     this.listenResultEvent = this.listenService.resultEvent.subscribe(aText => {
       const message = 'Result: ' + aText;
       this.listenResult = aText;
-      this.messages.push(message)
+      this.messages.push(message);
       this.ref.detectChanges();
     });
 
