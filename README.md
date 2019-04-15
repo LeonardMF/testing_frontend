@@ -9,7 +9,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 ## Backlog
 
 - 12/13.4.2019: POC, Single test of Alexa and Google
-- 14.4.2019: Test Siri, Moved in own Repro
+- 14.4.2019: Test Siri, Moved in own Repro, Bot for Alexa and Google
+
 
 
 ## Development server
