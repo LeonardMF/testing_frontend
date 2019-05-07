@@ -68,12 +68,14 @@ export class TestComponent implements OnInit, OnDestroy {
     this.listenStartEvent = this.listenService.startEvent.subscribe(() => {
       const message = 'Listen: start';
       this.messages.push(message);
+      this.listenButtonOn = true;
       this.ref.detectChanges();
     });
 
     this.listenStopEvent = this.listenService.stopEvent.subscribe(() => {
       const message = 'Listen: stop';
       this.messages.push(message);
+      this.listenButtonOn = false;
       this.ref.detectChanges();
     });
 
@@ -137,6 +139,10 @@ export class TestComponent implements OnInit, OnDestroy {
 
   startListen(): void {
     this.listenService.start();
+  }
+
+  stopListen(): void {
+    this.listenService.stop();
   }
 
 }

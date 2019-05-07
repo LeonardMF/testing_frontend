@@ -20,6 +20,7 @@
                       (change)="setWakeword()" >
                 <option value="OK Google" selected>OK Google</option>
                 <option value="Alexa">Alexa</option>
+                <option value="Computer">Computer</option>
                 <option value="Hey Siri">Hey Siri</option>
               </select>
             </div>
@@ -48,7 +49,7 @@
                   <div class="input-group-prepend">
                     <span class="input-group-text"
                           id="inputGroup-sizing-default">
-                          Result:
+                          Response:
                     </span>
                   </div>
                   <input [(ngModel)]="listenResult"
@@ -72,10 +73,16 @@
                 </div>
               <div class="col col-lg-1">
                   <div *ngIf="!speakButtonOn">
-                      <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Start</button>
+                      <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Speak</button>
                     </div>
                     <div *ngIf="speakButtonOn">
                         <!-- <button type="button" class="btn btn-outline-success" (click)="stopSpeak()">Stop</button> -->
+                    </div>
+                    <div *ngIf="!listenButtonOn">
+                      <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
+                    </div>
+                    <div *ngIf="listenButtonOn">
+                        <button type="button" class="btn btn-outline-success" (click)="stopListen()">Stop</button>
                     </div>
               </div>
             </div>
