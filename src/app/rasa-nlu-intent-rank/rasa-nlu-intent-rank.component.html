@@ -1,0 +1,6 @@
+<div class="container">
+  <br>
+  <div *ngFor="let intent of intentRank; let i = index">
+    <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
+  </div>
+</div>

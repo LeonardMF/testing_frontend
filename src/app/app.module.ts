@@ -11,7 +11,10 @@ import { TestComponent } from './test/test.component';
 import { SettingsComponent } from './settings/settings.component';
 import { BotComponent } from './bot/bot.component';
 import { BotService, ActionService } from 'speech-angular';
-import { NluComponent } from './nlu/nlu.component';
+import { RasaNluIntentComponent } from './rasa-nlu-intent/rasa-nlu-intent.component';
+import { RasaNluEntitiesComponent } from './rasa-nlu-entities/rasa-nlu-entities.component';
+import { RasaNluIntentRankComponent } from './rasa-nlu-intent-rank/rasa-nlu-intent-rank.component';
+import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { NluComponent } from './nlu/nlu.component';
     TestComponent,
     SettingsComponent,
     BotComponent,
-    NluComponent
+    RasaNluIntentComponent,
+    RasaNluEntitiesComponent,
+    RasaNluIntentRankComponent,
+    RasaNluComponent
   ],
   imports: [
     BrowserModule,

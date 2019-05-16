@@ -1,0 +1,106 @@
+<div class="container">
+    <br>
+      <div class="row">
+        <div class="col">
+            <h3>This is the Test NLU!</h3>
+            <br>
+        </div>
+      </div>
+      <div class="row" >
+          <div class="col col-lg-10" >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                        id="inputGroup-sizing-default">
+                        Request:
+                  </span>
+                </div>
+                <input [(ngModel)]="result.query"
+                        type="text"
+                        class="form-control"
+                        required
+                        placeholder="{{result.query}}"/>
+              </div>
+          </div>
+          <div class="col col-lg-2" >
+            <div *ngIf="!intentButtonOn">
+              <button type="button" class="btn btn-outline-success" (click)="sendRequest()">Send</button>
+            </div>
+            <div *ngIf="intentButtonOn">
+                <button type="button" class="btn btn-outline-success" (click)="stopRequest()">Stop</button>
+            </div>
+          </div>
+        </div>
+        <hr>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="json-tab" data-toggle="tab" href="#json" role="tab" aria-controls="json" aria-selected="true">JSON</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="intent-tab" data-toggle="tab" href="#intent" role="tab" aria-controls="intent" aria-selected="false">Intent</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="intent-rank-tab" data-toggle="tab" href="#intent-rank" role="tab" aria-controls="intent-rank" aria-selected="false">Intent Rank</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" id="entities-tab" data-toggle="tab" href="#entities" role="tab" aria-controls="entities" aria-selected="false">Entities</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="json" role="tabpanel" aria-labelledby="json-tab">
+            <div class="container">
+            <br>
+            <div class="row" >
+                <div class="col col-lg-10" >
+                  <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                              id="inputGroup-sizing-default">
+                              Response:
+                        </span>
+                      </div>
+                      <textarea [(ngModel)]="response" class="form-control" rows="15">{{response}}</textarea>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="intent" role="tabpanel" aria-labelledby="intent-tab">
+              <div class="container">
+                  <br>
+                  <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
+              </div>
+          </div>
+          <div class="tab-pane fade" id="intent-rank" role="tabpanel" aria-labelledby="intent-rank-tab">
+            <app-rasa-nlu-intent-rank [intentRank]=intentRank></app-rasa-nlu-intent-rank>
+          </div>
+          <div class="tab-pane fade" id="entities" role="tabpanel" aria-labelledby="entities-tab">
+            <app-rasa-nlu-entities [entities]=entities></app-rasa-nlu-entities>
+          </div>
+        </div>
+
+
+          <!-- <div class="row">
+              <div class="col-lg-10">
+                <div *ngIf="errorFlag" class="alert alert-warning" role="alert">
+                    {{errorText}}
+                  </div>
+                <div *ngIf="!errorFlag"class="alert alert-success" role="alert">
+                    <li *ngFor="let message of messages">
+                      {{message}}
+                    </li>
+                  </div>
+                </div>
+              <div class="col col-lg-1">
+                  <div *ngIf="!speakButtonOn">
+                      <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Speak</button>
+                    </div>
+                    <div *ngIf="!listenButtonOn">
+                      <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
+                    </div>
+                    <div *ngIf="listenButtonOn">
+                        <button type="button" class="btn btn-outline-success" (click)="stopListen()">Stop</button>
+                    </div>
+              </div>
+            </div> -->
+    </div>

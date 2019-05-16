@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NluComponent } from './nlu.component';
+import { RasaNluComponent } from './rasa-nlu.component';
 
-describe('NluComponent', () => {
-  let component: NluComponent;
-  let fixture: ComponentFixture<NluComponent>;
+describe('RasaNluComponent', () => {
+  let component: RasaNluComponent;
+  let fixture: ComponentFixture<RasaNluComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NluComponent ]
+      declarations: [ RasaNluComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NluComponent);
+    fixture = TestBed.createComponent(RasaNluComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

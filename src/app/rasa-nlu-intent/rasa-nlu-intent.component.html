@@ -1,0 +1,26 @@
+<div *ngIf="intent">
+  <div class="row">
+    <div class="col col-lg-5" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                Intent:
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="{{intent.name}}"/>
+        </div>
+      </div>
+    <div class="col col-lg-5" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                Confidence:
+              </span>
+            </div>
+            <input type="text" class="form-control" placeholder="{{intent.confidence}}"/>
+        </div>
+      </div>
+  </div>
+</div>
