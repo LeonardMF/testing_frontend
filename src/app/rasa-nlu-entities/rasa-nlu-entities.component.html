@@ -1,44 +1,6 @@
 <div class="container">
   <br>
   <div *ngFor="let entity of entities; let i = index">
-    <div class="row">
-        <div class="col col-lg-5" >
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"
-                        id="inputGroup-sizing-default">
-                    Entity:
-                  </span>
-                </div>
-                <input type="text" class="form-control" placeholder="{{entity.entity}}"/>
-            </div>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col col-lg-5" >
-              <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"
-                          id="inputGroup-sizing-default">
-                      Value:
-                    </span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="{{entity.value}}"/>
-              </div>
-            </div>
-        </div>
-      <div class="row">
-        <div class="col col-lg-5" >
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"
-                        id="inputGroup-sizing-default">
-                    Confidence:
-                  </span>
-                </div>
-                <input type="text" class="form-control" placeholder="{{entity.confidence}}"/>
-            </div>
-          </div>
-      </div>
-    </div>
+    <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
   </div>
+</div>

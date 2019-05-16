@@ -15,6 +15,7 @@ import { RasaNluIntentComponent } from './rasa-nlu-intent/rasa-nlu-intent.compon
 import { RasaNluEntitiesComponent } from './rasa-nlu-entities/rasa-nlu-entities.component';
 import { RasaNluIntentRankComponent } from './rasa-nlu-intent-rank/rasa-nlu-intent-rank.component';
 import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
+import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
     RasaNluIntentComponent,
     RasaNluEntitiesComponent,
     RasaNluIntentRankComponent,
-    RasaNluComponent
+    RasaNluComponent,
+    RasaNluEntityComponent
   ],
   imports: [
     BrowserModule,

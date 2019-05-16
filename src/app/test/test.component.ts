@@ -10,7 +10,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   wakeword: string;
   wakeFlag =  false;
-  prompt = 'Wie wird das Wetter Morgen?';
+  prompt = 'Wie viel Uhr ist es?';
 
   listenResult: string;
 
@@ -131,7 +131,7 @@ export class TestComponent implements OnInit, OnDestroy {
       const testprompt = this.wakeword + '. ' + this.prompt;
       this.speakService.text = testprompt;
       this.speakService.start();
-      const message = 'Wakeword + Prompt: ' + this.prompt;
+      const message = 'Wakeword + Prompt: ' + testprompt;
       this.messages.push(message);
       this.ref.detectChanges();
     }

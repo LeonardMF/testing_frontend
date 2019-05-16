@@ -3,7 +3,7 @@ import { RasaNluService } from './rasa-nlu.service';
 import { RasaNluQuery } from './rasa-nlu-query';
 import { RasaNluResponse } from './rasa-nlu-response';
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
-import { RasaNluEntity } from '../rasa-nlu-entities/rasa-nlu-entity';
+import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 
 @Component({
   selector: 'app-nlu',

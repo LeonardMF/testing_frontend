@@ -1,6 +1,6 @@
 
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
-import { RasaNluEntity } from '../rasa-nlu-entities/rasa-nlu-entity';
+import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 
 export class RasaNluResponse {
   intent: RasaNluIntent;

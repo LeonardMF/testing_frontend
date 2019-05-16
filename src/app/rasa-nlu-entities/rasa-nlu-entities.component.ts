@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RasaNluEntity } from './rasa-nlu-entity';
+import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 
 @Component({
   selector: 'app-rasa-nlu-entities',
