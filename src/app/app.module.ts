@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -10,6 +11,7 @@ import { TestComponent } from './test/test.component';
 import { SettingsComponent } from './settings/settings.component';
 import { BotComponent } from './bot/bot.component';
 import { BotService, ActionService } from 'speech-angular';
+import { NluComponent } from './nlu/nlu.component';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { BotService, ActionService } from 'speech-angular';
     FooterComponent,
     TestComponent,
     SettingsComponent,
-    BotComponent
+    BotComponent,
+    NluComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
 
   providers: [],
