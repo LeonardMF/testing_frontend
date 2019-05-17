@@ -1,5 +1,10 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
-import { SpeakService, ListenService } from 'speech-angular';
+import { SpeakService, ListenService, IntentService } from 'speech-angular';
+import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
+import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
+import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
+import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
+import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 
 @Component({
   selector: 'app-test',
@@ -29,15 +34,45 @@ export class TestComponent implements OnInit, OnDestroy {
   listenResultEvent: any;
   listenErrorEvent: any;
 
+  intent: RasaNluIntent;
+  entity: RasaNluEntity;
+
+  time: Date = new Date();
+  hours: number;
+  minutes: number;
+
+  devicetime: Date;
+  devicehours: number;
+  deviceminutes: number;
+
+  testResult: string;
+
+
   constructor(
     private ref: ChangeDetectorRef,
     private speakService: SpeakService,
+    private rasaNluService: RasaNluService,
     private listenService: ListenService
-  ) { }
+  ) {
+    setInterval(() => {
+      this.time = new Date();
+      this.hours = this.time.getHours();
+      this.minutes = this.time.getMinutes();
+    }, 1);
+   }
 
   ngOnInit() {
 
+    this.clear();
+
     this.speakService.format = 'wav';
+
+    this.speakStartEvent = this.speakService.startEvent.subscribe( () => {
+      const message = 'Speak: start';
+      this.speakButtonOn = true;
+      this.messages.push(message);
+      this.ref.detectChanges();
+    });
 
     this.speakStopEvent = this.speakService.stopEvent.subscribe( () => {
       const message = 'Speak: stop';
@@ -59,9 +94,10 @@ export class TestComponent implements OnInit, OnDestroy {
     });
 
     this.listenResultEvent = this.listenService.resultEvent.subscribe(aText => {
-      const message = 'Result: ' + aText;
+      const message = 'Response: ' + aText;
       this.listenResult = aText;
       this.messages.push(message);
+      this.sendRequest();
       this.ref.detectChanges();
     });
 
@@ -89,6 +125,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.speakErrorEvent.unsubscribe();
+    this.speakStartEvent.unsubscribe();
     this.speakStopEvent.unsubscribe();
     this.listenStartEvent.unsubscribe();
     this.listenStopEvent.unsubscribe();
@@ -99,18 +136,16 @@ export class TestComponent implements OnInit, OnDestroy {
   setWakeword(): void {
     console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
-    this.listenResult = '';
+    this.clear();
   }
 
   setPrompt(): void {
     console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
-    this.listenResult = '';
+    this.clear();
   }
 
   startSpeak(): void {
-
-    console.log('wakeFlag: ' + this.wakeFlag);
 
     if (this.wakeword === 'Hey Siri') {
       if (this.wakeFlag === false) {
@@ -137,12 +172,56 @@ export class TestComponent implements OnInit, OnDestroy {
     }
   }
 
+  stopSpeak(): void {
+    this.speakService.stop();
+  }
+
   startListen(): void {
     this.listenService.start();
   }
 
   stopListen(): void {
     this.listenService.stop();
+  }
+
+  sendRequest(): void {
+    let rasaNluQuery = new RasaNluQuery();
+    rasaNluQuery.query = this.listenResult;
+    rasaNluQuery.project =  'current';
+    this.rasaNluService.post(rasaNluQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
+      this.intent = rasaNluResponse.intent;
+      this.entity = rasaNluResponse.entities[0];
+      this.checkIntent();
+      this.checkEntity();
+      this.ref.detectChanges();
+    });
+  }
+
+  checkEntity(): void {
+    if (this.entity && this.entity.entity === 'time') {
+      this.devicetime = new Date(this.entity.value);
+      this.devicehours = this.devicetime.getHours();
+      this.deviceminutes = this.devicetime.getMinutes();
+
+      if (this.hours === this.devicehours && this.minutes === this.deviceminutes) {
+        this.testResult = 'Test passed: ' + this.devicehours + ':' + this.deviceminutes;
+      } else {
+        this.testResult = 'Test not passed: ' + this.devicehours + ':' + this.deviceminutes;
+      }
+    }
+  }
+
+  checkIntent(): void {
+    if (this.intent && this.intent.name === 'time') {
+      console.log('Intent OK!');
+    }
+  }
+
+  clear(): void {
+    this.intent = new RasaNluIntent();
+    this.entity = new RasaNluEntity;
+    this.listenResult = '';
+    this.testResult = '';
   }
 
 }

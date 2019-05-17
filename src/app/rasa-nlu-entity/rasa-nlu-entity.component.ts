@@ -9,8 +9,14 @@ import { RasaNluEntity } from './rasa-nlu-entity';
 export class RasaNluEntityComponent implements OnInit {
 
   @Input() entity: RasaNluEntity;
+  // datetime: Date;
 
-  constructor() { }
+  constructor() {
+    // if (this.entity && this.entity.entity === 'time') {
+    //   this.datetime = new Date(this.entity.value);
+    //   console.log(this.datetime);
+    // }
+   }
 
   ngOnInit() {
   }

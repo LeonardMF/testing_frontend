@@ -2,7 +2,7 @@
     <br>
       <div class="row">
         <div class="col">
-            <h3>This is a Test!</h3>
+            <h3>Let's check the time:  {{hours}}:{{minutes}}</h3>
             <br>
         </div>
       </div>
@@ -42,6 +42,14 @@
                         placeholder="{{prompt}}"/>
               </div>
           </div>
+          <div class="col col-lg-1">
+            <div *ngIf="!speakButtonOn">
+              <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Speak</button>
+            </div>
+            <div *ngIf="speakButtonOn">
+                <button type="button" class="btn btn-outline-danger" (click)="stopSpeak()">Stop</button>
+            </div>
+          </div>
         </div>
         <div class="row" *ngIf="!disableAudioFileName">
             <div class="col col-lg-10" >
@@ -59,11 +67,31 @@
                           placeholder="{{listenResult}}"/>
                 </div>
             </div>
+            <div class="col col-lg-1">
+                <div *ngIf="!listenButtonOn">
+                  <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
+                </div>
+                <div *ngIf="listenButtonOn">
+                    <button type="button" class="btn btn-outline-danger" (click)="stopListen()">Stop</button>
+                </div>
+            </div>
           </div>
-          <!-- <div class="row" *ngIf="!disableAudioFileName">
+          <div *ngIf="intent">
               <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
-          </div> -->
+          </div>
+          <div *ngIf="entity">
+              <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
+          </div>
           <div class="row">
+            <div class="col-lg-10">
+              <h3>{{testResult}}</h3>
+            </div>
+            <div class="col col-lg-1">
+                <div *ngIf="testResult">
+                  <button type="button" class="btn btn-outline-success" (click)="clear()">Clear</button>
+            </div>
+          </div>
+          <!-- <div class="row">
               <div class="col-lg-10">
                 <div *ngIf="errorFlag" class="alert alert-warning" role="alert">
                     {{errorText}}
@@ -74,20 +102,6 @@
                     </li>
                   </div>
                 </div>
-              <div class="col col-lg-1">
-                  <div *ngIf="!speakButtonOn">
-                      <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Speak</button>
-                    </div>
-                    <div *ngIf="speakButtonOn">
-                        <!-- <button type="button" class="btn btn-outline-success" (click)="stopSpeak()">Stop</button> -->
-                    </div>
-                    <div *ngIf="!listenButtonOn">
-                      <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
-                    </div>
-                    <div *ngIf="listenButtonOn">
-                        <button type="button" class="btn btn-outline-success" (click)="stopListen()">Stop</button>
-                    </div>
-              </div>
-            </div>
+            </div> -->
     </div>
 
