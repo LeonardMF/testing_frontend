@@ -5,6 +5,7 @@ import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
 import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
+import { Testresult } from '../testresult';
 
 @Component({
   selector: 'app-test',
@@ -45,7 +46,7 @@ export class TestComponent implements OnInit, OnDestroy {
   devicehours: number;
   deviceminutes: number;
 
-  testResult: string;
+  testResult: Testresult;
 
 
   constructor(
@@ -191,37 +192,63 @@ export class TestComponent implements OnInit, OnDestroy {
     this.rasaNluService.post(rasaNluQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
       this.intent = rasaNluResponse.intent;
       this.entity = rasaNluResponse.entities[0];
-      this.checkIntent();
-      this.checkEntity();
+      this.testResult.intentflag = this.checkIntent();
+      this.testResult.confidenceflag = this.checkConfidence();
+      this.testResult.entityflag = this.checkEntity();
+      console.log(this.testResult);
       this.ref.detectChanges();
     });
   }
 
-  checkEntity(): void {
-    if (this.entity && this.entity.entity === 'time') {
-      this.devicetime = new Date(this.entity.value);
-      this.devicehours = this.devicetime.getHours();
-      this.deviceminutes = this.devicetime.getMinutes();
+  checkEntity(): boolean {
+    if (this.entity) {
+      console.log('Found entity: ' + this.entity.entity);
 
-      if (this.hours === this.devicehours && this.minutes === this.deviceminutes) {
-        this.testResult = 'Test passed: ' + this.devicehours + ':' + this.deviceminutes;
+      if (this.entity.entity === 'time') {
+        console.log('Entity OK!');
+        this.testResult.valueflag = this.checkTimeValue();
+        return true;
       } else {
-        this.testResult = 'Test not passed: ' + this.devicehours + ':' + this.deviceminutes;
+        return false;
       }
     }
   }
 
-  checkIntent(): void {
-    if (this.intent && this.intent.name === 'time') {
-      console.log('Intent OK!');
+  checkTimeValue(): boolean {
+    this.devicetime = new Date(this.entity.value);
+    this.devicehours = this.devicetime.getHours();
+    this.deviceminutes = this.devicetime.getMinutes();
+
+    if (this.hours === this.devicehours && this.minutes === this.deviceminutes) {
+      console.log('Test passed: ' + this.devicehours + ':' + this.deviceminutes);
+      // this.testResult = 'Test passed: ' + this.devicehours + ':' + this.deviceminutes;
+      return true;
+     } else {
+      console.log('Test not passed: ' + this.devicehours + ':' + this.deviceminutes);
+      // this.testResult = 'Test not passed: ' + this.devicehours + ':' + this.deviceminutes;
+      return false;
     }
   }
 
+  checkConfidence(): boolean {
+    if (this.intent && this.intent.confidence >= 0.75) {
+      return true;
+    }
+    return false;
+  }
+
+  checkIntent(): boolean {
+    if (this.intent && this.intent.name === 'getTime') {
+      return true;
+    }
+    return false;
+  }
+
   clear(): void {
-    this.intent = new RasaNluIntent();
+    this.intent = new RasaNluIntent;
     this.entity = new RasaNluEntity;
     this.listenResult = '';
-    this.testResult = '';
+    this.testResult = new Testresult;
   }
 
 }
