@@ -41,6 +41,7 @@ export class TestComponent implements OnInit, OnDestroy {
   time: Date = new Date();
   hours: number;
   minutes: number;
+  minutesString: string;
 
   devicetime: Date;
   devicehours: number;
@@ -59,6 +60,11 @@ export class TestComponent implements OnInit, OnDestroy {
       this.time = new Date();
       this.hours = this.time.getHours();
       this.minutes = this.time.getMinutes();
+      if (this.minutes <= 10){
+        this.minutesString = '0' + this.minutes.toString();
+      } else {
+        this.minutesString = this.minutes.toString();
+      }
     }, 1);
    }
 
