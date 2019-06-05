@@ -46,7 +46,9 @@ export class TestComponent implements OnInit, OnDestroy {
   devicetime: Date;
   devicehours: number;
   deviceminutes: number;
+  deviceminutesString: string;
 
+  showResultFlag = false;
   testResult: Testresult;
 
 
@@ -60,7 +62,7 @@ export class TestComponent implements OnInit, OnDestroy {
       this.time = new Date();
       this.hours = this.time.getHours();
       this.minutes = this.time.getMinutes();
-      if (this.minutes <= 10){
+      if (this.minutes <= 10) {
         this.minutesString = '0' + this.minutes.toString();
       } else {
         this.minutesString = this.minutes.toString();
@@ -153,7 +155,7 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   startSpeak(): void {
-
+    this.clear();
     if (this.wakeword === 'Hey Siri') {
       if (this.wakeFlag === false) {
         const message = 'Wakeword: ' + this.wakeword;
@@ -201,7 +203,8 @@ export class TestComponent implements OnInit, OnDestroy {
       this.testResult.intentflag = this.checkIntent();
       this.testResult.confidenceflag = this.checkConfidence();
       this.testResult.entityflag = this.checkEntity();
-      console.log(this.testResult);
+      this.testResult.valueflag = this.checkTimeValue();
+      this.showResultFlag = true;
       this.ref.detectChanges();
     });
   }
@@ -212,26 +215,35 @@ export class TestComponent implements OnInit, OnDestroy {
 
       if (this.entity.entity === 'time') {
         console.log('Entity OK!');
+        this.testResult.message = 'Responded time: ' + this.calculateTimeValue();
         this.testResult.valueflag = this.checkTimeValue();
         return true;
       } else {
+        this.testResult.message = 'No time responded!';
         return false;
       }
+    } else {
+      this.testResult.message = 'No Entity responded!';
+      return false;
     }
   }
 
-  checkTimeValue(): boolean {
+  calculateTimeValue(): string {
     this.devicetime = new Date(this.entity.value);
     this.devicehours = this.devicetime.getHours();
     this.deviceminutes = this.devicetime.getMinutes();
+    if (this.deviceminutes <= 10) {
+      this.deviceminutesString = '0' + this.minutes.toString();
+    } else {
+      this.deviceminutesString = this.minutes.toString();
+    }
+    return this.devicehours + ':' + this.deviceminutesString;
+  }
 
+  checkTimeValue(): boolean {
     if (this.hours === this.devicehours && this.minutes === this.deviceminutes) {
-      console.log('Test passed: ' + this.devicehours + ':' + this.deviceminutes);
-      // this.testResult = 'Test passed: ' + this.devicehours + ':' + this.deviceminutes;
       return true;
      } else {
-      console.log('Test not passed: ' + this.devicehours + ':' + this.deviceminutes);
-      // this.testResult = 'Test not passed: ' + this.devicehours + ':' + this.deviceminutes;
       return false;
     }
   }
@@ -255,6 +267,7 @@ export class TestComponent implements OnInit, OnDestroy {
     this.entity = new RasaNluEntity;
     this.listenResult = '';
     this.testResult = new Testresult;
+    this.showResultFlag = false;
   }
 
 }

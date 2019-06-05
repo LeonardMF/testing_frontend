@@ -1,7 +1,8 @@
 export class Testresult {
   intentflag: boolean;
-  confidenceflag: boolean;;
+  confidenceflag: boolean;
   entityflag: boolean;
   valueflag: boolean;
+  message: string;
 }
 
