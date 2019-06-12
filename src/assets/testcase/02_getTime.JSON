@@ -1,0 +1,13 @@
+{
+  "function": "Uhrzeitansage",
+  "prompt": "Wie viel Uhr ist es?",
+  "intent": {
+    "name": "getTime",
+    "confidence": "0.75"
+  },
+  "entities": [
+    {
+      "entity": "time"
+    }
+  ]
+}

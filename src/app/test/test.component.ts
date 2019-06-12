@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
-import { SpeakService, ListenService, IntentService } from 'speech-angular';
+import { SpeakService, ListenService } from 'speech-angular';
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
