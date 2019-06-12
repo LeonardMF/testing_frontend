@@ -7,6 +7,18 @@
     </div>
   </div>
   <div class="row" >
+    <div class="col col-lg-10" >
+        <div class="alert alert-success" role="alert">
+            <li *ngFor="let message of messages">
+              {{message}}
+            </li>
+        </div>
+    </div>
+    <div class="col col-lg-2" >
+        <button type="button" class="btn btn-outline-danger" (click)="restart()">Restart</button>
+    </div>
+</div>
+  <div class="row" >
       <div class="col col-lg-10" >
         <div class="input-group mb-3">
             <div class="input-group-prepend">
