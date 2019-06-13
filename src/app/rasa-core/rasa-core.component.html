@@ -15,9 +15,10 @@
         </div>
     </div>
     <div class="col col-lg-2" >
-        <button type="button" class="btn btn-outline-danger" (click)="restart()">Restart</button>
+        <button type="button" class="btn btn-outline-danger" (click)="clear()">Clear</button>
     </div>
-</div>
+  </div>
+  <br>
   <div class="row" >
       <div class="col col-lg-10" >
         <div class="input-group mb-3">
@@ -38,4 +39,28 @@
           <button type="button" class="btn btn-outline-success" (click)="send()">Send</button>
       </div>
   </div>
+  <div class="row" >
+    <div class="col col-lg-10" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"
+                id="inputGroup-sizing-default">
+            Action:
+          </span>
+        </div>
+      <select [(ngModel)]="action"
+              class="custom-select"
+              (change)="setAction()" >
+        <option *ngFor="let actionScore of rasaCoreActionScores"
+         value="{{actionScore.action}}">
+         {{actionScore.action}}
+         {{actionScore.score}}
+        </option>
+      </select>
+    </div>
+    </div>
+    <div class="col col-lg-2" >
+        <button type="button" class="btn btn-outline-success" (click)="executeAction()">Execute</button>
+    </div>
+</div>
 </div>
