@@ -35,7 +35,6 @@ export class RasaCoreComponent implements OnInit {
     this.rasaCoreQuery.text = text;
     this.rasaCoreService.parseModel(this.rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
       this.rasaNluResponse = rasaNluResponse;
-
       this.addMessage(text, 'user', rasaNluResponse);
     });
   }
@@ -55,6 +54,7 @@ export class RasaCoreComponent implements OnInit {
     this.rasaCoreActionScores = [];
 
     this.rasaCoreService.predictAction().subscribe((any) => {
+      console.log(any);
       this.rasaCoreActionScores = any.scores;
       this.actionScore = this.rasaCoreActionScores[0];
       this.action = this.actionScore.action;
@@ -82,50 +82,48 @@ export class RasaCoreComponent implements OnInit {
     this.parseModel(this.text);
   }
 
-  chat(): void {
-    // console.log(this.text);
-    this.messages.push('User: ' + this.text);
+  // chat(): void {
+  //   // console.log(this.text);
+  //   this.messages.push('User: ' + this.text);
 
-    this.rasaCoreQuery.text = this.text;
+  //   this.rasaCoreQuery.text = this.text;
 
 
-    this.rasaCoreService.parseModel(this.rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
+  //   this.rasaCoreService.parseModel(this.rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
 
-      this.rasaNluResponse = rasaNluResponse;
+  //     this.rasaNluResponse = rasaNluResponse;
 
-      this.rasaCoreMessage.text = this.text;
-      this.rasaCoreMessage.sender = 'user';
-      this.rasaCoreMessage.parse_data = this.rasaNluResponse;
+  //     this.rasaCoreMessage.text = this.text;
+  //     this.rasaCoreMessage.sender = 'user';
+  //     this.rasaCoreMessage.parse_data = this.rasaNluResponse;
 
-      this.rasaCoreService.addMessage(this.rasaCoreMessage).subscribe((any) => {
+  //     this.rasaCoreService.addMessage(this.rasaCoreMessage).subscribe((any) => {
 
-        this.rasaCoreService.predictAction().subscribe((any) => {
-          this.predictAction();
-          this.rasaCoreAction.name = any.scores[0].action;
-          if (this.rasaCoreAction.name === 'action_listen'){
-            this.rasaCoreAction.name = any.scores[1].action;
-          }
-          this.rasaCoreAction.policy = 'string';
-          this.rasaCoreAction.confidence = any.confidence;
-          console.log(this.rasaCoreAction);
-          this.rasaCoreService.executeAction(this.rasaCoreAction).subscribe((any) => {
+  //       this.rasaCoreService.predictAction().subscribe((any) => {
+  //         this.predictAction();
+  //         this.rasaCoreAction.name = any.scores[0].action;
+  //         if (this.rasaCoreAction.name === 'action_listen'){
+  //           this.rasaCoreAction.name = any.scores[1].action;
+  //         }
+  //         this.rasaCoreAction.policy = 'string';
+  //         this.rasaCoreAction.confidence = any.confidence;
+  //         console.log(this.rasaCoreAction);
+  //         this.rasaCoreService.executeAction(this.rasaCoreAction).subscribe((any) => {
 
-            if (any.messages[0].text) {
-              this.messages.push('Bot: ' + any.messages[0].text);
-            }
-          });
-        });
-      });
-    });
-  }
+  //           if (any.messages[0].text) {
+  //             this.messages.push('Bot: ' + any.messages[0].text);
+  //           }
+  //         });
+  //       });
+  //     });
+  //   });
+  // }
 
   clear(): void {
     this.rasaCoreAction = new RasaCoreAction();
     this.rasaCoreAction.name = 'action_restart';
     this.rasaCoreService.executeAction(this.rasaCoreAction).subscribe((any) => {
-
       console.log(any);
-
     });
 
     this.messages = [];
