@@ -1,0 +1,48 @@
+<div class="container">
+  <br>
+    <div class="row">
+      <div class="col">
+          <h3>Let's check a Dialog</h3>
+          <br>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col col-lg-10" >
+      </div>
+      <div class="col col-lg-2" >
+          <button type="button" class="btn btn-outline-danger" (click)="start()">Start</button>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col col-lg-10" >
+          <div class="alert alert-success" role="alert">
+              <li *ngFor="let message of messages">
+                {{message}}
+              </li>
+          </div>
+      </div>
+      <div class="col col-lg-2" >
+          <button type="button" class="btn btn-outline-danger" (click)="clear()">Clear</button>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col col-lg-1">
+          <div *ngIf="!speakButtonOn">
+            <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Speak</button>
+          </div>
+          <div *ngIf="speakButtonOn">
+              <button type="button" class="btn btn-outline-danger" (click)="stopSpeak()">Stop</button>
+          </div>
+        </div>
+      <div class="col col-lg-8" >
+      </div>
+          <div class="col col-lg-1">
+              <div *ngIf="!listenButtonOn">
+                <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
+              </div>
+              <div *ngIf="listenButtonOn">
+                  <button type="button" class="btn btn-outline-danger" (click)="stopListen()">Stop</button>
+              </div>
+          </div>
+  </div>

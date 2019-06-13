@@ -14,7 +14,7 @@ import { RasaCoreActionScore } from './rasa-core-action-score';
 })
 export class RasaCoreComponent implements OnInit {
 
-  text = 'Hello';
+  text = 'Start Test';
   messages = [];
   action: string;
   score: number;
@@ -35,6 +35,7 @@ export class RasaCoreComponent implements OnInit {
     this.rasaCoreQuery.text = text;
     this.rasaCoreService.parseModel(this.rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
       this.rasaNluResponse = rasaNluResponse;
+      this.messages.push('NLU: ' + this.rasaNluResponse.intent.name);
       this.addMessage(text, 'user', rasaNluResponse);
     });
   }
@@ -54,7 +55,6 @@ export class RasaCoreComponent implements OnInit {
     this.rasaCoreActionScores = [];
 
     this.rasaCoreService.predictAction().subscribe((any) => {
-      console.log(any);
       this.rasaCoreActionScores = any.scores;
       this.actionScore = this.rasaCoreActionScores[0];
       this.action = this.actionScore.action;

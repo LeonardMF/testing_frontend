@@ -20,6 +20,7 @@ import { RasaNluIntentRankComponent } from './rasa-nlu-intent-rank/rasa-nlu-inte
 import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
 import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.component';
 import { RasaCoreComponent } from './rasa-core/rasa-core.component';
+import { TestDialogComponent } from './test-dialog/test-dialog.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { RasaCoreComponent } from './rasa-core/rasa-core.component';
     RasaNluIntentRankComponent,
     RasaNluComponent,
     RasaNluEntityComponent,
-    RasaCoreComponent
+    RasaCoreComponent,
+    TestDialogComponent
   ],
   imports: [
     BrowserModule,
