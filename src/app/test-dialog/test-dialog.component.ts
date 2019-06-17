@@ -162,11 +162,14 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   clear(): void {
-    this.intent = new RasaNluIntent;
-    this.entity = new RasaNluEntity;
-    this.listenResult = '';
-    this.testResult = new Testresult;
-    this.showResultFlag = false;
+    // this.intent = new RasaNluIntent;
+    // this.entity = new RasaNluEntity;
+    // this.listenResult = '';
+    // this.testResult = new Testresult;
+    // this.showResultFlag = false;
+    this.executeAction('action_restart');
+    this.messages = [];
+    this.ref.detectChanges();
   }
 
   start(): void {
