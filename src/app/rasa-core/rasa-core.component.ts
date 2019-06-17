@@ -14,7 +14,7 @@ import { RasaCoreActionScore } from './rasa-core-action-score';
 })
 export class RasaCoreComponent implements OnInit {
 
-  text = 'Start Test';
+  text = 'Alexa testen';
   messages = [];
   action: string;
   score: number;

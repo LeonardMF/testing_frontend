@@ -18,7 +18,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class TestDialogComponent implements OnInit, OnDestroy {
 
-  listenResult: string;
+  listenResult = '';
+  wakeword = 'Ok Google';
+  case = 'utter_time';
 
   listenButtonOn: boolean;
   speakButtonOn: boolean;
@@ -51,7 +53,6 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   showResultFlag = false;
   testResult: Testresult;
 
-  text = 'Start Test';
   action: string;
   score: number;
   actionScore = new RasaCoreActionScore();
@@ -95,13 +96,17 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       const message = 'Assistant: ' + aText;
       this.listenResult = aText;
       this.messages.push(message);
-      // this.sendRequest();
-      console.log(this.rasaNluResponse.intent.name);
+
+      // send to NLU
       this.parseModel(aText);
-      // this.predictAction();
-      // if (this.testflag) {
-      //   this.executeAction('utter_lissabon');
-      // }
+
+      setTimeout(() => {
+        this.predictAction();
+      }, 1000);
+
+      setTimeout(() => {
+          this.executeAction(this.action);
+      }, 2000);
       this.ref.detectChanges();
     });
 
@@ -109,6 +114,9 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       // const message = 'Listen: start';
       // this.messages.push(message);
       this.listenButtonOn = true;
+      this.listenResult = '';
+       // send action_listen to Core
+      this.executeAction('action_listen');
       this.ref.detectChanges();
     });
 
@@ -117,6 +125,22 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       // this.messages.push(message);
       this.listenButtonOn = false;
       this.ref.detectChanges();
+
+      setTimeout(() => {
+        if (this.listenResult === '') {
+          this.messages.push('Listen: no response');
+          this.parseModel('Keine Antwort');
+          setTimeout(() => {
+            this.predictAction();
+          }, 1000);
+
+          setTimeout(() => {
+              this.executeAction(this.action);
+          }, 2000);
+
+          this.ref.detectChanges();
+        }
+      }, 2000);
     });
 
     this.listenErrorEvent = this.listenService.errorEvent.subscribe( (error) => {
@@ -141,7 +165,6 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   startListen(): void {
-    this.executeAction('action_listen');
     this.listenService.start();
   }
 
@@ -161,34 +184,38 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   }
 
+  setWakeword(): void {
+    console.log(this.wakeword);
+    this.messages = [];
+  }
+
   clear(): void {
-    // this.intent = new RasaNluIntent;
-    // this.entity = new RasaNluEntity;
-    // this.listenResult = '';
-    // this.testResult = new Testresult;
-    // this.showResultFlag = false;
     this.executeAction('action_restart');
     this.messages = [];
     this.ref.detectChanges();
   }
 
   start(): void {
-    this.parseModel('Start Test');
-    this.predictAction();
-    this.executeAction('utter_time');
+    this.parseModel(this.wakeword + ' testen');
+
+    setTimeout(() => {
+        this.predictAction();
+    }, 3000);
+
+    setTimeout(() => {
+        this.executeAction(this.case);
+    }, 3100);
   }
+
+
 
   parseModel(text): void {
     this.rasaCoreQuery.text = text;
+    this.rasaNluResponse = new RasaNluResponse();
     this.rasaCoreService.parseModel(this.rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
+      // console.log(rasaNluResponse);
       this.rasaNluResponse = rasaNluResponse;
       this.messages.push('NLU: ' + this.rasaNluResponse.intent.name);
-      if (this.rasaNluResponse.intent.name === 'getTime'){
-        this.testflag = true;
-        this.executeAction('utter_lissabon');
-      } else {
-        this.testflag = false;
-      }
       this.addMessage(text, 'user', rasaNluResponse);
     });
   }
@@ -206,6 +233,8 @@ export class TestDialogComponent implements OnInit, OnDestroy {
 
   predictAction(): void {
     this.rasaCoreActionScores = [];
+    this.actionScore = new RasaCoreActionScore();
+    this.action = '';
 
     this.rasaCoreService.predictAction().subscribe((any) => {
       this.rasaCoreActionScores = any.scores;
