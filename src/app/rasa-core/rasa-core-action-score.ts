@@ -1,4 +1,4 @@
-export class RasaCoreActionScore{
+export class RasaCoreActionScore {
   action: string;
   score: number;
 }

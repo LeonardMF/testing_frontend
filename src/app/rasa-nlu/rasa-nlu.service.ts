@@ -8,6 +8,7 @@ import { tap } from 'rxjs/operators';
 
 import { RasaNluQuery } from './rasa-nlu-query';
 import { RasaNluResponse } from './rasa-nlu-response';
+import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 
 // https://stackoverflow.com/questions/34790051/how-to-create-cross-domain-request
 const httpOptions = {
@@ -19,7 +20,7 @@ const httpOptions = {
 })
 export class RasaNluService {
 
-  private rasaNluUrl = 'http://localhost:5000/';  // URL to local nlu
+  private rasaNluUrl = 'http://localhost:5005/model/';  // URL to local nlu
 
   constructor(private http: HttpClient) { }
 
@@ -30,7 +31,7 @@ export class RasaNluService {
   }
 
 
-  post(query: RasaNluQuery): Observable< RasaNluResponse> {
+  post(query: RasaCoreQuery): Observable< RasaNluResponse> {
     const requestUrl = this.rasaNluUrl + 'parse';
     return this.http.post<RasaNluResponse>( requestUrl, query, httpOptions )
     // .pipe(tap((data: any) => console.log(data)))

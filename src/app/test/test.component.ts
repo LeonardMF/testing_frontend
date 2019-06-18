@@ -6,6 +6,7 @@ import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
 import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 import { Testresult } from '../testresult';
+import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 
 @Component({
   selector: 'app-test',
@@ -194,10 +195,10 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   sendRequest(): void {
-    let rasaNluQuery = new RasaNluQuery();
-    rasaNluQuery.query = this.listenResult;
-    rasaNluQuery.project =  'current';
-    this.rasaNluService.post(rasaNluQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
+    let rasaCoreQuery = new RasaCoreQuery();
+    rasaCoreQuery.text = this.listenResult;
+    // rasaNluQuery.project =  'current';
+    this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
       this.intent = rasaNluResponse.intent;
       this.entity = rasaNluResponse.entities[0];
       this.testResult.intentflag = this.checkIntent();
