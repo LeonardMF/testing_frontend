@@ -33,6 +33,7 @@ export class RasaCoreService {
   }
 
   parseModel(query: RasaCoreQuery): Observable< RasaNluResponse> {
+    console.log('send');
     const requestUrl = this.rasaCoreUrl + 'model/parse';
     return this.http.post<RasaNluResponse>( requestUrl, query, httpOptions );
   }

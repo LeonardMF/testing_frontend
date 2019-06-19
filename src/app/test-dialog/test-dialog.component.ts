@@ -96,17 +96,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       const message = 'Assistant: ' + aText;
       this.listenResult = aText;
       this.messages.push(message);
-
-      // send to NLU
-      this.parseModel(aText);
-
-      setTimeout(() => {
-        this.predictAction();
-      }, 1000);
-
-      setTimeout(() => {
-          this.executeAction(this.action);
-      }, 2000);
+      this.doStep();
       this.ref.detectChanges();
     });
 
@@ -115,6 +105,7 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       // this.messages.push(message);
       this.listenButtonOn = true;
       this.listenResult = '';
+
        // send action_listen to Core
       this.executeAction('action_listen');
       this.ref.detectChanges();
@@ -129,18 +120,12 @@ export class TestDialogComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         if (this.listenResult === '') {
           this.messages.push('Listen: no response');
-          this.parseModel('Keine Antwort');
-          setTimeout(() => {
-            this.predictAction();
-          }, 1000);
-
-          setTimeout(() => {
-              this.executeAction(this.action);
-          }, 2000);
-
+          this.listenResult = 'Keine Antwort';
+          this.doStep();
           this.ref.detectChanges();
         }
       }, 2000);
+
     });
 
     this.listenErrorEvent = this.listenService.errorEvent.subscribe( (error) => {
@@ -196,65 +181,90 @@ export class TestDialogComponent implements OnInit, OnDestroy {
   }
 
   start(): void {
-    this.parseModel(this.wakeword + ' testen');
+    this.listenResult = this.wakeword + ' testen';
+    this.doStep();
+  }
 
-    setTimeout(() => {
-        this.predictAction();
-    }, 3000);
+  timer(): Promise<any> {
+    return new Promise((resolve, reject) => {
+      console.log('I can wait...');
+     setTimeout(() => {
+       console.log('Done...');
+       resolve(true);
+       }, 3000);
+   });
+ }
 
-    setTimeout(() => {
-        this.executeAction(this.case);
-    }, 3100);
+  async doStep() {
+
+    try {
+      this.rasaNluResponse = await this.parseModel(this.listenResult);
+      console.log(this.rasaNluResponse.intent.name);
+      this.messages.push('NLU: ' + this.rasaNluResponse.intent.name);
+      this.ref.detectChanges();
+
+      // await this.timer();
+
+      await this.addMessage(this.rasaNluResponse.text, 'user', this.rasaNluResponse);
+      console.log('added');
+
+      const predicedAction = await this.predictAction();
+
+      this.rasaCoreActionScores = predicedAction.scores;
+      this.actionScore = this.rasaCoreActionScores[0];
+      this.action = this.actionScore.action;
+      console.log(this.action);
+
+      const excutedAction = await this.executeAction(this.action);
+
+      if (excutedAction.messages[0]) {
+        this.startSpeak(excutedAction.messages[0].text);
+        console.log(excutedAction.messages[0].text);
+        this.messages.push('Bot: ' + excutedAction.messages[0].text);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
 
 
-  parseModel(text): void {
+  parseModel(text): Promise<RasaNluResponse> {
+    console.log('parseModel');
+
     this.rasaCoreQuery.text = text;
     this.rasaNluResponse = new RasaNluResponse();
-    this.rasaCoreService.parseModel(this.rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
-      // console.log(rasaNluResponse);
-      this.rasaNluResponse = rasaNluResponse;
-      this.messages.push('NLU: ' + this.rasaNluResponse.intent.name);
-      this.addMessage(text, 'user', rasaNluResponse);
-    });
+
+    return this.rasaCoreService.parseModel(this.rasaCoreQuery).toPromise();
   }
 
-  addMessage(text: string, sender: string, parse_data: RasaNluResponse): void {
+  addMessage(text: string, sender: string, parse_data: RasaNluResponse): Promise<any> {
+
     this.rasaCoreMessage.text = text;
     this.rasaCoreMessage.sender = sender;
     this.rasaCoreMessage.parse_data = parse_data;
 
-    this.rasaCoreService.addMessage(this.rasaCoreMessage).subscribe((any) => {
-      this.predictAction();
-      this.ref.detectChanges();
-    });
+    return this.rasaCoreService.addMessage(this.rasaCoreMessage).toPromise();
   }
 
-  predictAction(): void {
+  predictAction(): Promise<any> {
+    console.log('predictAction');
+
     this.rasaCoreActionScores = [];
     this.actionScore = new RasaCoreActionScore();
     this.action = '';
 
-    this.rasaCoreService.predictAction().subscribe((any) => {
-      this.rasaCoreActionScores = any.scores;
-      this.actionScore = this.rasaCoreActionScores[0];
-      this.action = this.actionScore.action;
-    });
+    return this.rasaCoreService.predictAction().toPromise();
   }
 
 
-  executeAction(action: string): void {
+  executeAction(action: string): Promise<any> {
+    console.log('executeAction');
+
     this.rasaCoreAction.name = action;
     this.rasaCoreAction.policy = 'string';
     this.rasaCoreAction.confidence = this.actionScore.score;
     console.log(this.rasaCoreAction);
-    this.rasaCoreService.executeAction(this.rasaCoreAction).subscribe((any) => {
-      if (any.messages[0]) {
-        this.startSpeak(any.messages[0].text);
-        this.messages.push('Bot: ' + any.messages[0].text);
-      }
-    });
+    return this.rasaCoreService.executeAction(this.rasaCoreAction).toPromise();
   }
-
 }
