@@ -25,12 +25,13 @@ export class RasaNluComponent implements OnInit {
               private rasaNluService: RasaNluService) { }
 
   ngOnInit() {
-    this.result.text = 'Es ist 20 Uhr 10.';
+    this.result.text = 'Es ist 20:10 Uhr in Berlin.';
     // this.result.project = 'current';
   }
 
 
   sendRequest(): void {
+
     console.log(this.result);
 
     this.rasaNluService.post(this.result).subscribe((rasaNluResponse: RasaNluResponse) => {
