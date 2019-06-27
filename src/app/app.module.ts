@@ -7,12 +7,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
+
+
 import { TestComponent } from './test/test.component';
 import { SettingsComponent } from './settings/settings.component';
 import { BotComponent } from './bot/bot.component';
 
+import { TestDialogComponent } from './test-dialog/test-dialog.component';
+import { TestCaseComponent } from './test-case/test-case.component';
+import { TestTimeComponent } from './test-time/test-time.component';
 
-
+import { PromptComponent } from './prompt/prompt.component';
 
 import { RasaNluIntentComponent } from './rasa-nlu-intent/rasa-nlu-intent.component';
 import { RasaNluEntitiesComponent } from './rasa-nlu-entities/rasa-nlu-entities.component';
@@ -20,8 +25,7 @@ import { RasaNluIntentRankComponent } from './rasa-nlu-intent-rank/rasa-nlu-inte
 import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
 import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.component';
 import { RasaCoreComponent } from './rasa-core/rasa-core.component';
-import { TestDialogComponent } from './test-dialog/test-dialog.component';
-import { TestCaseComponent } from './test-case/test-case.component';
+import { WakewordComponent } from './wakeword/wakeword.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,10 @@ import { TestCaseComponent } from './test-case/test-case.component';
     RasaNluEntityComponent,
     RasaCoreComponent,
     TestDialogComponent,
-    TestCaseComponent
+    TestCaseComponent,
+    PromptComponent,
+    TestTimeComponent,
+    WakewordComponent
   ],
   imports: [
     BrowserModule,
@@ -53,12 +60,5 @@ import { TestCaseComponent } from './test-case/test-case.component';
 })
 export class AppModule {
 
-  constructor() {
-    // const botServiceConfig = BotService.getConfig();
-    // botServiceConfig.errorOutputFlag = false;
-    // botServiceConfig.dialogLoadFlag = false;
-
-    // const actionServiceConfig = ActionService.getConfig();
-    // actionServiceConfig.errorOutputFlag = true;
-}
+  constructor() {}
 }
