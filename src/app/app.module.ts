@@ -21,6 +21,7 @@ import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
 import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.component';
 import { RasaCoreComponent } from './rasa-core/rasa-core.component';
 import { TestDialogComponent } from './test-dialog/test-dialog.component';
+import { TestCaseComponent } from './test-case/test-case.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { TestDialogComponent } from './test-dialog/test-dialog.component';
     RasaNluComponent,
     RasaNluEntityComponent,
     RasaCoreComponent,
-    TestDialogComponent
+    TestDialogComponent,
+    TestCaseComponent
   ],
   imports: [
     BrowserModule,

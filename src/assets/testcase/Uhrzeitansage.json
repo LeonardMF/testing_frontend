@@ -1,0 +1,6 @@
+{
+  "function": "Uhrzeitansage",
+  "prompt": "wie viel Uhr ist es?",
+  "intentname": "getTime",
+  "minIntentconfidence": 0.75
+}
