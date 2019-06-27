@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-wakeword',
@@ -7,13 +7,12 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class WakewordComponent implements OnInit {
 
-  wakeword: string;
+  @Input() wakeword: string;
   @Output() setWakewordOn = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit() {
-    this.wakeword = 'Hey Google';
   }
 
   setWakeword(): void {

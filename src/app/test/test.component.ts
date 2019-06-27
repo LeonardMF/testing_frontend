@@ -15,8 +15,7 @@ import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 })
 export class TestComponent implements OnInit, OnDestroy {
 
-  wakeword: string;
-  wakeFlag =  false;
+  wakeword = 'OK Google';
   prompt = 'Wie viel Uhr ist es?';
 
   listenResult: string;
@@ -27,9 +26,6 @@ export class TestComponent implements OnInit, OnDestroy {
   errorText: string;
   messages = [];
 
-  speakStartEvent: any;
-  speakStopEvent: any;
-  speakErrorEvent: any;
 
   listenStartEvent: any;
   listenStopEvent: any;
@@ -55,7 +51,6 @@ export class TestComponent implements OnInit, OnDestroy {
 
   constructor(
     private ref: ChangeDetectorRef,
-    private speakService: SpeakService,
     private rasaNluService: RasaNluService,
     private listenService: ListenService
   ) {
@@ -75,33 +70,6 @@ export class TestComponent implements OnInit, OnDestroy {
 
     this.clear();
 
-    this.speakService.format = 'wav';
-
-    this.speakStartEvent = this.speakService.startEvent.subscribe( () => {
-      const message = 'Speak: start';
-      this.speakButtonOn = true;
-      this.messages.push(message);
-      this.ref.detectChanges();
-    });
-
-    this.speakStopEvent = this.speakService.stopEvent.subscribe( () => {
-      const message = 'Speak: stop';
-      this.speakButtonOn = false;
-      this.messages.push(message);
-      if (this.wakeFlag) {
-        this.speakService.setAudioOff();
-        this.startSpeak();
-      } else {
-        this.startListen();
-      }
-      this.ref.detectChanges();
-    });
-
-    this.speakErrorEvent = this.speakService.errorEvent.subscribe( (error) => {
-      this.errorFlag = true;
-      this.errorText = 'Error on Speak: ' + error.message ;
-      this.ref.detectChanges();
-    });
 
     this.listenResultEvent = this.listenService.resultEvent.subscribe(aText => {
       const message = 'Response: ' + aText;
@@ -134,9 +102,7 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.speakErrorEvent.unsubscribe();
-    this.speakStartEvent.unsubscribe();
-    this.speakStopEvent.unsubscribe();
+
     this.listenStartEvent.unsubscribe();
     this.listenStopEvent.unsubscribe();
     this.listenResultEvent.unsubscribe();
@@ -150,42 +116,18 @@ export class TestComponent implements OnInit, OnDestroy {
     this.clear();
   }
 
+  onStopSpeak(): void {
+    this.startListen();
+    this.ref.detectChanges();
+  }
+
   setPrompt(): void {
     console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
     this.clear();
   }
 
-  startSpeak(): void {
-    this.clear();
-    if (this.wakeword === 'Hey Siri') {
-      if (this.wakeFlag === false) {
-        const message = 'Wakeword: ' + this.wakeword;
-        this.messages.push(message);
-        this.wakeFlag = true;
-        this.speakService.setAudioOn();
-        this.speakService.file = 'HeySiri';
-        this.speakService.start();
-      } else {
-        this.wakeFlag = false;
-        const message = 'Prompt: ' + this.prompt;
-        this.messages.push(message);
-        this.speakService.text = this.prompt;
-        this.speakService.start();
-      }
-    } else {
-      const testprompt = this.wakeword + '. ' + this.prompt;
-      this.speakService.text = testprompt;
-      this.speakService.start();
-      const message = 'Wakeword + Prompt: ' + testprompt;
-      this.messages.push(message);
-      this.ref.detectChanges();
-    }
-  }
 
-  stopSpeak(): void {
-    this.speakService.stop();
-  }
 
   startListen(): void {
     this.listenService.start();
