@@ -11,6 +11,9 @@ import { TestCaseService } from './test-case.service';
 })
 export class TestCaseComponent implements OnInit {
 
+  dialogs = [];
+  dialog: string;
+  dialogData: any;
   testCases = [];
   testCase = new TestCase();
 
@@ -20,13 +23,24 @@ export class TestCaseComponent implements OnInit {
               private testCaseService: TestCaseService) { }
 
   ngOnInit() {
+    this.loadDialogs();
+    this.setDialog();
   }
 
-  // Set the selected testCase
-  async setTestCase() {
+
+
+  // Load Dialogs
+  loadDialogs(): void {
+    this.dialogs = ['UhrzeitansageDialog', 'DesignExample', 'BVGFahrplanAuskunpft' ];
+    this.dialog = this.dialogs[0];
+  }
+
+  // Set Dialog and TestCases
+  async setDialog() {
     try {
-      this.testCase = await this.testCaseService.getTestCase(this.testCase.function);
-      console.log(this.testCase);
+      this.dialogData = await this.testCaseService.getDialog(this.dialog);
+      this.testCases = this.dialogData.story;
+      this.testCase = this.testCases[0];
       this.ref.detectChanges();
     } catch (error) {
       console.log('Error: ' + error);
@@ -34,7 +48,7 @@ export class TestCaseComponent implements OnInit {
   }
 
   // Load TestCases
-  async loadTestCases() {
+  async loadTestCase() {
     try {
       this.testCase = await this.testCaseService.getTestCase('Uhrzeitansage');
       console.log(this.testCase);
@@ -43,6 +57,12 @@ export class TestCaseComponent implements OnInit {
       console.log('Error: ' + error);
     }
   }
+
+    // Set the selected testCase
+    setTestCase(): void {
+      console.log(this.testCase);
+      this.ref.detectChanges();
+    }
 
 
 }
