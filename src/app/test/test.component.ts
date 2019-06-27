@@ -143,7 +143,8 @@ export class TestComponent implements OnInit, OnDestroy {
     this.listenErrorEvent.unsubscribe();
   }
 
-  setWakeword(): void {
+  onSetWakeword(wakeword): void {
+    this.wakeword = wakeword;
     console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
     this.clear();

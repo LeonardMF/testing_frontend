@@ -117,7 +117,8 @@ export class BotComponent implements OnInit {
 
   }
 
-  setWakeword(): void {
+  onSetWakeword(wakeword): void {
+    this.wakeword = wakeword;
     console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
     this.listenResult = '';

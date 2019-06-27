@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col col-lg-4" >
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"
+                id="inputGroup-sizing-default">
+            Wakeword:
+          </span>
+        </div>
+      <select [(ngModel)]="wakeword"
+              class="custom-select"
+              (change)="setWakeword()" >
+        <option value="OK Google" selected>OK Google</option>
+        <option value="Alexa">Alexa</option>
+        <option value="Computer">Computer</option>
+        <option value="Hey Siri">Hey Siri</option>
+        <option value="Hey Mercedes">Hey Mercedes</option>
+      </select>
+    </div>
+</div>
