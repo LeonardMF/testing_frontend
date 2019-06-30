@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
 import { SpeakService, ListenService } from 'speech-angular';
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
@@ -7,6 +7,7 @@ import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 import { Testresult } from '../testresult';
 import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
+import { ResponseComponent } from '../response/response.component';
 
 @Component({
   selector: 'app-test',
@@ -15,22 +16,17 @@ import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 })
 export class TestComponent implements OnInit, OnDestroy {
 
+  @ViewChild(ResponseComponent)
+  private responseComponent: ResponseComponent;
+
   wakeword = 'OK Google';
   prompt = 'Wie viel Uhr ist es?';
 
-  listenResult: string;
-
-  listenButtonOn: boolean;
   speakButtonOn: boolean;
   errorFlag: boolean;
   errorText: string;
   messages = [];
 
-
-  listenStartEvent: any;
-  listenStopEvent: any;
-  listenResultEvent: any;
-  listenErrorEvent: any;
 
   intent: RasaNluIntent;
   entity: RasaNluEntity;
@@ -51,8 +47,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   constructor(
     private ref: ChangeDetectorRef,
-    private rasaNluService: RasaNluService,
-    private listenService: ListenService
+    private rasaNluService: RasaNluService
   ) {
     setInterval(() => {
       this.time = new Date();
@@ -70,43 +65,10 @@ export class TestComponent implements OnInit, OnDestroy {
 
     this.clear();
 
-
-    this.listenResultEvent = this.listenService.resultEvent.subscribe(aText => {
-      const message = 'Response: ' + aText;
-      this.listenResult = aText;
-      this.messages.push(message);
-      this.sendRequest();
-      this.ref.detectChanges();
-    });
-
-    this.listenStartEvent = this.listenService.startEvent.subscribe(() => {
-      const message = 'Listen: start';
-      this.messages.push(message);
-      this.listenButtonOn = true;
-      this.ref.detectChanges();
-    });
-
-    this.listenStopEvent = this.listenService.stopEvent.subscribe(() => {
-      const message = 'Listen: stop';
-      this.messages.push(message);
-      this.listenButtonOn = false;
-      this.ref.detectChanges();
-    });
-
-    this.listenErrorEvent = this.listenService.errorEvent.subscribe( (error) => {
-      this.errorFlag = true;
-      this.errorText = 'Error on Listen: ' + error.message ;
-      this.ref.detectChanges();
-    });
-
   }
 
   ngOnDestroy(): void {
 
-    this.listenStartEvent.unsubscribe();
-    this.listenStopEvent.unsubscribe();
-    this.listenResultEvent.unsubscribe();
-    this.listenErrorEvent.unsubscribe();
   }
 
   onSetWakeword(wakeword): void {
@@ -117,7 +79,7 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   onStopSpeak(): void {
-    this.startListen();
+    this.responseComponent.startListen();
     this.ref.detectChanges();
   }
 
@@ -127,19 +89,9 @@ export class TestComponent implements OnInit, OnDestroy {
     this.clear();
   }
 
-
-
-  startListen(): void {
-    this.listenService.start();
-  }
-
-  stopListen(): void {
-    this.listenService.stop();
-  }
-
-  sendRequest(): void {
-    let rasaCoreQuery = new RasaCoreQuery();
-    rasaCoreQuery.text = this.listenResult;
+  onListenResult(result): void {
+    const rasaCoreQuery = new RasaCoreQuery();
+    rasaCoreQuery.text = result;
     // rasaNluQuery.project =  'current';
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
       this.intent = rasaNluResponse.intent;
@@ -209,7 +161,7 @@ export class TestComponent implements OnInit, OnDestroy {
   clear(): void {
     this.intent = new RasaNluIntent;
     this.entity = new RasaNluEntity;
-    this.listenResult = '';
+    this.responseComponent.listenResult = '';
     this.testResult = new Testresult;
     this.showResultFlag = false;
   }

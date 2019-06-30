@@ -1,0 +1,23 @@
+<div class="row" *ngIf="!disableAudioFileName">
+  <div class="col col" >
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text"
+                id="inputGroup-sizing-default">
+                Response:
+          </span>
+        </div>
+        <input [(ngModel)]="listenResult"
+                type="text"
+                class="form-control"
+                required
+                (change)="changeListenResult()"
+                (keyup.enter)="changeListenResult()"
+                placeholder="{{listenResult}}"/>
+        <div *ngIf="!listenButtonOn" class="input-group-append">
+          <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
+        </div>
+        <div *ngIf="listenButtonOn" class="input-group-append">
+            <button type="button" class="btn btn-outline-danger" (click)="stopListen()">Stop</button>
+        </div>
+</div>

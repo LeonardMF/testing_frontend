@@ -6,7 +6,7 @@
             <br>
         </div>
       </div>
-      <div class="row" >
+      <!-- <div class="row" >
           <div class="col col-lg-10" >
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -30,7 +30,8 @@
                 <button type="button" class="btn btn-outline-success" (click)="stopRequest()">Stop</button>
             </div>
           </div>
-        </div>
+        </div> -->
+        <app-response [listenResult]="this.result.text" (listenResultOn)="onListenResult($event)"></app-response>
         <hr>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item">

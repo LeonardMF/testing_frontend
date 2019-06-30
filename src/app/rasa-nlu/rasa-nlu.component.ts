@@ -29,6 +29,11 @@ export class RasaNluComponent implements OnInit {
     // this.result.project = 'current';
   }
 
+  onListenResult(listenResult): void {
+    this.result.text = listenResult;
+    this.sendRequest();
+  }
+
 
   sendRequest(): void {
 
