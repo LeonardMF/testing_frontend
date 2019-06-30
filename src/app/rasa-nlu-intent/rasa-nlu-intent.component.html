@@ -1,6 +1,6 @@
 <div *ngIf="intent">
   <div class="row">
-    <div class="col col-lg-5" >
+    <div class="col col-lg-4" >
         <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text"
@@ -8,10 +8,10 @@
                 Intent:
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="{{intent.name}}"/>
+            <input #name [attr.disabled]="false" type="text" class="form-control" placeholder="{{intent.name}}"/>
         </div>
       </div>
-    <div class="col col-lg-5" >
+    <div class="col col-lg-4" >
         <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text"
@@ -19,7 +19,7 @@
                 Confidence:
               </span>
             </div>
-            <input type="text" class="form-control" placeholder="{{intent.confidence}}"/>
+            <input #confidence [attr.disabled]="false" type="text" class="form-control" placeholder="{{intent.confidence}}"/>
         </div>
       </div>
   </div>

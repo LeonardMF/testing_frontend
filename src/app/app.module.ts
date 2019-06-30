@@ -27,6 +27,7 @@ import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.compon
 import { RasaCoreComponent } from './rasa-core/rasa-core.component';
 import { WakewordComponent } from './wakeword/wakeword.component';
 import { ResponseComponent } from './response/response.component';
+import { RasaNluResponseComponent } from './rasa-nlu-response/rasa-nlu-response.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ResponseComponent } from './response/response.component';
     PromptComponent,
     TestTimeComponent,
     WakewordComponent,
-    ResponseComponent
+    ResponseComponent,
+    RasaNluResponseComponent
   ],
   imports: [
     BrowserModule,

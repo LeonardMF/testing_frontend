@@ -1,13 +1,17 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
-import { SpeakService, ListenService } from 'speech-angular';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input} from '@angular/core';
+
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
-import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
+
+
+
 import { Testresult } from '../testresult';
 import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 import { ResponseComponent } from '../response/response.component';
+import { TestCriteria } from '../test-criteria';
+import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
 
 @Component({
   selector: 'app-test',
@@ -19,10 +23,17 @@ export class TestComponent implements OnInit, OnDestroy {
   @ViewChild(ResponseComponent)
   private responseComponent: ResponseComponent;
 
-  wakeword = 'OK Google';
-  prompt = 'Wie viel Uhr ist es?';
+  @ViewChild(RasaNluIntentComponent)
+  private intentComponent: RasaNluIntentComponent;
 
-  speakButtonOn: boolean;
+  // Set default values
+  @Input() wakeword = 'OK Google';
+  @Input() prompt = 'Wie viel Uhr ist es?';
+  // @Input() testCriteria: TestCriteria;
+
+  testCriteria: TestCriteria = new TestCriteria();
+
+
   errorFlag: boolean;
   errorText: string;
   messages = [];
@@ -30,6 +41,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   intent: RasaNluIntent;
   entity: RasaNluEntity;
+  entities = [];
 
   time: Date = new Date();
   hours: number;
@@ -64,6 +76,8 @@ export class TestComponent implements OnInit, OnDestroy {
   ngOnInit() {
 
     this.clear();
+    this.testCriteria.intent = 'getTime';
+    this.testCriteria.confidence = 0.75;
 
   }
 
@@ -94,13 +108,16 @@ export class TestComponent implements OnInit, OnDestroy {
     rasaCoreQuery.text = result;
     // rasaNluQuery.project =  'current';
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
+      console.log(rasaNluResponse);
       this.intent = rasaNluResponse.intent;
-      this.entity = rasaNluResponse.entities[0];
+
+      this.entities = rasaNluResponse.entities;
+
       this.testResult.intentflag = this.checkIntent();
       this.testResult.confidenceflag = this.checkConfidence();
-      this.testResult.entityflag = this.checkEntity();
-      this.testResult.valueflag = this.checkTimeValue();
-      this.showResultFlag = true;
+      // this.testResult.entityflag = this.checkEntity();
+      // this.testResult.valueflag = this.checkTimeValue();
+      // this.showResultFlag = true;
       this.ref.detectChanges();
     });
   }
@@ -145,21 +162,32 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   checkConfidence(): boolean {
-    if (this.intent && this.intent.confidence >= 0.75) {
+    if (this.intent && this.intent.confidence >= this.testCriteria.confidence) {
+      console.log('Confidence ok!');
+      this.intentComponent.setConfidence('passed');
       return true;
+    } else {
+      this.intentComponent.setConfidence('failed');
+      return false;
     }
-    return false;
   }
 
   checkIntent(): boolean {
-    if (this.intent && this.intent.name === 'getTime') {
-      return true;
+    if (this.intent.name) {
+      if (this.intent.name === this.testCriteria.intent) {
+        console.log('Intent ok!');
+        this.intentComponent.setIntent('passed');
+        return true;
+      } else {
+        this.intentComponent.setIntent('failed');
+      }
     }
     return false;
   }
 
   clear(): void {
     this.intent = new RasaNluIntent;
+    console.log(this.intent);
     this.entity = new RasaNluEntity;
     this.responseComponent.listenResult = '';
     this.testResult = new Testresult;
