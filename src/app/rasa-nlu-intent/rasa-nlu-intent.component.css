@@ -19,3 +19,9 @@ span.failed {
   color: #721c24;
   border-color: #721c24;
 } */
+
+input.warning {
+  /* color: #721c24; */
+  background-color: #fff3cd;   /*   #f5c6cb */
+  /* border-color: #721c24; */
+}

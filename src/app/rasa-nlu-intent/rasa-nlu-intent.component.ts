@@ -15,23 +15,9 @@ export class RasaNluIntentComponent implements OnInit {
   intentFlag: boolean;
   confidenceFlag: boolean;
 
-  constructor(private elementRef: ElementRef,
-              private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2) { }
 
   ngOnInit() {
-    // setTimeout(function() {
-    //   // console.log(this.elementRef.nativeElement.querySelector('input'));
-    //   this.renderer.addClass(this.name, 'passed');
-    //   console.log(this.name);
-    // }, 3000);
-
-
-    // console.log(this.renderer);
-    // console.log(this.elementRef.nativeElement.ch);
-
-    // this.renderer.addClass(this.name, 'passed');
-    // this.renderer.addClass(this.elementRef.nativeElement.querySelector('input'), 'passed');
-
   }
 
   setIntent(status): void {

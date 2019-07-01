@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Renderer2} from '@angular/core';
 
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
@@ -12,6 +12,7 @@ import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 import { ResponseComponent } from '../response/response.component';
 import { TestCriteria } from '../test-criteria';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
+import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
 
 @Component({
   selector: 'app-test',
@@ -25,6 +26,9 @@ export class TestComponent implements OnInit, OnDestroy {
 
   @ViewChild(RasaNluIntentComponent)
   private intentComponent: RasaNluIntentComponent;
+
+  @ViewChildren(RasaNluEntityComponent)
+  private entityComponents: QueryList<RasaNluEntityComponent>;
 
   // Set default values
   @Input() wakeword = 'OK Google';
@@ -50,6 +54,7 @@ export class TestComponent implements OnInit, OnDestroy {
 
   devicetime: Date;
   devicehours: number;
+  devicehoursString: string;
   deviceminutes: number;
   deviceminutesString: string;
 
@@ -59,13 +64,14 @@ export class TestComponent implements OnInit, OnDestroy {
 
   constructor(
     private ref: ChangeDetectorRef,
+    private renderer: Renderer2,
     private rasaNluService: RasaNluService
   ) {
     setInterval(() => {
       this.time = new Date();
       this.hours = this.time.getHours();
       this.minutes = this.time.getMinutes();
-      if (this.minutes <= 10) {
+      if (this.minutes < 10) {
         this.minutesString = '0' + this.minutes.toString();
       } else {
         this.minutesString = this.minutes.toString();
@@ -78,7 +84,7 @@ export class TestComponent implements OnInit, OnDestroy {
     this.clear();
     this.testCriteria.intent = 'getTime';
     this.testCriteria.confidence = 0.75;
-
+    this.testCriteria.entity = 'time';
   }
 
   ngOnDestroy(): void {
@@ -113,42 +119,52 @@ export class TestComponent implements OnInit, OnDestroy {
 
       this.entities = rasaNluResponse.entities;
 
-      this.testResult.intentflag = this.checkIntent();
-      this.testResult.confidenceflag = this.checkConfidence();
-      // this.testResult.entityflag = this.checkEntity();
-      // this.testResult.valueflag = this.checkTimeValue();
-      // this.showResultFlag = true;
+      // this.validate()
       this.ref.detectChanges();
     });
   }
 
-  checkEntity(): boolean {
-    if (this.entity) {
-      console.log('Found entity: ' + this.entity.entity);
+  checkEntity(): void {
+    console.log('Check Entity!');
 
-      if (this.entity.entity === 'time') {
-        console.log('Entity OK!');
-        this.testResult.message = 'Responded time: ' + this.calculateTimeValue();
-        this.testResult.valueflag = this.checkTimeValue();
-        return true;
-      } else {
-        this.testResult.message = 'No time responded!';
-        return false;
+    //TODO: Loop over all Entities in Tescriteria
+    this.entityComponents.forEach( (e) => {
+      console.log(e.entity.entity);
+
+      // Check entity
+      if (e.entity.entity === this.testCriteria.entity) {
+          e.setEntity('passed');
+
+          // Check entity confidence
+          if (e.entity.confidence >= this.testCriteria.confidence){
+            e.setConfidence('passed');
+          } else {
+            e.setConfidence('failed');
+          }
+
+          // Check entity value
+          const value = this.calculateTimeValue(e.entity.value);
+          if (this.checkTimeValue()){
+            e.setValue('passed');
+          } else {
+            e.setValue('failed');
+          }
+          // this.testResult.message = 'Responded time: ' + this.calculateTimeValue();
+          // this.testResult.valueflag = this.checkTimeValue()
       }
-    } else {
-      this.testResult.message = 'No Entity responded!';
-      return false;
-    }
+    });
+    this.testResult.message = 'No entitiy responded!';
   }
 
-  calculateTimeValue(): string {
-    this.devicetime = new Date(this.entity.value);
+  calculateTimeValue(time): string {
+    this.devicetime = new Date(time);
     this.devicehours = this.devicetime.getHours();
     this.deviceminutes = this.devicetime.getMinutes();
-    if (this.deviceminutes <= 10) {
-      this.deviceminutesString = '0' + this.minutes.toString();
+
+    if (this.deviceminutes < 10) {
+      this.deviceminutesString = '0' + this.deviceminutes.toString();
     } else {
-      this.deviceminutesString = this.minutes.toString();
+      this.deviceminutesString = this.deviceminutes.toString();
     }
     return this.devicehours + ':' + this.deviceminutesString;
   }
@@ -188,10 +204,18 @@ export class TestComponent implements OnInit, OnDestroy {
   clear(): void {
     this.intent = new RasaNluIntent;
     console.log(this.intent);
-    this.entity = new RasaNluEntity;
+    this.entities = [];
     this.responseComponent.listenResult = '';
     this.testResult = new Testresult;
     this.showResultFlag = false;
   }
 
+  validate(): void {
+    this.testResult.intentflag = this.checkIntent();
+    this.testResult.confidenceflag = this.checkConfidence();
+    // this.testResult.entityflag =
+    this.checkEntity();
+    // this.testResult.valueflag = this.checkTimeValue();
+    // this.showResultFlag = true;
+  }
 }

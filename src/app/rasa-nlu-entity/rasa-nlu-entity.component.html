@@ -7,7 +7,7 @@
                 Entity:
               </span>
             </div>
-            <input [attr.disabled]="false" type="text" class="form-control" placeholder="{{entity.entity}}"/>
+            <input #name [attr.disabled]="false" type="text" class="form-control" placeholder="{{entity.entity}}"/>
         </div>
       </div>
     <div class="col col-lg-4" >
@@ -18,7 +18,7 @@
                 Confidence:
               </span>
             </div>
-            <input [attr.disabled]="false" type="text" class="form-control" placeholder="{{entity.confidence}}"/>
+            <input #confidence [attr.disabled]="false" type="text" class="form-control" placeholder="{{entity.confidence}}"/>
         </div>
       </div>
     <div class="col col-lg-4" >
@@ -29,7 +29,7 @@
               Value:
             </span>
           </div>
-          <input [attr.disabled]="false" type="text" class="form-control" placeholder="{{entity.value}}"/>
+          <input #value [attr.disabled]="false" type="text" class="form-control" placeholder="{{entity.value}}"/>
       </div>
     </div>
 </div>

@@ -20,25 +20,27 @@
           <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
       </div>
 
-
-
-          <hr>
-          <div class="row">
-            <div class="col-lg-10">
-              <div *ngIf="showResultFlag">
-                <h3>{{testResult.message}}</h3>
-                <ul class="list-group">
-                  <li class="list-group-item">Intent: {{testResult.intentflag}} </li>
-                  <li class="list-group-item">Confidence level: {{testResult.confidenceflag}}</li>
-                  <li class="list-group-item">Entity: {{testResult.entityflag}}</li>
-                  <li class="list-group-item">Entity value: {{testResult.valueflag}}</li>
-                </ul>
-              </div>
-            </div>
-            <div class="col col-lg-1">
-                <div *ngIf="testResult">
-                  <button type="button" class="btn btn-outline-success" (click)="clear()">Clear</button>
-            </div>
+      <hr>
+      <div class="row">
+        <div class="col-lg-10">
+          <div *ngIf="showResultFlag">
+            <h3>{{testResult.message}}</h3>
+            <ul class="list-group">
+              <li class="list-group-item">Intent: {{testResult.intentflag}} </li>
+              <li class="list-group-item">Confidence level: {{testResult.confidenceflag}}</li>
+              <li class="list-group-item">Entity: {{testResult.entityflag}}</li>
+              <li class="list-group-item">Entity value: {{testResult.valueflag}}</li>
+            </ul>
           </div>
+        </div>
+        <div class="col col-lg-1">
+            <div *ngIf="testResult">
+              <button type="button" class="btn btn-outline-success" (click)="clear()">Clear</button>
+        </div>
+      </div>
+      <div class="col col-lg-1">
+        <div >
+          <button type="button" class="btn btn-outline-success" (click)="validate()">Validate</button>
+    </div>
     </div>
 

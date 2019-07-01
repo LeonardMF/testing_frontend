@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { RasaNluEntity } from './rasa-nlu-entity';
 
 @Component({
@@ -9,16 +9,27 @@ import { RasaNluEntity } from './rasa-nlu-entity';
 export class RasaNluEntityComponent implements OnInit {
 
   @Input() entity: RasaNluEntity;
-  // datetime: Date;
+  @ViewChild('name') name: ElementRef;
+  @ViewChild('confidence') confidence: ElementRef;
+  @ViewChild('value') value: ElementRef;
 
-  constructor() {
-    // if (this.entity && this.entity.entity === 'time') {
-    //   this.datetime = new Date(this.entity.value);
-    //   console.log(this.datetime);
-    // }
+  constructor(private renderer: Renderer2) {
    }
 
   ngOnInit() {
   }
+
+  setEntity(status): void {
+    this.renderer.addClass(this.name.nativeElement, status);
+  }
+
+  setConfidence(status): void {
+    this.renderer.addClass(this.confidence.nativeElement, status);
+  }
+
+  setValue(status): void {
+    this.renderer.addClass(this.value.nativeElement, status);
+  }
+
 
 }
