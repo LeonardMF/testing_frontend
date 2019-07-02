@@ -27,24 +27,6 @@ export class TestComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.clear();
     this.testCriteria = TESTTIMECITYCRITERIA;
-
-    // this.testCriteria.intent = 'getTime';
-    // this.testCriteria.confidence = 0.75;
-
-    // const timeEntity = new TestCriteriaEntity();
-    // timeEntity.name = 'time';
-    // timeEntity.confidence = 0.75;
-    // timeEntity.value = 'checkTime';
-    // timeEntity.flag = false;
-
-    // const cityEntity = new TestCriteriaEntity();
-    // cityEntity.name = 'city';
-    // cityEntity.confidence = 0.75;
-    // cityEntity.value = 'lissabon';
-    // cityEntity.flag = false;
-
-    // this.testCriteria.entities.push(timeEntity);
-    // this.testCriteria.entities.push(cityEntity);
   }
 
   ngOnDestroy(): void {
