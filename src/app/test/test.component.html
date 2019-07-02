@@ -1,19 +1,5 @@
 <div class="container">
-      <hr>
-
-      <app-wakeword [wakeword]="wakeword" (setWakewordOn)="onSetWakeword($event)" ></app-wakeword>
-      <app-prompt [wakeword]="wakeword" [prompt]="prompt" (stopSpeakOn)="onStopSpeak($event)" ></app-prompt>
-      <app-response (listenResultOn)="onListenResult($event)"></app-response>
-
-      <div *ngIf="intent.name">
-          <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
-      </div>
-
-      <div *ngFor="let entity of entities">
-          <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
-      </div>
-
-      <hr>
+      <app-test-turn [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria"></app-test-turn>
 
       <div class="row">
         <div class="col col-lg-1">
