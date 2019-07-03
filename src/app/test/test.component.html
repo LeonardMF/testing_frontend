@@ -1,13 +1,26 @@
 <div class="container">
-      <app-test-case [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria"></app-test-case>
-
-      <div class="row">
-        <div class="col col-lg-1">
-          <button type="button" class="btn btn-outline-success" (click)="clear()">Clear</button>
-        </div>
-        <div class="col col-lg-1">
-          <button type="button" class="btn btn-outline-success" (click)="validate()">Validate</button>
-        </div>
+    <br>
+    <div class="row">
+      <div class="col">
+          <h3>{{dialogName}}</h3>
       </div>
+      <div class="col">
+          <button type="button" class="btn btn-outline-success" (click)="start()">Test</button>
+      </div>
+    </div>
+      <app-test-case [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria" (nluAnalyseOn)="onNluAnalyse()"></app-test-case>
+    <hr>
+    <div class="row">
+      <div class="col-4">
+        <button type="button" class="btn btn-outline-primary" (click)="clear()">Clear</button>
+      </div>
+      <div class="col-4">
+        <button type="button" class="btn btn-outline-warning" (click)="validate()">Validate</button>
+      </div>
+      <div class="col-4">
+          <button type="button" class="btn btn-outline-danger" (click)="back()">Back</button>
+          <button type="button" class="btn btn-outline-success" (click)="next()">Next</button>
+      </div>
+    </div>
 </div>
 

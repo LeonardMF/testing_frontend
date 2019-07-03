@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Renderer2} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Renderer2, Output, EventEmitter} from '@angular/core';
 
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
@@ -11,6 +11,7 @@ import { TestCriteria } from '../test-criteria';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
 import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
 import { TestCriteriaEntity } from '../test-criteria-entity';
+import { PromptComponent } from '../prompt/prompt.component';
 
 @Component({
   selector: 'app-test-case',
@@ -18,6 +19,9 @@ import { TestCriteriaEntity } from '../test-criteria-entity';
   styleUrls: ['./test-case.component.css']
 })
 export class TestCaseComponent implements OnInit, OnDestroy {
+
+  @ViewChild(PromptComponent)
+  private promptComponent: PromptComponent;
 
   @ViewChild(ResponseComponent)
   private responseComponent: ResponseComponent;
@@ -32,6 +36,8 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   @Input() wakeword;
   @Input() prompt;
   @Input() testCriteria: TestCriteria;
+
+  @Output() nluAnalyseOn = new EventEmitter();
 
   title: string;
   description: string;
@@ -69,6 +75,10 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     this.ref.detectChanges();
   }
 
+  speak(): void {
+    this.promptComponent.startSpeak();
+  }
+
   setPrompt(): void {
     // console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
@@ -87,9 +97,9 @@ export class TestCaseComponent implements OnInit, OnDestroy {
       this.intent = rasaNluResponse.intent;
 
       this.entities = rasaNluResponse.entities;
-
       // this.validate()
       this.ref.detectChanges();
+      this.nluAnalyseOn.emit();
     });
   }
 
