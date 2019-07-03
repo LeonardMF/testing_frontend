@@ -5,3 +5,8 @@ export const TESTTIMEDIALOG: TestDialog = {
   name: 'Uhrzeitansage',
   cases: [TESTTIMECASE, TESTCITYCASE]
 };
+
+export const TESTTIME: TestDialog = {
+  name: 'Uhrzeitansage',
+  cases: [TESTTIMECASE]
+};

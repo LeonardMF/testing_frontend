@@ -28,7 +28,7 @@ import { RasaCoreComponent } from './rasa-core/rasa-core.component';
 import { WakewordComponent } from './wakeword/wakeword.component';
 import { ResponseComponent } from './response/response.component';
 import { RasaNluResponseComponent } from './rasa-nlu-response/rasa-nlu-response.component';
-import { TestTurnComponent } from './test-turn/test-turn.component';
+import { TestCaseEditorComponent } from './test-case-editor/test-case-editor.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import { TestTurnComponent } from './test-turn/test-turn.component';
     WakewordComponent,
     ResponseComponent,
     RasaNluResponseComponent,
-    TestTurnComponent
+    TestCaseEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@ export const TESTTIMECITYCRITERIA: TestCriteria = {
   entities: [TIMECRITERIA, CITYCRITERIA]
 };
 
-export const TESTTIMECRITERIA: TestCriteria ={
+export const TESTTIMECRITERIA: TestCriteria = {
   intent: 'getTime',
   confidence: 0.75,
   entities: [TIMECRITERIA]

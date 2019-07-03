@@ -1,54 +1,15 @@
-<div class="container">
-  <br>
-    <div class="row">
-      <div class="col">
-          <h3>Testcase editor</h3>
-          <br>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-10" >
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                      id="inputGroup-sizing-default">
-                  Select Dialog:
-                </span>
-              </div>
-            <select [(ngModel)]="dialog"
-                    class="custom-select"
-                    (change)="setDialog()" >
-                    <option *ngFor="let aDialog of dialogs"
-                    value="{{aDialog}}">
-                      {{aDialog}}
-                   </option>
-            </select>
-            <div class="input-group-append">
-              <button type="button" class="btn btn-outline-dark" (click)="loadDialogs()"> load </button>
-            </div>
-          </div>
-    <div class="row">
-      <div class="col col-lg-10" >
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text"
-                    id="inputGroup-sizing-default">
-                Select Testcase:
-              </span>
-            </div>
-          <select [(ngModel)]="testCase"
-                  class="custom-select"
-                  (change)="setTestCase()" >
-                 <option *ngFor="let tc of testCases"
-                 [ngValue]="tc">
-                    {{tc.function}}
-                 </option>
+<hr>
 
-          </select>
-          <div class="input-group-append">
-            <button type="button" class="btn btn-outline-dark" (click)="loadTestCase()"> load </button>
-          </div>
-        </div>
-        <hr>
+  <app-wakeword [wakeword]="wakeword" (setWakewordOn)="onSetWakeword($event)" ></app-wakeword>
+  <app-prompt [wakeword]="wakeword" [prompt]="prompt" (stopSpeakOn)="onStopSpeak($event)" ></app-prompt>
+  <app-response (listenResultOn)="onListenResult($event)"></app-response>
 
-    </div>
+  <div *ngIf="intent.name">
+      <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
+  </div>
+
+  <div *ngFor="let entity of entities">
+      <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
+  </div>
+
+<hr>

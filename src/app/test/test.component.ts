@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Renderer2} from '@angular/core';
 
+import { TestCaseComponent } from '../test-case/test-case.component';
+import { TESTTIMECASE } from '../mock-test-case';
 import { TestCriteria } from '../test-criteria';
-import { TestCriteriaEntity } from '../test-criteria-entity';
-import { TestTurnComponent } from '../test-turn/test-turn.component';
-import { TESTTIMECITYCRITERIA } from '../mock-test-criteria';
 
 @Component({
   selector: 'app-test',
@@ -11,22 +10,23 @@ import { TESTTIMECITYCRITERIA } from '../mock-test-criteria';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit, OnDestroy {
-  @ViewChild(TestTurnComponent)
-  private testTurnComponent: TestTurnComponent;
+  @ViewChild(TestCaseComponent)
+  private testCaseComponent: TestCaseComponent;
 
   // Set default values
-  @Input() wakeword = 'OK Google';
-  @Input() prompt = 'Wie viel Uhr ist es?';
-
-  testCriteria: TestCriteria = new TestCriteria();
+  wakeword: string;
+  prompt: string;
+  testCriteria: TestCriteria;
 
   constructor(
     private ref: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    this.clear();
-    this.testCriteria = TESTTIMECITYCRITERIA;
+    this.wakeword = TESTTIMECASE.wakeword;
+    this.prompt = TESTTIMECASE.prompt;
+    this.testCriteria = TESTTIMECASE.testCriteria;
+
   }
 
   ngOnDestroy(): void {
@@ -34,12 +34,12 @@ export class TestComponent implements OnInit, OnDestroy {
   }
 
   clear(): void {
-    this.testTurnComponent.clear();
+    this.testCaseComponent.clear();
   }
 
   validate(): void {
-    this.testTurnComponent.checkIntent();
-    this.testTurnComponent.checkConfidence();
-    this.testTurnComponent.checkEntities();
+    this.testCaseComponent.checkIntent();
+    this.testCaseComponent.checkConfidence();
+    this.testCaseComponent.checkEntities();
   }
 }
