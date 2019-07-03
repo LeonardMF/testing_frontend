@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { SpeakService } from 'speech-angular';
 
 @Component({
@@ -20,7 +20,8 @@ export class PromptComponent implements OnInit, OnDestroy {
   speakStopEvent: any;
   speakErrorEvent: any;
 
-  constructor(private speakService: SpeakService) { }
+  constructor(private ref: ChangeDetectorRef,
+              private speakService: SpeakService) { }
 
   ngOnInit() {
     this.speakService.format = 'wav';
@@ -32,6 +33,7 @@ export class PromptComponent implements OnInit, OnDestroy {
     this.speakStartEvent = this.speakService.startEvent.subscribe( () => {
       console.log('Speak: start');
       this.speakButtonOn = true;
+      this.ref.detectChanges();
     });
 
     this.speakStopEvent = this.speakService.stopEvent.subscribe( () => {
@@ -41,6 +43,7 @@ export class PromptComponent implements OnInit, OnDestroy {
         this.startSpeak();
       } else {
         this.speakButtonOn = false;
+        this.ref.detectChanges();
         this.stopSpeakOn.emit();
       }
     });

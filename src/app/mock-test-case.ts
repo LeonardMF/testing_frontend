@@ -11,5 +11,5 @@ export const TESTTIMECASE: TestCase = {
 export const TESTCITYCASE: TestCase = {
   wakeword: 'OK Google',
   prompt: 'und in Lissabon?',
-  testCriteria: TESTTIMECITYCRITERIA
+  testCriteria: TESTTIMECITYCRITERIA,
 };

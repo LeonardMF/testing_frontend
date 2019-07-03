@@ -7,6 +7,13 @@ export const TIMECRITERIA: TestCriteriaEntity = {
   flag: false
 };
 
+export const TIMELISSABONCRITERIA: TestCriteriaEntity = {
+  name: 'time',
+  confidence: 0.75,
+  value: 'checkTime-1',
+  flag: false
+};
+
 export const CITYCRITERIA: TestCriteriaEntity = {
   name: 'city',
   confidence: 0.75,

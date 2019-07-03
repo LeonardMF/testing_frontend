@@ -103,14 +103,14 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     });
   }
 
-  checkTime(aTime): boolean {
+  checkTime(aTime, aHour = 0): boolean {
 
     const devicetime = new Date(aTime);
     const devicehours = devicetime.getHours();
     const deviceminutes = devicetime.getMinutes();
 
     const time = new Date();
-    const hours = time.getHours();
+    const hours = time.getHours() - aHour;
     const minutes = time.getMinutes();
 
     if (hours === devicehours && minutes === deviceminutes) {
@@ -139,6 +139,9 @@ export class TestCaseComponent implements OnInit, OnDestroy {
             // Check entity value
             if (testCriteriaEntity.value === 'checkTime' ) {
               valueFlag = this.checkTime(e.entity.value);
+            }
+            if (testCriteriaEntity.value === 'checkTime-1' ) {
+              valueFlag = this.checkTime(e.entity.value, 1);
             }
 
             if (testCriteriaEntity.value === e.entity.value) {
