@@ -93,7 +93,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     rasaCoreQuery.text = result;
     // rasaNluQuery.project =  'current';
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
-      // console.log(rasaNluResponse);
+      console.log(rasaNluResponse);
       this.intent = rasaNluResponse.intent;
 
       this.entities = rasaNluResponse.entities;

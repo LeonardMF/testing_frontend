@@ -6,7 +6,9 @@ import { TestCriteria } from '../test-criteria';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
 
-import { TESTTIME, TESTTIMEDIALOG } from '../mock-test-dialog';
+import { TEST_TIME,
+         TEST_TIME_DIALOG,
+         TEST_BVG } from '../mock-test-dialog';
 
 @Component({
   selector: 'app-test',
@@ -30,7 +32,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
 
-    this.testDialog = TESTTIMEDIALOG;
+  this.testDialog = TEST_BVG;
 
     this.dialogName = this.testDialog.name;
     this.testCases = this.testDialog.cases;
@@ -57,7 +59,7 @@ export class TestComponent implements OnInit {
       if (this.next()) {
         this.start();
       }
-    }, 3000);
+    }, 2000);
   }
 
   validate(): void {
@@ -69,6 +71,7 @@ export class TestComponent implements OnInit {
   next(): boolean {
     this.clear();
     this.testCaseIndex += 1;
+    // console.log((this.testCases[this.testCaseIndex]));
     if (this.testCases[this.testCaseIndex]) {
       this.setTestCase(this.testCases[this.testCaseIndex]);
       this.ref.detectChanges();
