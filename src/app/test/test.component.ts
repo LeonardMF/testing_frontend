@@ -8,7 +8,8 @@ import { TestCaseComponent } from '../test-case/test-case.component';
 
 import { TEST_TIME,
          TEST_TIME_DIALOG,
-         TEST_BVG } from '../mock-test-dialog';
+         TEST_BVG,
+         TEST_VUI} from '../mock-test-dialog';
 
 @Component({
   selector: 'app-test',
@@ -32,7 +33,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
 
-  this.testDialog = TEST_BVG;
+  this.testDialog = TEST_VUI;
 
     this.dialogName = this.testDialog.name;
     this.testCases = this.testDialog.cases;

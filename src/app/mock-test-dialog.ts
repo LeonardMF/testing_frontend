@@ -3,7 +3,11 @@ import { TEST_TIME_CASE,
          TEST_CITY_CASE,
          ASK_BVG,
          SEESTRASSE_BVG,
-         OPEN_BVG } from './mock-test-case';
+         OPEN_BVG,
+         PRAESIDENT,
+         PLACE_OF_BIRTH,
+         RESTAURANT,
+         AGE_DEAD} from './mock-test-case';
 
 export const TEST_TIME_DIALOG: TestDialog = {
   name: 'Uhrzeitansage',
@@ -15,12 +19,12 @@ export const TEST_TIME: TestDialog = {
   cases: [TEST_TIME_CASE]
 };
 
-// export const TESTVUI: TestDialog = {
-//   name: 'Beispiel aus Designing VUI',
-//   cases: [TESTTIMECASE]
-// };
-
 export const TEST_BVG: TestDialog = {
   name: 'Fahrauskunpft der BVG',
   cases: [OPEN_BVG, ASK_BVG, SEESTRASSE_BVG]
+};
+
+export const TEST_VUI: TestDialog = {
+  name: 'Designing VUI Sample',
+  cases: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
 };
