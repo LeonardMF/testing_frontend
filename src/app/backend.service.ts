@@ -18,14 +18,14 @@ export class BackendService {
 
   constructor(private http: HttpClient) { }
 
-  getDialogs(): Observable<any> {
+  getDialogs():  Observable<any> {
     const requestUrl = this.backendUrl + 'dialog';
     return this.http.get<any>( requestUrl );
   }
 
-  getDialog(name: string): Observable<any> {
-    const requestUrl = this.backendUrl + 'dialog' + name;
-    return this.http.get<any>( requestUrl );
+  getDialog(name: string): Promise<any> {
+    const requestUrl = this.backendUrl + 'dialog/' + name;
+    return this.http.get<any>( requestUrl ).toPromise();
   }
 
   addDialog(testdialog: TestDialog): Observable<any> {

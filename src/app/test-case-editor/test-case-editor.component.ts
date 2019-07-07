@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { TestCase } from '../test-case';
 import { TestCaseService } from '../test-case-editor/test-case.service';
+import { BackendService } from '../backend.service';
 
 @Component({
   selector: 'app-test-case-editor',
@@ -20,26 +21,28 @@ export class TestCaseEditorComponent implements OnInit {
 
   constructor(private http: HttpClient,
               private ref: ChangeDetectorRef,
+              private backendService: BackendService,
               private testCaseService: TestCaseService) { }
 
   ngOnInit() {
     this.loadDialogs();
-    this.setDialog();
+    // this.setDialog();
   }
-
-
 
   // Load Dialogs
   loadDialogs(): void {
-    this.dialogs = ['UhrzeitansageDialog', 'DesignExample', 'BVGFahrplanAuskunpft' ];
-    this.dialog = this.dialogs[0];
+    this.backendService.getDialogs().subscribe((data: any) => {
+      this.dialogs = Array.from(new Set(data));
+    });
+    this.dialog = this.dialogs[-1];
   }
 
   // Set Dialog and TestCases
   async setDialog() {
     try {
-      this.dialogData = await this.testCaseService.getDialog(this.dialog);
-      this.testCases = this.dialogData.story;
+      this.dialogData = await this.backendService.getDialog(this.dialog);
+      console.log(this.dialogData);
+      this.testCases = this.dialogData.testcases;
       this.testCase = this.testCases[0];
       this.ref.detectChanges();
     } catch (error) {

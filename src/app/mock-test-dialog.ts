@@ -20,11 +20,11 @@ export const TEST_TIME: TestDialog = {
 };
 
 export const TEST_BVG: TestDialog = {
-  name: 'Fahrauskunpft der BVG',
+  name: 'Fahrauskunpft_der_BVG',
   cases: [OPEN_BVG, ASK_BVG, SEESTRASSE_BVG]
 };
 
 export const TEST_VUI: TestDialog = {
-  name: 'Designing VUI Sample',
+  name: 'Designing_VUI_Sample',
   cases: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
 };
