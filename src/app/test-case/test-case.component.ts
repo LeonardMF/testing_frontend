@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Renderer2, Output, EventEmitter} from '@angular/core';
+// tslint:disable-next-line:max-line-length
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Output, EventEmitter} from '@angular/core';
 
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
@@ -46,8 +47,9 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   errorText: string;
   messages = [];
 
+  response: string;
   intent: RasaNluIntent;
-  entity: RasaNluEntity;
+  // entity: RasaNluEntity;
   entities = [];
 
   constructor(
@@ -88,7 +90,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   onListenResult(result): void {
     this.intent = new RasaNluIntent;
     this.entities = [];
-
+    this.response = result;
     const rasaCoreQuery = new RasaCoreQuery();
     rasaCoreQuery.text = result;
     // rasaNluQuery.project =  'current';

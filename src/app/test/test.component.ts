@@ -3,9 +3,10 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, View
 import { TestDialog } from '../test-dialog';
 import { TestCase } from '../test-case';
 import { TestCriteria } from '../test-criteria';
+import { TestResult } from '../test-result';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
-
+import { BackendService } from '../backend.service';
 import { TEST_TIME,
          TEST_TIME_DIALOG,
          TEST_BVG,
@@ -29,12 +30,16 @@ export class TestComponent implements OnInit {
   prompt: string;
   testCriteria: TestCriteria;
 
-  constructor( private ref: ChangeDetectorRef ) {}
+  constructor( private ref: ChangeDetectorRef,
+               private backendService: BackendService ) {}
 
   ngOnInit() {
 
-  this.testDialog = TEST_VUI;
-
+    this.testDialog = TEST_BVG;
+    // console.log(JSON.stringify(this.testDialog));
+    this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
+      console.log(data);
+    });
     this.dialogName = this.testDialog.name;
     this.testCases = this.testDialog.cases;
     this.setTestCase(this.testCases[this.testCaseIndex]);
