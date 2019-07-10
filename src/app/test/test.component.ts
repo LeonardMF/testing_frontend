@@ -35,7 +35,7 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
 
-    this.testDialog = TEST_BVG;
+    this.testDialog = TEST_TIME_DIALOG;
     // console.log(JSON.stringify(this.testDialog));
     this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
       console.log(data);
@@ -51,21 +51,34 @@ export class TestComponent implements OnInit {
     this.testCriteria = testCase.testCriteria;
   }
 
-  clear(): void {
-    this.testCaseComponent.clear();
-  }
-
   start(): void {
     this.testCaseComponent.speak();
   }
 
   onNluAnalyse(): void {
     this.validate();
-    setTimeout(() => {
-      if (this.next()) {
-        this.start();
-      }
-    }, 2000);
+    // setTimeout(() => {
+    //   if (this.next()) {
+    //     this.start();
+    //   }
+    // }, 2000);
+  }
+
+  clear(): void {
+    this.testCaseComponent.clear();
+  }
+
+  save(): void {
+    // write result to DB
+    const testresult = new TestResult;
+
+    testresult.wakeword = this.testCaseComponent.wakeword;
+    testresult.prompt = this.testCaseComponent.prompt;
+    testresult.response =  this.testCaseComponent.response;
+    testresult.testcriteria = this.testCaseComponent.testCriteria;
+    testresult.intent = this.testCaseComponent.intent;
+    testresult.entities = this.testCaseComponent.entities;
+    console.log(JSON.stringify(testresult));
   }
 
   validate(): void {
