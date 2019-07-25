@@ -4,7 +4,7 @@ import { RasaNluQuery } from './rasa-nlu-query';
 import { RasaNluResponse } from './rasa-nlu-response';
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
-import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
+import { RasaCoreQuery } from '../rasa-core-query';
 
 @Component({
   selector: 'app-nlu',

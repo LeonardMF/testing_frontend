@@ -6,7 +6,7 @@ import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
 import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 import { Testresult } from '../testresult';
-import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
+import { RasaCoreQuery } from '../rasa-core-query';
 
 @Component({
   selector: 'app-test-time',
@@ -195,7 +195,7 @@ export class TestTimeComponent implements OnInit, OnDestroy {
   }
 
   sendRequest(): void {
-    let rasaCoreQuery = new RasaCoreQuery();
+    const rasaCoreQuery = new RasaCoreQuery();
     rasaCoreQuery.text = this.listenResult;
     // rasaNluQuery.project =  'current';
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {

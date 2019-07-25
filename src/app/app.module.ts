@@ -11,9 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 
 import { TestComponent } from './test/test.component';
 import { SettingsComponent } from './settings/settings.component';
-import { BotComponent } from './bot/bot.component';
 
-import { TestDialogComponent } from './test-dialog/test-dialog.component';
 import { TestCaseComponent } from './test-case/test-case.component';
 import { TestTimeComponent } from './test-time/test-time.component';
 
@@ -24,7 +22,6 @@ import { RasaNluEntitiesComponent } from './rasa-nlu-entities/rasa-nlu-entities.
 import { RasaNluIntentRankComponent } from './rasa-nlu-intent-rank/rasa-nlu-intent-rank.component';
 import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
 import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.component';
-import { RasaCoreComponent } from './rasa-core/rasa-core.component';
 import { WakewordComponent } from './wakeword/wakeword.component';
 import { ResponseComponent } from './response/response.component';
 import { RasaNluResponseComponent } from './rasa-nlu-response/rasa-nlu-response.component';
@@ -37,14 +34,11 @@ import { TestCaseEditorComponent } from './test-case-editor/test-case-editor.com
     FooterComponent,
     TestComponent,
     SettingsComponent,
-    BotComponent,
     RasaNluIntentComponent,
     RasaNluEntitiesComponent,
     RasaNluIntentRankComponent,
     RasaNluComponent,
     RasaNluEntityComponent,
-    RasaCoreComponent,
-    TestDialogComponent,
     TestCaseComponent,
     PromptComponent,
     TestTimeComponent,

@@ -37,9 +37,9 @@ export class TestComponent implements OnInit {
 
     this.testDialog = TEST_TIME_DIALOG;
     // console.log(JSON.stringify(this.testDialog));
-    this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
-      console.log(data);
-    });
+    // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
+    //   console.log(data);
+    // });
     this.dialogName = this.testDialog.name;
     this.testCases = this.testDialog.cases;
     this.setTestCase(this.testCases[this.testCaseIndex]);
@@ -78,7 +78,9 @@ export class TestComponent implements OnInit {
     testresult.testcriteria = this.testCaseComponent.testCriteria;
     testresult.intent = this.testCaseComponent.intent;
     testresult.entities = this.testCaseComponent.entities;
-    console.log(JSON.stringify(testresult));
+    this.backendService.addTestTurn(testresult).subscribe((data: any) => {
+      console.log(data);
+    });
   }
 
   validate(): void {

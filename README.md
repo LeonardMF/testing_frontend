@@ -2,15 +2,11 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
 
-
-
-
-
 ## Backlog
 
 - 12/13.4.2019: POC, Single test of Alexa and Google
 - 14.4.2019: Test Siri, Moved in own Repro, Bot for Alexa and Google
-
+- 25.7.2019: Remove Bot and Core
 
 
 ## Development server

@@ -6,7 +6,7 @@ import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 
-import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
+import { RasaCoreQuery } from '../rasa-core-query';
 import { ResponseComponent } from '../response/response.component';
 import { TestCriteria } from '../test-criteria';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
@@ -93,6 +93,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     this.response = result;
     const rasaCoreQuery = new RasaCoreQuery();
     rasaCoreQuery.text = result;
+    // console.log(rasaCoreQuery.text);
     // rasaNluQuery.project =  'current';
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
       console.log(rasaNluResponse);

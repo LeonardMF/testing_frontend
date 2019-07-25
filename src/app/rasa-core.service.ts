@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 
-import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
-import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
+import { RasaNluQuery } from './rasa-nlu/rasa-nlu-query';
+import { RasaNluResponse } from './rasa-nlu/rasa-nlu-response';
 import { RasaCoreQuery } from './rasa-core-query';
 import { RasaCoreMessage } from './rasa-core-message';
 import { RasaCoreAction } from './rasa-core-action';
