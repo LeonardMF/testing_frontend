@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild} from '@angular/core';
 import { SpeakService, ListenService } from 'speech-angular';
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
 import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
@@ -7,6 +7,8 @@ import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 import { Testresult } from '../testresult';
 import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
+import { ResponseComponent } from '../response/response.component';
+import { PromptComponent } from '../prompt/prompt.component';
 
 @Component({
   selector: 'app-test-time',
@@ -15,9 +17,16 @@ import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 })
 export class TestTimeComponent implements OnInit, OnDestroy {
 
+  @ViewChild(PromptComponent)
+  private promptComponent: PromptComponent;
+
+  @ViewChild(ResponseComponent)
+  private responseComponent: ResponseComponent;
+
   wakeword: string;
   wakeFlag =  false;
   prompt = 'Wie viel Uhr ist es?';
+  response: string;
 
   listenResult: string;
 
@@ -38,6 +47,7 @@ export class TestTimeComponent implements OnInit, OnDestroy {
 
   intent: RasaNluIntent;
   entity: RasaNluEntity;
+  entities = [];
 
   time: Date = new Date();
   hours: number;
@@ -72,134 +82,36 @@ export class TestTimeComponent implements OnInit, OnDestroy {
    }
 
   ngOnInit() {
-
     this.clear();
-
-    this.speakService.format = 'wav';
-
-    this.speakStartEvent = this.speakService.startEvent.subscribe( () => {
-      const message = 'Speak: start';
-      this.speakButtonOn = true;
-      this.messages.push(message);
-      this.ref.detectChanges();
-    });
-
-    this.speakStopEvent = this.speakService.stopEvent.subscribe( () => {
-      const message = 'Speak: stop';
-      this.speakButtonOn = false;
-      this.messages.push(message);
-      if (this.wakeFlag) {
-        this.speakService.setAudioOff();
-        this.startSpeak();
-      } else {
-        this.startListen();
-      }
-      this.ref.detectChanges();
-    });
-
-    this.speakErrorEvent = this.speakService.errorEvent.subscribe( (error) => {
-      this.errorFlag = true;
-      this.errorText = 'Error on Speak: ' + error.message ;
-      this.ref.detectChanges();
-    });
-
-    this.listenResultEvent = this.listenService.resultEvent.subscribe(aText => {
-      const message = 'Response: ' + aText;
-      this.listenResult = aText;
-      this.messages.push(message);
-      this.sendRequest();
-      this.ref.detectChanges();
-    });
-
-    this.listenStartEvent = this.listenService.startEvent.subscribe(() => {
-      const message = 'Listen: start';
-      this.messages.push(message);
-      this.listenButtonOn = true;
-      this.ref.detectChanges();
-    });
-
-    this.listenStopEvent = this.listenService.stopEvent.subscribe(() => {
-      const message = 'Listen: stop';
-      this.messages.push(message);
-      this.listenButtonOn = false;
-      this.ref.detectChanges();
-    });
-
-    this.listenErrorEvent = this.listenService.errorEvent.subscribe( (error) => {
-      this.errorFlag = true;
-      this.errorText = 'Error on Listen: ' + error.message ;
-      this.ref.detectChanges();
-    });
-
   }
 
   ngOnDestroy(): void {
-    this.speakErrorEvent.unsubscribe();
-    this.speakStartEvent.unsubscribe();
-    this.speakStopEvent.unsubscribe();
-    this.listenStartEvent.unsubscribe();
-    this.listenStopEvent.unsubscribe();
-    this.listenResultEvent.unsubscribe();
-    this.listenErrorEvent.unsubscribe();
   }
 
-  setWakeword(): void {
-    console.log(this.wakeword + '. ' + this.prompt);
+  onSetWakeword(wakeword): void {
+    this.wakeword = wakeword;
     this.messages = [];
     this.clear();
   }
 
-  setPrompt(): void {
-    console.log(this.wakeword + '. ' + this.prompt);
-    this.messages = [];
-    this.clear();
+  onStopSpeak(): void {
+    this.responseComponent.startListen();
+    this.ref.detectChanges();
   }
 
-  startSpeak(): void {
-    this.clear();
-    if (this.wakeword === 'Hey Siri') {
-      if (this.wakeFlag === false) {
-        const message = 'Wakeword: ' + this.wakeword;
-        this.messages.push(message);
-        this.wakeFlag = true;
-        this.speakService.setAudioOn();
-        this.speakService.file = 'HeySiri';
-        this.speakService.start();
-      } else {
-        this.wakeFlag = false;
-        const message = 'Prompt: ' + this.prompt;
-        this.messages.push(message);
-        this.speakService.text = this.prompt;
-        this.speakService.start();
-      }
-    } else {
-      const testprompt = this.wakeword + '. ' + this.prompt;
-      this.speakService.text = testprompt;
-      this.speakService.start();
-      const message = 'Wakeword + Prompt: ' + testprompt;
-      this.messages.push(message);
-      this.ref.detectChanges();
-    }
-  }
-
-  stopSpeak(): void {
-    this.speakService.stop();
-  }
-
-  startListen(): void {
-    this.listenService.start();
-  }
-
-  stopListen(): void {
-    this.listenService.stop();
-  }
-
-  sendRequest(): void {
+  onListenResult(result): void {
+    this.intent = new RasaNluIntent;
+    this.entities = [];
+    this.response = result;
     const rasaCoreQuery = new RasaCoreQuery();
-    rasaCoreQuery.text = this.listenResult;
+    rasaCoreQuery.text = result;
+    // console.log(rasaCoreQuery.text);
     // rasaNluQuery.project =  'current';
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
+      console.log(rasaNluResponse);
       this.intent = rasaNluResponse.intent;
+
+      this.entities = rasaNluResponse.entities;
       this.entity = rasaNluResponse.entities[0];
       this.testResult.intentflag = this.checkIntent();
       this.testResult.confidenceflag = this.checkConfidence();
@@ -207,6 +119,7 @@ export class TestTimeComponent implements OnInit, OnDestroy {
       this.testResult.valueflag = this.checkTimeValue();
       this.showResultFlag = true;
       this.ref.detectChanges();
+
     });
   }
 

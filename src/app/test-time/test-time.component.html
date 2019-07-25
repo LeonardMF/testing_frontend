@@ -6,95 +6,35 @@
           <br>
       </div>
     </div>
+    <app-wakeword [wakeword]="wakeword" (setWakewordOn)="onSetWakeword($event)" ></app-wakeword>
+    <app-prompt [wakeword]="wakeword" [prompt]="prompt" (stopSpeakOn)="onStopSpeak($event)" ></app-prompt>
+    <app-response (listenResultOn)="onListenResult($event)"></app-response>
+
+
+    <div *ngIf="intent">
+        <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
+    </div>
+    <div *ngIf="entity">
+        <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
+    </div>
+    <hr>
     <div class="row">
-        <div class="col col-lg-4" >
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                      id="inputGroup-sizing-default">
-                  Wakeword:
-                </span>
-              </div>
-            <select [(ngModel)]="wakeword"
-                    class="custom-select"
-                    (change)="setWakeword()" >
-              <option value="OK Google" selected>OK Google</option>
-              <option value="Alexa">Alexa</option>
-              <option value="Computer">Computer</option>
-              <option value="Hey Siri">Hey Siri</option>
-            </select>
-          </div>
+      <div class="col-lg-10">
+        <div *ngIf="showResultFlag">
+          <h3>{{testResult.message}}</h3>
+          <ul class="list-group">
+            <li class="list-group-item">Intent: {{testResult.intentflag}} </li>
+            <li class="list-group-item">Confidence level: {{testResult.confidenceflag}}</li>
+            <li class="list-group-item">Entity: {{testResult.entityflag}}</li>
+            <li class="list-group-item">Entity value: {{testResult.valueflag}}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col col-lg-1">
+          <div *ngIf="testResult">
+            <button type="button" class="btn btn-outline-success" (click)="clear()">Clear</button>
       </div>
     </div>
-    <div class="row">
-        <div class="col col-lg-10" >
-          <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text"
-                      id="inputGroup-sizing-default">
-                      Prompt:
-                </span>
-                </div>
-              <input [(ngModel)]="prompt"
-                      type="text"
-                      class="form-control"
-                      required
-                      placeholder="{{prompt}}"/>
-              <div *ngIf="!speakButtonOn" class="input-group-append">
-                  <button type="button" class="btn btn-outline-success" (click)="startSpeak()">Speak</button>
-                </div>
-              <div *ngIf="speakButtonOn" class="input-group-append">
-                  <button type="button" class="btn btn-outline-danger" (click)="stopSpeak()">Stop</button>
-                </div>
-      </div>
-
-
-    <div class="row" *ngIf="!disableAudioFileName">
-          <div class="col col-lg-10" >
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"
-                        id="inputGroup-sizing-default">
-                        Response:
-                  </span>
-                </div>
-                <input [(ngModel)]="listenResult"
-                        type="text"
-                        class="form-control"
-                        required
-                        (change)="sendRequest()"
-                        placeholder="{{listenResult}}"/>
-                <div *ngIf="!listenButtonOn" class="input-group-append">
-                  <button type="button" class="btn btn-outline-success" (click)="startListen()">Listen</button>
-                </div>
-                <div *ngIf="listenButtonOn" class="input-group-append">
-                    <button type="button" class="btn btn-outline-danger" (click)="stopListen()">Stop</button>
-                </div>
-        </div>
-        <div *ngIf="intent">
-            <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
-        </div>
-        <div *ngIf="entity">
-            <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
-        </div>
-        <hr>
-        <div class="row">
-          <div class="col-lg-10">
-            <div *ngIf="showResultFlag">
-              <h3>{{testResult.message}}</h3>
-              <ul class="list-group">
-                <li class="list-group-item">Intent: {{testResult.intentflag}} </li>
-                <li class="list-group-item">Confidence level: {{testResult.confidenceflag}}</li>
-                <li class="list-group-item">Entity: {{testResult.entityflag}}</li>
-                <li class="list-group-item">Entity value: {{testResult.valueflag}}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col col-lg-1">
-              <div *ngIf="testResult">
-                <button type="button" class="btn btn-outline-success" (click)="clear()">Clear</button>
-          </div>
-        </div>
   </div>
 
 

@@ -62,7 +62,6 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
   }
 
   onSetWakeword(wakeword): void {
