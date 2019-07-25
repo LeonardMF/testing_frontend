@@ -2,22 +2,23 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, View
 
 import { TestDialog } from '../test-dialog';
 import { TestCase } from '../test-case';
-import { TestCriteria } from '../test-criteria';
+import { Criteria } from '../criteria/criteria';
 import { TestResult } from '../test-result';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
 import { BackendService } from '../backend.service';
 import { TEST_TIME,
+         TEST_TIME_CITY,
          TEST_TIME_DIALOG,
          TEST_BVG,
          TEST_VUI} from '../mock-test-dialog';
 
 @Component({
-  selector: 'app-test',
-  templateUrl: './test.component.html',
-  styleUrls: ['./test.component.css']
+  selector: 'app-monitor',
+  templateUrl: './monitor.component.html',
+  styleUrls: ['./monitor.component.css']
 })
-export class TestComponent implements OnInit {
+export class MonitorComponent implements OnInit {
   @ViewChild(TestCaseComponent)
   private testCaseComponent: TestCaseComponent;
 
@@ -28,14 +29,14 @@ export class TestComponent implements OnInit {
 
   wakeword: string;
   prompt: string;
-  testCriteria: TestCriteria;
+  testCriteria: Criteria;
 
   constructor( private ref: ChangeDetectorRef,
                private backendService: BackendService ) {}
 
   ngOnInit() {
 
-    this.testDialog = TEST_TIME_DIALOG;
+    this.testDialog = TEST_TIME_CITY;
     // console.log(JSON.stringify(this.testDialog));
     // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
     //   console.log(data);
@@ -75,7 +76,7 @@ export class TestComponent implements OnInit {
     testresult.wakeword = this.testCaseComponent.wakeword;
     testresult.prompt = this.testCaseComponent.prompt;
     testresult.response =  this.testCaseComponent.response;
-    testresult.testcriteria = this.testCaseComponent.testCriteria;
+    testresult.criteria = this.testCaseComponent.testCriteria;
     testresult.intent = this.testCaseComponent.intent;
     testresult.entities = this.testCaseComponent.entities;
     this.backendService.addTestTurn(testresult).subscribe((data: any) => {

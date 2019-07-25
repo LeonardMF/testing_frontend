@@ -9,7 +9,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 
 
-import { TestComponent } from './test/test.component';
 import { SettingsComponent } from './settings/settings.component';
 
 import { TestCaseComponent } from './test-case/test-case.component';
@@ -22,17 +21,24 @@ import { RasaNluEntitiesComponent } from './rasa-nlu-entities/rasa-nlu-entities.
 import { RasaNluIntentRankComponent } from './rasa-nlu-intent-rank/rasa-nlu-intent-rank.component';
 import { RasaNluComponent } from './rasa-nlu/rasa-nlu.component';
 import { RasaNluEntityComponent } from './rasa-nlu-entity/rasa-nlu-entity.component';
+import { RasaNluResponseComponent } from './rasa-nlu-response/rasa-nlu-response.component';
+
+
 import { WakewordComponent } from './wakeword/wakeword.component';
 import { ResponseComponent } from './response/response.component';
-import { RasaNluResponseComponent } from './rasa-nlu-response/rasa-nlu-response.component';
+
 import { TestCaseEditorComponent } from './test-case-editor/test-case-editor.component';
+import { MonitorComponent } from './monitor/monitor.component';
+
+import { CriteriaComponent } from './criteria/criteria.component';
+import { CriteriaIntentComponent } from './criteria-intent/criteria-intent.component';
+import { CriteriaEntityComponent } from './criteria-entity/criteria-entity.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     FooterComponent,
-    TestComponent,
     SettingsComponent,
     RasaNluIntentComponent,
     RasaNluEntitiesComponent,
@@ -45,7 +51,11 @@ import { TestCaseEditorComponent } from './test-case-editor/test-case-editor.com
     WakewordComponent,
     ResponseComponent,
     RasaNluResponseComponent,
-    TestCaseEditorComponent
+    TestCaseEditorComponent,
+    MonitorComponent,
+    CriteriaComponent,
+    CriteriaIntentComponent,
+    CriteriaEntityComponent
   ],
   imports: [
     BrowserModule,

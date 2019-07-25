@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col border" >
+        <app-criteria-intent [intent]=criteria.intent [minConfidence]=criteria.minConfidence></app-criteria-intent>
+      <div *ngFor="let entity of criteria.entities">
+        <app-criteria-entity [entity]=entity></app-criteria-entity>
+    </div>
+    </div>
+</div>

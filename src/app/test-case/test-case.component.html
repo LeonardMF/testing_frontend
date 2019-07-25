@@ -4,6 +4,14 @@
 <app-prompt [wakeword]="wakeword" [prompt]="prompt" (stopSpeakOn)="onStopSpeak($event)" ></app-prompt>
 <app-response (listenResultOn)="onListenResult($event)"></app-response>
 
+<hr>
+<div class="row">
+  <div class="col">
+    <h3>Criteria</h3>
+  </div>s
+</div>
+<app-criteria [criteria]=testCriteria></app-criteria>
+
 <div *ngIf="intent.name">
     <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
 </div>

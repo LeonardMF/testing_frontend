@@ -1,7 +1,7 @@
-import { TestCriteria } from './test-criteria';
+import { Criteria } from './criteria/criteria';
 
 export class TestCase {
   wakeword: string;
   prompt: string;
-  testCriteria: TestCriteria;
+  testCriteria: Criteria;
 }

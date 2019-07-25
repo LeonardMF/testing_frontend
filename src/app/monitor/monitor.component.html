@@ -1,0 +1,26 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col">
+        <h3>{{dialogName}}</h3>
+    </div>
+    <div class="col">
+        <button type="button" class="btn btn-outline-success float-right" (click)="start()">Test</button>
+    </div>
+  </div>
+    <app-test-case [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria" (nluAnalyseOn)="onNluAnalyse()"></app-test-case>
+  <hr>
+  <div class="row">
+    <div class="col-4">
+      <button type="button" class="btn btn-outline-primary" (click)="clear()">Clear</button>
+    </div>
+    <div class="col-4">
+      <button type="button" class="btn btn-outline-warning float-center" (click)="validate()">Validate</button>
+      <button type="button" class="btn btn-outline-info float-center" (click)="save()">Save</button>
+    </div>
+    <div class="col-4">
+        <button type="button" class="btn btn-outline-danger float-right" (click)="back()">Back</button>
+        <button type="button" class="btn btn-outline-success float-right" (click)="next()">Next</button>
+    </div>
+  </div>
+</div>

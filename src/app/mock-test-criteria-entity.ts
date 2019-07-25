@@ -1,59 +1,59 @@
-import { TestCriteriaEntity } from './test-criteria-entity';
+import { CriteriaEntity } from './criteria-entity/criteria-entity';
 
-export const TIME_ENTITY: TestCriteriaEntity = {
+export const TIME_ENTITY: CriteriaEntity = {
   name: 'time',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: 'checkTime',
   flag: false
 };
 
-export const TIME_LISSABON_ENTITY: TestCriteriaEntity = {
+export const TIME_LISSABON_ENTITY: CriteriaEntity = {
   name: 'time',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: 'checkTime-1',
   flag: false
 };
 
-export const CITY_ENTITY: TestCriteriaEntity = {
+export const CITY_ENTITY: CriteriaEntity = {
   name: 'city',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: 'lissabon',
   flag: false
 };
 
 // BVG SKILL
-export const STATION_FROM_ENTITY: TestCriteriaEntity = {
+export const STATION_FROM_ENTITY: CriteriaEntity = {
   name: 'station_from',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: 'seestraße',
   flag: false
 };
 
-export const STATION_TO_ENTITY: TestCriteriaEntity = {
+export const STATION_TO_ENTITY: CriteriaEntity = {
   name: 'station_to',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: 'Ernst-Reuter-Platz',
   flag: false
 };
 
 // VUI
-export const LINCOLN_NAME_ENTITY: TestCriteriaEntity = {
-  name: 'name',
-  confidence: 0.75,
+export const LINCOLN_NAME_ENTITY: CriteriaEntity = {
+  name: 'entity',
+  minConfidence: 0.75,
   value: 'abraham lincoln',
   flag: false
 };
 
-export const LINCOLN_AGE_DEAD_ENTITY: TestCriteriaEntity = {
+export const LINCOLN_AGE_DEAD_ENTITY: CriteriaEntity = {
   name: 'age',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: '56',
   flag: false
 };
 
-export const HODGENVILLE_CITY_ENTITY: TestCriteriaEntity = {
+export const HODGENVILLE_CITY_ENTITY: CriteriaEntity = {
   name: 'city',
-  confidence: 0.75,
+  minConfidence: 0.75,
   value: 'hodgenville',
   flag: false
 };

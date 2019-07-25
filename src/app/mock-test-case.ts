@@ -23,6 +23,12 @@ export const TEST_CITY_CASE: TestCase = {
   testCriteria: TEST_TIME_CITY_CRITERIA,
 };
 
+export const TEST_TIME_CITY_CASE: TestCase = {
+  wakeword: 'OK Google',
+  prompt: 'wie viel Uhr ist es in Lissabon?',
+  testCriteria: TEST_TIME_CITY_CRITERIA,
+};
+
 // BVG SKILL
 export const OPEN_BVG: TestCase = {
   wakeword: 'Alexa',

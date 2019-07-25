@@ -8,11 +8,11 @@ import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 
 import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 import { ResponseComponent } from '../response/response.component';
-import { TestCriteria } from '../test-criteria';
+import { Criteria } from '../criteria/criteria';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
 import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
-import { TestCriteriaEntity } from '../test-criteria-entity';
 import { PromptComponent } from '../prompt/prompt.component';
+import { CriteriaEntity } from '../criteria-entity/criteria-entity';
 
 @Component({
   selector: 'app-test-case',
@@ -36,7 +36,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   // Set default values
   @Input() wakeword;
   @Input() prompt;
-  @Input() testCriteria: TestCriteria;
+  @Input() testCriteria: Criteria;
 
   @Output() nluAnalyseOn = new EventEmitter();
 
@@ -123,15 +123,15 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   }
 
   checkEntities(): void {
-    this.testCriteria.entities.forEach( (testCriteriaEntity: TestCriteriaEntity) => {
+    this.testCriteria.entities.forEach( (criteriaEntity: CriteriaEntity) => {
       this.entityComponents.forEach( (e) => {
 
         // Check entity
-        if (e.entity.entity === testCriteriaEntity.name) {
+        if (e.entity.entity === criteriaEntity.name) {
             e.setEntity('passed');
-            testCriteriaEntity.flag = true;
+            criteriaEntity.flag = true;
             // Check entity confidence
-            if (e.entity.confidence >= testCriteriaEntity.confidence) {
+            if (e.entity.confidence >= criteriaEntity.minConfidence) {
               e.setConfidence('passed');
             } else {
               e.setConfidence('failed');
@@ -139,14 +139,14 @@ export class TestCaseComponent implements OnInit, OnDestroy {
 
             let valueFlag = false;
             // Check entity value
-            if (testCriteriaEntity.value === 'checkTime' ) {
+            if (criteriaEntity.value === 'checkTime' ) {
               valueFlag = this.checkTime(e.entity.value);
             }
-            if (testCriteriaEntity.value === 'checkTime-1' ) {
+            if (criteriaEntity.value === 'checkTime-1' ) {
               valueFlag = this.checkTime(e.entity.value, 1);
             }
 
-            if (testCriteriaEntity.value === e.entity.value) {
+            if (criteriaEntity.value === e.entity.value) {
               valueFlag = true;
             }
 
@@ -162,7 +162,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
 
 
   checkConfidence(): boolean {
-    if (this.intent && this.intent.confidence >= this.testCriteria.confidence) {
+    if (this.intent && this.intent.confidence >= this.testCriteria.minConfidence) {
       // console.log('Confidence ok!');
       this.intentComponent.setConfidence('passed');
       return true;

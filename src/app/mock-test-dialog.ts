@@ -1,6 +1,7 @@
 import { TestDialog } from './test-dialog';
 import { TEST_TIME_CASE,
          TEST_CITY_CASE,
+         TEST_TIME_CITY_CASE,
          ASK_BVG,
          SEESTRASSE_BVG,
          OPEN_BVG,
@@ -9,14 +10,19 @@ import { TEST_TIME_CASE,
          RESTAURANT,
          AGE_DEAD} from './mock-test-case';
 
-export const TEST_TIME_DIALOG: TestDialog = {
-  name: 'Uhrzeitansage',
-  cases: [TEST_TIME_CASE, TEST_CITY_CASE]
-};
-
 export const TEST_TIME: TestDialog = {
   name: 'Uhrzeitansage',
   cases: [TEST_TIME_CASE]
+};
+
+export const TEST_TIME_CITY: TestDialog = {
+  name: 'Uhrzeitansage für eine Stadt',
+  cases: [TEST_TIME_CITY_CASE]
+};
+
+export const TEST_TIME_DIALOG: TestDialog = {
+  name: 'Uhrzeitansage im Context',
+  cases: [TEST_TIME_CASE, TEST_CITY_CASE]
 };
 
 export const TEST_BVG: TestDialog = {
