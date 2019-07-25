@@ -8,7 +8,7 @@ import { tap } from 'rxjs/operators';
 
 import { RasaNluQuery } from './rasa-nlu-query';
 import { RasaNluResponse } from './rasa-nlu-response';
-import { RasaCoreQuery } from '../rasa-core-query';
+import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 
 // https://stackoverflow.com/questions/34790051/how-to-create-cross-domain-request
 const httpOptions = {

@@ -6,7 +6,7 @@ import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
 import { RasaNluQuery } from '../rasa-nlu/rasa-nlu-query';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 import { Testresult } from '../testresult';
-import { RasaCoreQuery } from '../rasa-core-query';
+import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
 
 @Component({
   selector: 'app-test-time',

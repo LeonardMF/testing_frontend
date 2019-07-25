@@ -1,4 +1,4 @@
-import { RasaNluResponse } from './rasa-nlu/rasa-nlu-response';
+import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
 
 export class RasaCoreMessage {
   text: string;
