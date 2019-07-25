@@ -36,7 +36,7 @@ export class MonitorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.testDialog = TEST_TIME_CITY;
+    this.testDialog = TEST_TIME;
     // console.log(JSON.stringify(this.testDialog));
     // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
     //   console.log(data);

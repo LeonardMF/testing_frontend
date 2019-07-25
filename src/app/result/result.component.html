@@ -1,0 +1,30 @@
+<div class="row">
+    <div class="col">
+      <h3>Result</h3>
+    </div>
+    <div class="col">
+      <button type="button" class="btn btn-outline-warning float-center" (click)="validate()">Validate</button>
+    </div>
+</div>
+
+<div class="border">
+  <div class="row">
+      <div class="col" >
+          <app-criteria-intent [intent]=criteria.intent [minConfidence]=criteria.minConfidence></app-criteria-intent>
+        <div *ngFor="let entity of criteria.entities">
+          <app-criteria-entity [entity]=entity></app-criteria-entity>
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="border">
+  <div *ngIf="result.intent.name">
+      <app-rasa-nlu-intent [intent]=result.intent></app-rasa-nlu-intent>
+  </div>
+
+  <div *ngFor="let entity of result.entities">
+      <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
+  </div>
+</div>

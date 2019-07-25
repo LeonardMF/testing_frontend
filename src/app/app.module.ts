@@ -33,6 +33,7 @@ import { MonitorComponent } from './monitor/monitor.component';
 import { CriteriaComponent } from './criteria/criteria.component';
 import { CriteriaIntentComponent } from './criteria-intent/criteria-intent.component';
 import { CriteriaEntityComponent } from './criteria-entity/criteria-entity.component';
+import { ResultComponent } from './result/result.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { CriteriaEntityComponent } from './criteria-entity/criteria-entity.compo
     MonitorComponent,
     CriteriaComponent,
     CriteriaIntentComponent,
-    CriteriaEntityComponent
+    CriteriaEntityComponent,
+    ResultComponent
   ],
   imports: [
     BrowserModule,
