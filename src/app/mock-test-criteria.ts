@@ -1,5 +1,6 @@
 
 import { Criteria } from './criteria/criteria';
+
 import { TIME_ENTITY,
          CITY_ENTITY,
          TIME_LISSABON_ENTITY,
@@ -8,23 +9,28 @@ import { TIME_ENTITY,
          LINCOLN_NAME_ENTITY,
          HODGENVILLE_CITY_ENTITY,
          LINCOLN_AGE_DEAD_ENTITY} from './mock-test-criteria-entity';
+import { CITY_END_TURN,
+         END_TURN } from './mock-test-turn';
 
-export const TEST_TIME_CRITERIA: Criteria = {
+export const TIME_END_CRITERIA: Criteria = {
   intent: 'getTime',
   minConfidence: 0.75,
+  nextTurn: 'end',
   entities: [TIME_ENTITY]
 };
 
-export const TEST_TIME_CITY_CRITERIA: Criteria = {
+export const TIME_NEXT_CRITERIA: Criteria = {
   intent: 'getTime',
   minConfidence: 0.75,
-  entities: [TIME_LISSABON_ENTITY, CITY_ENTITY]
+  nextTurn: 'next',
+  entities: [TIME_ENTITY]
 };
 
-export const TEST_CITY_CRITERIA: Criteria = {
+export const TIME_CITY_END_CRITERIA: Criteria = {
   intent: 'getTime',
   minConfidence: 0.75,
-  entities: [CITY_ENTITY]
+  nextTurn: 'end',
+  entities: [TIME_LISSABON_ENTITY, CITY_ENTITY]
 };
 
 // BVG SKILL

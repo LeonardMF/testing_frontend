@@ -22,5 +22,16 @@
             <input #confidence [attr.disabled]="false" type="text" class="form-control" placeholder="{{intent.confidence}}"/>
         </div>
       </div>
+      <div *ngIf="intent.nextTurn" class="col col-lg-4" >
+        <div class="input-group mb-3 input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                Next:
+              </span>
+            </div>
+            <input #next [attr.disabled]="false" type="text" class="form-control" placeholder="{{intent.nextTurn}}"/>
+        </div>
+      </div>
   </div>
 </div>

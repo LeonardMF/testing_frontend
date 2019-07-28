@@ -11,6 +11,7 @@ export class RasaNluIntentComponent implements OnInit {
   @Input() intent: RasaNluIntent;
   @ViewChild('name') name: ElementRef;
   @ViewChild('confidence') confidence: ElementRef;
+  @ViewChild('next') next: ElementRef;
 
   intentFlag: boolean;
   confidenceFlag: boolean;
@@ -27,6 +28,10 @@ export class RasaNluIntentComponent implements OnInit {
 
   setConfidence(status): void {
     this.renderer.addClass(this.confidence.nativeElement, status);
+  }
+
+  setNextTurn(status): void {
+    this.renderer.addClass(this.next.nativeElement, status);
   }
 
 }

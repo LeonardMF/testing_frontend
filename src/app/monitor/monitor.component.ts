@@ -1,17 +1,15 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Renderer2} from '@angular/core';
 
 import { TestDialog } from '../test-dialog';
-import { TestCase } from '../test-case';
 import { Criteria } from '../criteria/criteria';
 import { TestResult } from '../test-result';
+import { TestTurn } from '../test-turn';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
 import { BackendService } from '../backend.service';
 import { TEST_TIME,
          TEST_TIME_CITY,
-         TEST_TIME_DIALOG,
-         TEST_BVG,
-         TEST_VUI} from '../mock-test-dialog';
+         TEST_TIME_DIALOG} from '../mock-test-dialog';
 
 @Component({
   selector: 'app-monitor',
@@ -24,8 +22,8 @@ export class MonitorComponent implements OnInit {
 
   testDialog: TestDialog;
   dialogName: string;
-  testCases: TestCase[] = [];
-  testCaseIndex = 0;
+  testTurns: TestTurn[] = [];
+  testTurnIndex = 0;
 
   wakeword: string;
   prompt: string;
@@ -36,17 +34,19 @@ export class MonitorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.testDialog = TEST_TIME_CITY;
+    this.testDialog = TEST_TIME_DIALOG;
+
+    console.log(this.testDialog);
     // console.log(JSON.stringify(this.testDialog));
     // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
     //   console.log(data);
     // });
     this.dialogName = this.testDialog.name;
-    this.testCases = this.testDialog.cases;
-    this.setTestCase(this.testCases[this.testCaseIndex]);
+    this.testTurns = this.testDialog.turns;
+    this.setTestTurn(this.testTurns[this.testTurnIndex]);
   }
 
-  setTestCase(testCase): void {
+  setTestTurn(testCase): void {
     this.wakeword = testCase.wakeword;
     this.prompt = testCase.prompt;
     this.testCriteria = testCase.testCriteria;
@@ -58,11 +58,11 @@ export class MonitorComponent implements OnInit {
 
   onNluAnalyse(): void {
     this.validate();
-    // setTimeout(() => {
-    //   if (this.next()) {
-    //     this.start();
-    //   }
-    // }, 2000);
+    setTimeout(() => {
+      if (this.next()) {
+        this.start();
+      }
+    }, 2000);
   }
 
   clear(): void {
@@ -88,22 +88,24 @@ export class MonitorComponent implements OnInit {
   }
 
   next(): boolean {
-    this.clear();
-    this.testCaseIndex += 1;
-    // console.log((this.testCases[this.testCaseIndex]));
-    if (this.testCases[this.testCaseIndex]) {
-      this.setTestCase(this.testCases[this.testCaseIndex]);
-      this.ref.detectChanges();
-      return true;
+    if (this.testCriteria.nextTurn === 'next') {
+      this.clear();
+      this.testTurnIndex += 1;
+      // console.log((this.testTurns[this.testTurnIndex]));
+      if (this.testTurns[this.testTurnIndex]) {
+        this.setTestTurn(this.testTurns[this.testTurnIndex]);
+        this.ref.detectChanges();
+        return true;
+      }
     }
     return false;
   }
 
   back(): void {
     this.clear();
-    this.testCaseIndex = 0;
-    if (this.testCases[this.testCaseIndex]) {
-      this.setTestCase(this.testCases[this.testCaseIndex]);
+    this.testTurnIndex = 0;
+    if (this.testTurns[this.testTurnIndex]) {
+      this.setTestTurn(this.testTurns[this.testTurnIndex]);
       this.ref.detectChanges();
     }
   }

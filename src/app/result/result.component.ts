@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectorRe
 
 import { Result } from '../result/result';
 import { Criteria } from '../criteria/criteria';
-import { TEST_TIME_CITY_CRITERIA } from '../mock-test-criteria';
+import { TIME_CITY_END_CRITERIA } from '../mock-test-criteria';
 import { FULL_RESULT, CONFIDENCE_RESULT, TIME_RESULT } from '../mock-result';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
 import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
@@ -35,8 +35,10 @@ export class ResultComponent implements OnInit {
   constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.result = TIME_RESULT;
-    this.criteria = TEST_TIME_CITY_CRITERIA;
+    // this.result = FULL_RESULT;
+    // this.criteria = TIME_CITY_END_CRITERIA;
+
+    this.result.intent.nextTurn = this.criteria.nextTurn;
   }
 
   validate(): void {
@@ -61,14 +63,11 @@ export class ResultComponent implements OnInit {
     console.log(valueEntitiesFlag);
 
     if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
-
-
-      this.next = 'next Turn';
-      console.log(this.next);
+      this.resultIntentComponent.setNextTurn('passed');
+    } else {
+      this.resultIntentComponent.setNextTurn('failed');
     }
-
-
-    // this.ref.detectChanges();
+    this.ref.detectChanges();
   }
 
   checkTime(aTime, aHour = 0): boolean {
@@ -126,7 +125,7 @@ export class ResultComponent implements OnInit {
               e.setValue('passed');
             } else {
               e.setValue('failed');
-              // valueEntitiesFlag = false;
+              valueEntitiesFlag = false;
             }
         }
       });

@@ -1,7 +1,7 @@
-import { TestCase } from './test-case';
+import { TestTurn } from './test-turn';
 
 export class TestDialog {
   name: string;
-  cases: TestCase[] = [];
+  turns: TestTurn[] = [];
 }
 

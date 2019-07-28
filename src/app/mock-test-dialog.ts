@@ -1,36 +1,31 @@
 import { TestDialog } from './test-dialog';
-import { TEST_TIME_CASE,
-         TEST_CITY_CASE,
-         TEST_TIME_CITY_CASE,
-         ASK_BVG,
-         SEESTRASSE_BVG,
-         OPEN_BVG,
-         PRAESIDENT,
-         PLACE_OF_BIRTH,
-         RESTAURANT,
-         AGE_DEAD} from './mock-test-case';
+import {
+         TIME_END_TURN,
+         TIME_NEXT_TURN,
+         CITY_END_TURN,
+         TIME_CITY_END_TURN} from './mock-test-turn';
 
 export const TEST_TIME: TestDialog = {
   name: 'Uhrzeitansage',
-  cases: [TEST_TIME_CASE]
+  turns: [TIME_END_TURN]
 };
 
 export const TEST_TIME_CITY: TestDialog = {
   name: 'Uhrzeitansage für eine Stadt',
-  cases: [TEST_TIME_CITY_CASE]
+  turns: [TIME_CITY_END_TURN]
 };
 
 export const TEST_TIME_DIALOG: TestDialog = {
   name: 'Uhrzeitansage im Context',
-  cases: [TEST_TIME_CASE, TEST_CITY_CASE]
+  turns: [TIME_NEXT_TURN, CITY_END_TURN]
 };
 
-export const TEST_BVG: TestDialog = {
-  name: 'Fahrauskunpft_der_BVG',
-  cases: [OPEN_BVG, ASK_BVG, SEESTRASSE_BVG]
-};
+// export const TEST_BVG: TestDialog = {
+//   name: 'Fahrauskunpft_der_BVG',
+//   turns: [OPEN_BVG, ASK_BVG, SEESTRASSE_BVG]
+// };
 
-export const TEST_VUI: TestDialog = {
-  name: 'Designing_VUI_Sample',
-  cases: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
-};
+// export const TEST_VUI: TestDialog = {
+//   name: 'Designing_VUI_Sample',
+//   turns: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
+// };
