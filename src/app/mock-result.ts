@@ -13,6 +13,11 @@ export const FULL_RESULT: Result = {
   entities: [TIME_76, CITY_LISSABON]
 };
 
+export const CONFIDENCE_RESULT: Result = {
+  intent: GET_TIME_74,
+  entities: [TIME_76, CITY_LISSABON]
+};
+
 export const TIME_RESULT: Result = {
   intent: GET_TIME_76,
   entities: [TIME_76]

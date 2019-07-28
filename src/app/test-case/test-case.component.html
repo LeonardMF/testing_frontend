@@ -5,22 +5,17 @@
 <app-response (listenResultOn)="onListenResult($event)"></app-response>
 
 <hr>
-<!-- <div class="row">
-  <div class="col">
-    <h3>Criteria</h3>
+<div *ngIf="!testResultFlag">
+  <div class="row">
+    <div class="col">
+      <h3>Criteria</h3>
+    </div>
   </div>
-</div>
-<app-criteria [criteria]=testCriteria></app-criteria> -->
-
-
-<app-result ></app-result>
-
-<!-- <div *ngIf="intent.name">
-    <app-rasa-nlu-intent [intent]=intent></app-rasa-nlu-intent>
+  <app-criteria [criteria]=testCriteria></app-criteria>
 </div>
 
-<div *ngFor="let entity of entities">
-    <app-rasa-nlu-entity [entity]=entity></app-rasa-nlu-entity>
-</div> -->
+<div *ngIf="testResultFlag && testResult" >
+  <app-result [criteria]=testCriteria [result]=testResult></app-result>
+</div>
 
 

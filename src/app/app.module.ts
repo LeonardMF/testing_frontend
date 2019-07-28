@@ -31,8 +31,8 @@ import { TestCaseEditorComponent } from './test-case-editor/test-case-editor.com
 import { MonitorComponent } from './monitor/monitor.component';
 
 import { CriteriaComponent } from './criteria/criteria.component';
-import { CriteriaIntentComponent } from './criteria-intent/criteria-intent.component';
 import { CriteriaEntityComponent } from './criteria-entity/criteria-entity.component';
+
 import { ResultComponent } from './result/result.component';
 
 @NgModule({
@@ -55,7 +55,6 @@ import { ResultComponent } from './result/result.component';
     TestCaseEditorComponent,
     MonitorComponent,
     CriteriaComponent,
-    CriteriaIntentComponent,
     CriteriaEntityComponent,
     ResultComponent
   ],

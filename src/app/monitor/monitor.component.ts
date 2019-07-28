@@ -36,7 +36,7 @@ export class MonitorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.testDialog = TEST_TIME;
+    this.testDialog = TEST_TIME_CITY;
     // console.log(JSON.stringify(this.testDialog));
     // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
     //   console.log(data);
@@ -77,17 +77,14 @@ export class MonitorComponent implements OnInit {
     testresult.prompt = this.testCaseComponent.prompt;
     testresult.response =  this.testCaseComponent.response;
     testresult.criteria = this.testCaseComponent.testCriteria;
-    testresult.intent = this.testCaseComponent.intent;
-    testresult.entities = this.testCaseComponent.entities;
+    // testresult.result = this.testCaseComponent.testResult;
     this.backendService.addTestTurn(testresult).subscribe((data: any) => {
       console.log(data);
     });
   }
 
   validate(): void {
-    this.testCaseComponent.checkIntent();
-    this.testCaseComponent.checkConfidence();
-    this.testCaseComponent.checkEntities();
+    this.testCaseComponent.validate();
   }
 
   next(): boolean {

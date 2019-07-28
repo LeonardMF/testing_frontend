@@ -1,0 +1,11 @@
+input.passed {
+  background-color: #d4edda;
+}
+
+input.failed {
+  background-color: #f8d7da;
+}
+
+input.warning {
+  background-color: #fff3cd;
+}

@@ -1,8 +1,44 @@
-<div class="row">
-    <div class="col border" >
-        <app-criteria-intent [intent]=criteria.intent [minConfidence]=criteria.minConfidence></app-criteria-intent>
-      <div *ngFor="let entity of criteria.entities">
-        <app-criteria-entity [entity]=entity></app-criteria-entity>
-      </div>
+<div class="border">
+    <div class="row">
+        <div class="col" >
+          <div class="row">
+              <div class="col col-lg-4" >
+                  <div *ngIf="criteria.intent" class="input-group mb-3 input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                              id="inputGroup-sizing-default">
+                          Intent:
+                        </span>
+                      </div>
+                      <input #name [attr.disabled]="false" type="text" class="form-control" placeholder="{{criteria.intent}}"/>
+                  </div>
+                </div>
+              <div class="col col-lg-4" >
+                  <div *ngIf="criteria.minConfidence" class="input-group mb-3 input-group-sm">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"
+                              id="inputGroup-sizing-default">
+                          minConfidence:
+                        </span>
+                      </div>
+                      <input #confidence [attr.disabled]="false" type="text" class="form-control" placeholder="{{criteria.minConfidence}}"/>
+                  </div>
+                </div>
+            <div class="col col-lg-4" >
+                <div class="input-group mb-3 input-group-sm">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"
+                            id="inputGroup-sizing-default">
+                        Next:
+                      </span>
+                    </div>
+                    <input #next [attr.disabled]="false" type="text" class="form-control" placeholder="nextTurn"/>
+                </div>
+              </div>
+          </div>
+            <div *ngFor="let entity of criteria.entities">
+              <app-criteria-entity [entity]=entity></app-criteria-entity>
+            </div>
+        </div>
     </div>
-</div>
+  </div>

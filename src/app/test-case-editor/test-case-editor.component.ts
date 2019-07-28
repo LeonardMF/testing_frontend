@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { TestCase } from '../test-case';
 import { TestCaseService } from '../test-case-editor/test-case.service';
 import { BackendService } from '../backend.service';
+import { TEST_TIME_CITY_CRITERIA } from '../mock-test-criteria';
 
 @Component({
   selector: 'app-test-case-editor',
@@ -17,6 +18,7 @@ export class TestCaseEditorComponent implements OnInit {
   dialogData: any;
   testCases = [];
   testCase = new TestCase();
+  criteria = TEST_TIME_CITY_CRITERIA;
 
 
   constructor(private http: HttpClient,

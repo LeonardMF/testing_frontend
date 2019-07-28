@@ -1,12 +1,13 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectorRef, Input } from '@angular/core';
 
 import { Result } from '../result/result';
 import { Criteria } from '../criteria/criteria';
 import { TEST_TIME_CITY_CRITERIA } from '../mock-test-criteria';
-import { FULL_RESULT } from '../mock-result';
+import { FULL_RESULT, CONFIDENCE_RESULT, TIME_RESULT } from '../mock-result';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
 import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
 import { CriteriaEntity } from '../criteria-entity/criteria-entity';
+import { CriteriaEntityComponent } from '../criteria-entity/criteria-entity.component';
 
 
 @Component({
@@ -22,20 +23,52 @@ export class ResultComponent implements OnInit {
   @ViewChildren(RasaNluEntityComponent)
   private entityComponents: QueryList<RasaNluEntityComponent>;
 
-  result: Result;
-  criteria: Criteria;
+  @ViewChildren(CriteriaEntityComponent)
+  private missingEntityComponents: QueryList<CriteriaEntityComponent>;
 
-  constructor() { }
+  @Input() result: Result;
+  @Input() criteria: Criteria;
+
+  missingEntities: CriteriaEntity[] = [];
+  next: string;
+
+  constructor(private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.result = FULL_RESULT;
+    this.result = TIME_RESULT;
     this.criteria = TEST_TIME_CITY_CRITERIA;
   }
 
   validate(): void {
-    this.checkConfidence();
-    this.checkIntent();
-    this.checkEntities();
+    const intentFlag = this.checkIntent();
+    const confidenceFlag = this.checkConfidence();
+
+    const checkedEntities = this.checkEntities();
+    this.missingEntities = checkedEntities[0];
+    const confidenceEntitiesFlag = checkedEntities[1];
+    const valueEntitiesFlag = checkedEntities[2];
+
+
+    this.ref.detectChanges();
+    this.missingEntityComponents.forEach((mEC: CriteriaEntityComponent) => {
+      mEC.setEntity('failed');
+    });
+
+    console.log(intentFlag);
+    console.log(confidenceFlag);
+    console.log(this.missingEntities.length);
+    console.log(confidenceEntitiesFlag);
+    console.log(valueEntitiesFlag);
+
+    if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
+
+
+      this.next = 'next Turn';
+      console.log(this.next);
+    }
+
+
+    // this.ref.detectChanges();
   }
 
   checkTime(aTime, aHour = 0): boolean {
@@ -55,7 +88,12 @@ export class ResultComponent implements OnInit {
     }
   }
 
-  checkEntities(): void {
+  checkEntities(): [CriteriaEntity[], boolean, boolean] {
+    let confidenceEntitiesFlag = true;
+    let valueEntitiesFlag = true;
+
+    const missingEntities: CriteriaEntity[] = [];
+
     this.criteria.entities.forEach( (criteriaEntity: CriteriaEntity) => {
       this.entityComponents.forEach( (e) => {
 
@@ -68,6 +106,7 @@ export class ResultComponent implements OnInit {
               e.setConfidence('passed');
             } else {
               e.setConfidence('failed');
+              confidenceEntitiesFlag = false;
             }
 
             let valueFlag = false;
@@ -87,10 +126,17 @@ export class ResultComponent implements OnInit {
               e.setValue('passed');
             } else {
               e.setValue('failed');
+              // valueEntitiesFlag = false;
             }
         }
       });
     });
+    this.criteria.entities.forEach((criteriaEntity: CriteriaEntity) => {
+      if (criteriaEntity.flag !== true) {
+        missingEntities.push(criteriaEntity);
+      }
+    });
+    return [missingEntities, confidenceEntitiesFlag, valueEntitiesFlag];
   }
 
 
