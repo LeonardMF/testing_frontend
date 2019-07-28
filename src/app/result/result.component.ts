@@ -37,11 +37,11 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     // this.result = FULL_RESULT;
     // this.criteria = TIME_CITY_END_CRITERIA;
-
     this.result.intent.nextTurn = this.criteria.nextTurn;
+
   }
 
-  validate(): void {
+  validate(): boolean {
     const intentFlag = this.checkIntent();
     const confidenceFlag = this.checkConfidence();
 
@@ -56,16 +56,18 @@ export class ResultComponent implements OnInit {
       mEC.setEntity('failed');
     });
 
-    console.log(intentFlag);
-    console.log(confidenceFlag);
-    console.log(this.missingEntities.length);
-    console.log(confidenceEntitiesFlag);
-    console.log(valueEntitiesFlag);
+    // console.log(intentFlag);
+    // console.log(confidenceFlag);
+    // console.log(this.missingEntities.length);
+    // console.log(confidenceEntitiesFlag);
+    // console.log(valueEntitiesFlag);
 
     if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
       this.resultIntentComponent.setNextTurn('passed');
+      return true;
     } else {
       this.resultIntentComponent.setNextTurn('failed');
+      return false;
     }
     this.ref.detectChanges();
   }

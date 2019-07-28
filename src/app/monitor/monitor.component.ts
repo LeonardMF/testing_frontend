@@ -35,8 +35,6 @@ export class MonitorComponent implements OnInit {
   ngOnInit() {
 
     this.testDialog = TEST_TIME_DIALOG;
-
-    console.log(this.testDialog);
     // console.log(JSON.stringify(this.testDialog));
     // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
     //   console.log(data);
@@ -57,12 +55,13 @@ export class MonitorComponent implements OnInit {
   }
 
   onNluAnalyse(): void {
-    this.validate();
-    setTimeout(() => {
-      if (this.next()) {
-        this.start();
-      }
-    }, 2000);
+    if ( this.validate()) {
+      setTimeout(() => {
+        if (this.next()) {
+          this.start();
+        }
+      }, 2000);
+    }
   }
 
   clear(): void {
@@ -83,8 +82,8 @@ export class MonitorComponent implements OnInit {
     });
   }
 
-  validate(): void {
-    this.testCaseComponent.validate();
+  validate(): boolean {
+    return this.testCaseComponent.validate();
   }
 
   next(): boolean {

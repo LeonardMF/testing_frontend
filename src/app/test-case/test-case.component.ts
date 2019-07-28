@@ -106,10 +106,11 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     this.testResult = new Result();
     this.testResultFlag = false;
     this.response = '';
+    this.responseComponent.listenResult = this.response;
     this.ref.detectChanges();
   }
 
-  validate(): void {
-    this.resultComponent.validate();
+  validate(): boolean {
+    return this.resultComponent.validate();
   }
 }
