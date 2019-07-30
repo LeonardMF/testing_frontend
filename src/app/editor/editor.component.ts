@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TestDialog } from '../test-dialog';
 import { TEST_TIME,TEST_TIME_CITY,TEST_TIME_DIALOG } from '../mock-test-dialog';
+import { TestTurn } from '../test-turn/test-turn';
+import { Criteria } from '../criteria/criteria';
 
 @Component({
   selector: 'app-editor',
@@ -26,4 +28,16 @@ export class EditorComponent implements OnInit {
     console.log(this.dialog);
   }
 
+  addDialog(): void {
+    this.dialog = new TestDialog();
+    this.dialog.name = prompt('Please enter a dialog name:');
+    this.dialogs.push(this.dialog);
+  }
+
+  addTurn(): void {
+    const turn = new TestTurn();
+    turn.name = prompt('Please enter a turn name:');
+    turn.testCriteria = new Criteria;
+    this.dialog.turns.push(turn);
+  }
 }

@@ -19,14 +19,20 @@
                       {{d.name}}
                   </option>
           </select>
-          <!-- <div class="input-group-append">
-            <button type="button" class="btn btn-outline-dark" (click)="loadDialogs()"> load </button>
-          </div> -->
+          <div class="input-group-append">
+            <button type="button" class="btn btn-outline-dark" (click)="addDialog()"> + </button>
+          </div>
         </div>
       </div>
   </div>
   <hr>
   <div *ngFor="let turn of dialog.turns">
     <app-test-turn [turn]=turn></app-test-turn>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col ">
+      <button type="button" class="btn btn-outline-dark float-right" (click)="addTurn()"> Add Turn</button>
+    </div>
   </div>
 </div>
