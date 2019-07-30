@@ -1,7 +1,9 @@
-import { Criteria } from './criteria/criteria';
+import { Criteria } from '../criteria/criteria';
 
 export class TestTurn {
+  name?: string;
   wakeword?: string;
   prompt: string;
   testCriteria?: Criteria;
+  criterias?: Criteria[];
 }

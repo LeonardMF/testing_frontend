@@ -1,0 +1,32 @@
+<div class="container">
+  <br>
+  <div class="row">
+    <div class="col">
+        <h3>Editor</h3>
+        <br>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col lg-1" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">
+                Dialog:
+              </span>
+            </div>
+          <select [(ngModel)]= "dialog" class="custom-select">
+                  <option *ngFor="let d of dialogs" [ngValue]="d">
+                      {{d.name}}
+                  </option>
+          </select>
+          <!-- <div class="input-group-append">
+            <button type="button" class="btn btn-outline-dark" (click)="loadDialogs()"> load </button>
+          </div> -->
+        </div>
+      </div>
+  </div>
+  <hr>
+  <div *ngFor="let turn of dialog.turns">
+    <app-test-turn [turn]=turn></app-test-turn>
+  </div>
+</div>

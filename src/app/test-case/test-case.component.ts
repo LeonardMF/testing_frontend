@@ -96,9 +96,12 @@ export class TestCaseComponent implements OnInit, OnDestroy {
 
       this.testResult.intent = rasaNluResponse.intent;
       this.testResult.entities = rasaNluResponse.entities;
-      this.testResultFlag = true;
-      this.ref.detectChanges();
-      this.nluAnalyseOn.emit();
+
+      if (this.testResult.intent.name) {
+        this.testResultFlag = true;
+        this.ref.detectChanges();
+        this.nluAnalyseOn.emit();
+      }
     });
   }
 

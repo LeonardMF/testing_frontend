@@ -1,4 +1,4 @@
-import { TestTurn } from './test-turn';
+import { TestTurn } from './test-turn/test-turn';
 
 import { TIME_END_CRITERIA,
          TIME_NEXT_CRITERIA,

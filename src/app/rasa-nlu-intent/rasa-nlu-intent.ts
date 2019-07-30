@@ -1,4 +1,4 @@
-import { TestTurn } from '../test-turn';
+import { TestTurn } from '../test-turn/test-turn';
 
 export class RasaNluIntent {
   name: string;

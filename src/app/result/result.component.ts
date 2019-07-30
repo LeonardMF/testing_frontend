@@ -42,6 +42,7 @@ export class ResultComponent implements OnInit {
   }
 
   validate(): boolean {
+    this.result.intent.nextTurn = this.criteria.nextTurn;
     const intentFlag = this.checkIntent();
     const confidenceFlag = this.checkConfidence();
 

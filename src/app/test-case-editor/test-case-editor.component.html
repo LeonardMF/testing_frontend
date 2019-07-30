@@ -7,6 +7,33 @@
       </div>
     </div>
     <div class="row">
+        <div class="col " >
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                        id="inputGroup-sizing-default">
+                    Dialog Name:
+                  </span>
+                </div>
+              <select [(ngModel)]="testDialog.name"
+                      class="custom-select" >
+                      <option selected>
+                        {{testDialog.name}}
+                      </option>
+              </select>
+            </div>
+          </div>
+    </div>
+    <hr>
+
+      <div *ngFor="let turn of testDialog.turns">
+
+        <app-prompt [prompt]=turn.prompt></app-prompt>
+        <app-criteria [criteria]=turn.testCriteria></app-criteria>
+        <hr>
+
+    <!-- </div>
+    <div class="row">
         <div class="col col-lg-10" >
           <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -44,10 +71,9 @@
                     {{tc.prompt}}
                  </option>
 
-          </select>
+          </select> -->
           <!-- <div class="input-group-append">
             <button type="button" class="btn btn-outline-dark" (click)="loadTestCase()"> load </button>
           </div> -->
-        </div>
-        <hr>
+
     </div>

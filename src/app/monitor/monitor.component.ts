@@ -3,7 +3,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, View
 import { TestDialog } from '../test-dialog';
 import { Criteria } from '../criteria/criteria';
 import { TestResult } from '../test-result';
-import { TestTurn } from '../test-turn';
+import { TestTurn } from '../test-turn/test-turn';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
 import { BackendService } from '../backend.service';

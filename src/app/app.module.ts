@@ -34,6 +34,8 @@ import { CriteriaComponent } from './criteria/criteria.component';
 import { CriteriaEntityComponent } from './criteria-entity/criteria-entity.component';
 
 import { ResultComponent } from './result/result.component';
+import { TestTurnComponent } from './test-turn/test-turn.component';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import { ResultComponent } from './result/result.component';
     MonitorComponent,
     CriteriaComponent,
     CriteriaEntityComponent,
-    ResultComponent
+    ResultComponent,
+    TestTurnComponent,
+    EditorComponent
   ],
   imports: [
     BrowserModule,
