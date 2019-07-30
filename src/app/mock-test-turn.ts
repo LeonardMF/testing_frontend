@@ -11,24 +11,28 @@ export const END_TURN: TestTurn = {
 
 // TIME DIALOG
 export const TIME_END_TURN: TestTurn = {
+  name: 'start',
   wakeword: 'OK Google',
   prompt: 'wie viel Uhr ist es?',
   testCriteria: TIME_END_CRITERIA
 };
 
 export const TIME_NEXT_TURN: TestTurn = {
+  name: 'start',
   wakeword: 'OK Google',
   prompt: 'wie viel Uhr ist es?',
   testCriteria: TIME_NEXT_CRITERIA
 };
 
 export const CITY_END_TURN: TestTurn = {
+  name: 'next',
   wakeword: 'OK Google',
   prompt: 'und in Lissabon?',
   testCriteria: TIME_CITY_END_CRITERIA
 };
 
 export const TIME_CITY_END_TURN: TestTurn = {
+  name: 'start',
   wakeword: 'OK Google',
   prompt: 'wie viel Uhr ist es in Lissabon?',
   testCriteria: TIME_CITY_END_CRITERIA

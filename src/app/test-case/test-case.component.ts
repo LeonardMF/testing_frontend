@@ -45,6 +45,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   errorFlag: boolean;
   errorText: string;
   messages = [];
+  disabled = true;
 
   response: string;
   intent: RasaNluIntent;

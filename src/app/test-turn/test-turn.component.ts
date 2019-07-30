@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Criteria } from '../criteria/criteria';
 import { TIME_NEXT_CRITERIA, TIME_END_CRITERIA } from '../mock-test-criteria';
 import { TestTurn } from './test-turn';
-import { PromptComponent } from '../prompt/prompt.component';
+import { CriteriaEntity } from '../criteria-entity/criteria-entity';
 
 @Component({
   selector: 'app-test-turn',
@@ -16,6 +16,7 @@ export class TestTurnComponent implements OnInit {
   prompt: string;
   name: string;
   criterias: Criteria[] = [];
+  disabled = false;
 
   constructor() { }
 
@@ -24,6 +25,13 @@ export class TestTurnComponent implements OnInit {
     this.name = this.turn.name;
     this.criterias.push(this.turn.testCriteria);
     // this.criterias = this.turn.criterias;
+  }
+
+  addCriteria(): void {
+    const criteria = new Criteria();
+    const entity = new CriteriaEntity;
+    criteria.entities.push(entity);
+    this.criterias.push(criteria);
   }
 
 }

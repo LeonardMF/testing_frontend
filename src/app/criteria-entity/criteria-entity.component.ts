@@ -9,6 +9,7 @@ import { CriteriaEntity } from './criteria-entity';
 export class CriteriaEntityComponent implements OnInit {
 
   @Input() entity: CriteriaEntity;
+  @Input() disabled: boolean;
   @ViewChild('name') name: ElementRef;
   @ViewChild('confidence') confidence: ElementRef;
   @ViewChild('value') value: ElementRef;

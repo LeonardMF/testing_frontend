@@ -10,18 +10,22 @@
                           Intent:
                         </span>
                       </div>
-                      <input #name [attr.disabled]="false" type="text" class="form-control" placeholder="{{criteria.intent}}"/>
+                      <input #name [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{criteria.intent}}"/>
+
+                  <div *ngIf="disabled" class="input-group-append">
+                      <button type="button" class="btn btn-outline-dark" (click)="addEntity()"> + </button>
+                    </div>
                   </div>
                 </div>
               <div class="col col-lg-4" >
-                  <div *ngIf="criteria.minConfidence" class="input-group mb-3 input-group-sm">
+                  <div class="input-group mb-3 input-group-sm">
                       <div class="input-group-prepend">
                         <span class="input-group-text"
                               id="inputGroup-sizing-default">
                           minConfidence:
                         </span>
                       </div>
-                      <input #confidence [attr.disabled]="false" type="text" class="form-control" placeholder="{{criteria.minConfidence}}"/>
+                      <input #confidence [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{criteria.minConfidence}}"/>
                   </div>
                 </div>
             <div class="col col-lg-4" >
@@ -32,12 +36,12 @@
                         Next:
                       </span>
                     </div>
-                    <input #next [attr.disabled]="false" type="text" class="form-control" placeholder="{{criteria.nextTurn}}"/>
+                    <input #next [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{criteria.nextTurn}}"/>
                 </div>
               </div>
           </div>
             <div *ngFor="let entity of criteria.entities">
-              <app-criteria-entity [entity]=entity></app-criteria-entity>
+              <app-criteria-entity [entity]=entity [disabled]="disabled? true:null"></app-criteria-entity>
             </div>
         </div>
     </div>

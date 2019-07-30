@@ -27,11 +27,14 @@
                   type="text"
                   class="form-control"
                   placeholder="{{name}}"/>
-      </div>
+          <div class="input-group-append">
+              <button type="button" class="btn btn-outline-dark" (click)="addCriteria()"> + </button>
+            </div>
+          </div>
    </div>
   </div>
   <div *ngFor="let criteria of criterias">
-    <app-criteria [criteria]=criteria></app-criteria>
+    <app-criteria [criteria]=criteria [disabled]=disabled></app-criteria>
   </div>
 </div>
 
