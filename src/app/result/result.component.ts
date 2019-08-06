@@ -2,8 +2,6 @@ import { Component, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectorRe
 
 import { Result } from '../result/result';
 import { Criteria } from '../criteria/criteria';
-import { TIME_CITY_END_CRITERIA } from '../mock-test-criteria';
-import { FULL_RESULT, CONFIDENCE_RESULT, TIME_RESULT } from '../mock-result';
 import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
 import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
 import { CriteriaEntity } from '../criteria-entity/criteria-entity';
@@ -56,6 +54,7 @@ export class ResultComponent implements OnInit {
       mEC.setEntity('failed');
     });
 
+    this.result.missingEntities = this.missingEntities;
 
     if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
       this.result.nextTurnFlag = true;

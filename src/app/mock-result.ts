@@ -1,34 +1,29 @@
 
 import { Result } from './result/result';
 
-import { GET_TIME_74,
-         GET_TIME_76,
-         NO_RESPONSE_76 } from './mock-rasa-intent';
-import { TIME_74,
-         TIME_76,
+import { GET_TIME_76_NEXT,
+         GET_TIME_76_END} from './mock-rasa-intent';
+import { TIME_NOW,
+         TIME_WRONG,
+         TIME_RIGHT,
          CITY_LISSABON} from './mock-rasa-entity';
+import { CITY_ENTITY } from './mock-test-criteria-entity';
 
-export const FULL_RESULT: Result = {
-  intent: GET_TIME_76,
-  entities: [TIME_76, CITY_LISSABON],
+export const TIME_RESULT: Result = {
+  intent: GET_TIME_76_NEXT,
+  entities: [TIME_NOW],
   nextTurnFlag: true
 };
 
-export const CONFIDENCE_RESULT: Result = {
-  intent: GET_TIME_74,
-  entities: [TIME_76, CITY_LISSABON],
-  nextTurnFlag: false
+export const RIGHT_RESULT: Result = {
+  intent: GET_TIME_76_END,
+  entities: [TIME_RIGHT, CITY_LISSABON],
+  nextTurnFlag: true
 };
 
-export const TIME_RESULT: Result = {
-  intent: GET_TIME_76,
-  entities: [TIME_76],
+export const WRONG_RESULT: Result = {
+  intent: GET_TIME_76_END,
+  entities: [TIME_WRONG],
+  missingEntities: [CITY_ENTITY],
   nextTurnFlag: false
 };
-
-export const NO_RESULT: Result = {
-  intent: NO_RESPONSE_76,
-  entities: [],
-  nextTurnFlag: false
-};
-

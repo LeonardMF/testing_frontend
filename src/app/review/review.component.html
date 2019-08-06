@@ -14,11 +14,11 @@
                 Test:
               </span>
             </div>
-          <!-- <select [(ngModel)]= "test" class="custom-select">
+          <select [(ngModel)]= "test" class="custom-select">
                   <option *ngFor="let t of tests" [ngValue]="t">
-                      {{t.name}}
+                      {{t}}
                   </option>
-          </select> -->
+          </select>
           <!-- <div class="input-group-append">
             <button type="button" class="btn btn-outline-dark" (click)="load()"> + </button>
           </div> -->
@@ -26,18 +26,14 @@
       </div>
   </div>
   <hr>
-  <div >
-    <app-result [criteria]=criteria [result]=result></app-result>
+  <div>
+    <app-result [criteria]=criteria [result]=time_result></app-result>
+    <app-result [criteria]=criteria [result]=right_result></app-result>
   </div>
   <!-- <div *ngFor="let turn of dialog.turns">
     <app-test-turn [turn]=turn></app-test-turn>
   </div>
   <hr> -->
-  <div class="row">
-    <div class="col ">
-      <button type="button" class="btn btn-outline-dark float-right" (click)="validate()"> Validate</button>
-    </div>
-  </div>
 </div>
 
 

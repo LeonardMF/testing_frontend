@@ -1,6 +1,5 @@
 import { Criteria } from './criteria/criteria';
-import { RasaNluIntent } from './rasa-nlu-intent/rasa-nlu-intent';
-import { RasaNluEntity } from './rasa-nlu-entity/rasa-nlu-entity';
+import { Result } from './result/result';
 
 export class TestResult {
 
@@ -8,6 +7,5 @@ export class TestResult {
   prompt: string;
   response: string;
   criteria: Criteria;
-  intent: RasaNluIntent;
-  entities: RasaNluEntity[] = [];
+  result: Result;
 }

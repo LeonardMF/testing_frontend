@@ -15,6 +15,11 @@
 </div>
 
 <div *ngIf="testResultFlag && testResult" >
+    <div class="row">
+        <div class="col">
+          <h3>Result</h3>
+        </div>
+    </div>
   <app-result [criteria]=testCriteria [result]=testResult></app-result>
 </div>
 

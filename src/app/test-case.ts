@@ -1,7 +1,10 @@
 import { Criteria } from './criteria/criteria';
+import { Result } from './result/result';
 
 export class TestCase {
   wakeword: string;
   prompt: string;
-  testCriteria: Criteria;
+  response: string;
+  criteria: Criteria;
+  result: Result;
 }

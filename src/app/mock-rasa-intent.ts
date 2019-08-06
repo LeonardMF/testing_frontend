@@ -8,9 +8,18 @@ export const GET_TIME_74: RasaNluIntent = {
   confidenceFlag: false
 };
 
-export const GET_TIME_76: RasaNluIntent = {
+export const GET_TIME_76_NEXT: RasaNluIntent = {
   name: 'getTime',
   confidence: 0.76,
+  nextTurn: 'next',
+  nameFlag: true,
+  confidenceFlag: true
+};
+
+export const GET_TIME_76_END: RasaNluIntent = {
+  name: 'getTime',
+  confidence: 0.76,
+  nextTurn: 'end',
   nameFlag: true,
   confidenceFlag: true
 };
