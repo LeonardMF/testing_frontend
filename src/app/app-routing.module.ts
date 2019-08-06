@@ -5,6 +5,7 @@ import { SettingsComponent } from './settings/settings.component';
 import { EditorComponent } from './editor/editor.component';
 import { TestTimeComponent } from './test-time/test-time.component';
 import { MonitorComponent } from './monitor/monitor.component';
+import { ReviewComponent } from './review/review.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'test-time', component: TestTimeComponent },
   { path: 'monitor', component: MonitorComponent },
   { path: 'editor', component: EditorComponent },
+  { path: 'review', component: ReviewComponent },
   { path: 'nlu', component: RasaNluComponent },
   { path: 'settings', component: SettingsComponent },
 ];
