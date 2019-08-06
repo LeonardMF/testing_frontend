@@ -4,4 +4,6 @@ export class RasaNluIntent {
   name: string;
   confidence: number;
   nextTurn?: string;
+  nameFlag?: boolean;
+  confidenceFlag?: boolean;
 }

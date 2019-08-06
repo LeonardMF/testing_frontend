@@ -37,11 +37,11 @@ export class ResultComponent implements OnInit {
   ngOnInit() {
     // this.result = FULL_RESULT;
     // this.criteria = TIME_CITY_END_CRITERIA;
-    this.result.intent.nextTurn = this.criteria.nextTurn;
+    // this.result.intent.nextTurn = this.criteria.nextTurn;
   }
 
   validate(): boolean {
-    // this.result.intent.nextTurn = this.criteria.nextTurn;
+    this.result.intent.nextTurn = this.criteria.nextTurn;
     const intentFlag = this.checkIntent();
     const confidenceFlag = this.checkConfidence();
 
@@ -56,20 +56,16 @@ export class ResultComponent implements OnInit {
       mEC.setEntity('failed');
     });
 
-    // console.log(intentFlag);
-    // console.log(confidenceFlag);
-    // console.log(this.missingEntities.length);
-    // console.log(confidenceEntitiesFlag);
-    // console.log(valueEntitiesFlag);
 
     if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
-      this.resultIntentComponent.setNextTurn('passed');
+      this.result.nextTurnFlag = true;
+      this.showResult();
       return true;
     } else {
-      this.resultIntentComponent.setNextTurn('failed');
+      this.result.nextTurnFlag = false;
+      this.showResult();
       return false;
     }
-    this.ref.detectChanges();
   }
 
   checkTime(aTime, aHour = 0): boolean {
@@ -100,13 +96,13 @@ export class ResultComponent implements OnInit {
 
         // Check entity
         if (e.entity.entity === criteriaEntity.name) {
-            e.setEntity('passed');
-            criteriaEntity.flag = true;
+            e.entity.entityFlag = true;
             // Check entity confidence
+            criteriaEntity.flag = true;
             if (e.entity.confidence >= criteriaEntity.minConfidence) {
-              e.setConfidence('passed');
+              e.entity.confidenceFlag = true;
             } else {
-              e.setConfidence('failed');
+              e.entity.confidenceFlag = false;
               confidenceEntitiesFlag = false;
             }
 
@@ -122,11 +118,10 @@ export class ResultComponent implements OnInit {
             if (criteriaEntity.value === e.entity.value) {
               valueFlag = true;
             }
-
             if (valueFlag) {
-              e.setValue('passed');
+              e.entity.valueFlag = true;
             } else {
-              e.setValue('failed');
+              e.entity.valueFlag = false;
               valueEntitiesFlag = false;
             }
         }
@@ -144,10 +139,10 @@ export class ResultComponent implements OnInit {
   checkConfidence(): boolean {
     if (this.result.intent && this.result.intent.confidence >= this.criteria.minConfidence) {
       // console.log('Confidence ok!');
-      this.resultIntentComponent.setConfidence('passed');
+      this.result.intent.confidenceFlag = true;
       return true;
     } else {
-      this.resultIntentComponent.setConfidence('failed');
+      this.result.intent.confidenceFlag = false;
       return false;
     }
   }
@@ -156,13 +151,52 @@ export class ResultComponent implements OnInit {
     if (this.result.intent.name) {
       if (this.result.intent.name === this.criteria.intent) {
         // console.log('Intent ok!');
-        this.resultIntentComponent.setIntent('passed');
+        this.result.intent.nameFlag = true;
         return true;
       } else {
-        this.resultIntentComponent.setIntent('failed');
+        this.result.intent.nameFlag = false;
       }
     }
     return false;
   }
 
+  showResult(): void {
+
+    if (this.result.intent.nameFlag) {
+      this.resultIntentComponent.setIntent('passed');
+    } else {
+      this.resultIntentComponent.setIntent('failed');
+    }
+
+    if (this.result.intent.confidenceFlag) {
+      this.resultIntentComponent.setConfidence('passed');
+    } else {
+      this.resultIntentComponent.setConfidence('failed');
+    }
+
+    if (this.result.nextTurnFlag) {
+      this.resultIntentComponent.setNextTurn('passed');
+    } else {
+      this.resultIntentComponent.setNextTurn('failed');
+    }
+
+    this.entityComponents.forEach( (e) => {
+      if (e.entity.entityFlag) {
+          e.setEntity('passed');
+          if (e.entity.confidenceFlag) {
+            e.setConfidence('passed');
+          } else {
+            e.setConfidence('failed');
+          }
+          if (e.entity.valueFlag) {
+            e.setValue('passed');
+          } else {
+            e.setValue('failed');
+          }
+      } else {
+        e.setEntity('failed');
+      }
+    });
+    this.ref.detectChanges();
+  }
 }

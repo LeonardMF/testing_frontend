@@ -32,7 +32,7 @@ export class ReviewComponent implements OnInit {
   }
 
   validate(): void {
-    this.resultComponent.validate();
+    this.resultComponent.showResult();
   }
 
 }

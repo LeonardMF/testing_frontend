@@ -6,4 +6,7 @@ export class RasaNluEntity {
   confidence: number;
   entity: string;
   extractor?: string;
+  valueFlag?: boolean;
+  confidenceFlag?: boolean;
+  entityFlag?: boolean;
 }

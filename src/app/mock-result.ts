@@ -10,21 +10,25 @@ import { TIME_74,
 
 export const FULL_RESULT: Result = {
   intent: GET_TIME_76,
-  entities: [TIME_76, CITY_LISSABON]
+  entities: [TIME_76, CITY_LISSABON],
+  nextTurnFlag: true
 };
 
 export const CONFIDENCE_RESULT: Result = {
   intent: GET_TIME_74,
-  entities: [TIME_76, CITY_LISSABON]
+  entities: [TIME_76, CITY_LISSABON],
+  nextTurnFlag: false
 };
 
 export const TIME_RESULT: Result = {
   intent: GET_TIME_76,
-  entities: [TIME_76]
+  entities: [TIME_76],
+  nextTurnFlag: false
 };
 
 export const NO_RESULT: Result = {
   intent: NO_RESPONSE_76,
-  entities: []
+  entities: [],
+  nextTurnFlag: false
 };
 
