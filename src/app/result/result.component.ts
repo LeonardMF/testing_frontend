@@ -38,11 +38,10 @@ export class ResultComponent implements OnInit {
     // this.result = FULL_RESULT;
     // this.criteria = TIME_CITY_END_CRITERIA;
     this.result.intent.nextTurn = this.criteria.nextTurn;
-
   }
 
   validate(): boolean {
-    this.result.intent.nextTurn = this.criteria.nextTurn;
+    // this.result.intent.nextTurn = this.criteria.nextTurn;
     const intentFlag = this.checkIntent();
     const confidenceFlag = this.checkConfidence();
 
