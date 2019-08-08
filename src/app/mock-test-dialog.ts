@@ -7,7 +7,11 @@ import {
          OPEN_BVG,
          ASK_BVG,
          SEESTRASSE_BVG,
-         JETZT_BVG} from './mock-test-turn';
+         JETZT_BVG,
+         PRAESIDENT,
+         AGE_DEAD,
+         PLACE_OF_BIRTH,
+         RESTAURANT} from './mock-test-turn';
 
 export const TEST_TIME: TestDialog = {
   name: 'Uhrzeitansage',
@@ -29,7 +33,7 @@ export const TEST_BVG: TestDialog = {
   turns: [OPEN_BVG, ASK_BVG, SEESTRASSE_BVG, JETZT_BVG]
 };
 
-// export const TEST_VUI: TestDialog = {
-//   name: 'Designing_VUI_Sample',
-//   turns: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
-// };
+export const TEST_VUI: TestDialog = {
+  name: 'Designing_VUI_Sample',
+  turns: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
+};

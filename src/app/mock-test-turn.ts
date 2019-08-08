@@ -6,7 +6,11 @@ import { TIME_END_CRITERIA,
          GREETING_CRITERIA,
          REQUEST_SATION_FROM_CRITERIA,
          DEPARTURE_TIME_CRITERIA,
-         CONNECTION_CRITERIA} from './mock-test-criteria';
+         CONNECTION_CRITERIA,
+         PRAESIDENT_CRITERIA,
+         AGE_DEAD_CRITERIA,
+         CITY_BORN_CRITERIA,
+         RESTAURANT_CRITERIA} from './mock-test-criteria';
 
 export const END_TURN: TestTurn = {
   wakeword: '',
@@ -66,7 +70,7 @@ export const ASK_BVG: TestTurn = {
 export const SEESTRASSE_BVG: TestTurn = {
   name: 'station_from',
   wakeword: ' ',
-  prompt: 'seestraße',
+  prompt: 'Seestraße',
   criterias: [DEPARTURE_TIME_CRITERIA, CONNECTION_CRITERIA],
   testCriteria: CONNECTION_CRITERIA
 };
@@ -74,33 +78,41 @@ export const SEESTRASSE_BVG: TestTurn = {
 export const JETZT_BVG: TestTurn = {
   name: 'departure_time',
   wakeword: ' ',
-  prompt: 'jetzt',
+  prompt: 'Jetzt',
   criterias: [REQUEST_SATION_FROM_CRITERIA, CONNECTION_CRITERIA],
   testCriteria: CONNECTION_CRITERIA,
 };
 
 // // VUI
 
-// export const PRAESIDENT: TestTurn = {
-//   wakeword: 'OK Google',
-//   prompt: 'wer war der 16. Präsident der Vereinigten Staaten?',
-//   testCriteria: PRAESIDENT_CRITERIA,
-// };
+export const PRAESIDENT: TestTurn = {
+  name: 'start',
+  wakeword: 'OK Google',
+  prompt: 'wer war der 16. Präsident der Vereinigten Staaten?',
+  criterias: [PRAESIDENT_CRITERIA],
+  testCriteria: PRAESIDENT_CRITERIA,
+};
 
-// export const AGE_DEAD: TestTurn = {
-//   wakeword: 'OK Google',
-//   prompt: 'wie alt war er, als er starb? ',
-//   testCriteria: AGE_DEAD_CRITERIA,
-// };
+export const AGE_DEAD: TestTurn = {
+  name: 'age_dead',
+  wakeword: 'OK Google',
+  prompt: 'wie alt war er, als er starb? ',
+  criterias: [AGE_DEAD_CRITERIA],
+  testCriteria: AGE_DEAD_CRITERIA,
+};
 
-// export const PLACE_OF_BIRTH: TestTurn = {
-//   wakeword: 'OK Google',
-//   prompt: 'wo wurde er geboren?',
-//   testCriteria: CITY_BORN_CRITERIA,
-// };
+export const PLACE_OF_BIRTH: TestTurn = {
+  name: 'place_of_birth',
+  wakeword: 'OK Google',
+  prompt: 'wo wurde er geboren?',
+  criterias: [CITY_BORN_CRITERIA],
+  testCriteria: CITY_BORN_CRITERIA,
+};
 
-// export const RESTAURANT: TestTurn = {
-//   wakeword: 'OK Google',
-//   prompt: 'was ist das beste Restaurant dort?',
-//   testCriteria: RESTAURANT_CRITERIA,
-// };
+export const RESTAURANT: TestTurn = {
+  name: 'restaurant',
+  wakeword: 'OK Google',
+  prompt: 'was ist das beste Restaurant dort?',
+  criterias: [RESTAURANT_CRITERIA],
+  testCriteria: RESTAURANT_CRITERIA,
+};
