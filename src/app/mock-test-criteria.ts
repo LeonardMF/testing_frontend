@@ -37,19 +37,31 @@ export const TIME_CITY_END_CRITERIA: Criteria = {
 export const GREETING_CRITERIA: Criteria = {
   intent: 'greeting',
   minConfidence: 0.75,
+  nextTurn: 'request_connection',
   entities: []
 };
 
 export const REQUEST_SATION_FROM_CRITERIA: Criteria = {
-  intent: 'request',
+  intent: 'requestStation',
   minConfidence: 0.75,
-  entities: [STATION_TO_ENTITY]
+  nextTurn: 'station_from',
+  // entities: [STATION_TO_ENTITY]
+  entities: []
 };
 
 export const CONNECTION_CRITERIA: Criteria = {
   intent: 'connection',
   minConfidence: 0.75,
+  nextTurn: 'end',
   entities: [STATION_FROM_ENTITY, STATION_TO_ENTITY]
+};
+
+export const DEPARTURE_TIME_CRITERIA: Criteria = {
+  intent: 'requestTime',
+  minConfidence: 0.75,
+  nextTurn: 'departure_time',
+  // entities: [STATION_FROM_ENTITY]
+  entities: []
 };
 
 // VUI

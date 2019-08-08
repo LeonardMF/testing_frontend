@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TestDialog } from '../test-dialog';
-import { TEST_TIME,TEST_TIME_CITY,TEST_TIME_DIALOG } from '../mock-test-dialog';
+import { TEST_TIME, TEST_TIME_CITY, TEST_TIME_DIALOG, TEST_BVG } from '../mock-test-dialog';
 import { TestTurn } from '../test-turn/test-turn';
 import { Criteria } from '../criteria/criteria';
 
@@ -17,6 +17,7 @@ export class EditorComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.dialogs.push(TEST_BVG);
     this.dialogs.push(TEST_TIME);
     this.dialogs.push(TEST_TIME_CITY);
     this.dialogs.push(TEST_TIME_DIALOG);

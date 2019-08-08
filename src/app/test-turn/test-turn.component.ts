@@ -15,7 +15,7 @@ export class TestTurnComponent implements OnInit {
 
   prompt: string;
   name: string;
-  criterias: Criteria[] = [];
+  criterias: Criteria[];
   disabled = false;
 
   constructor() { }
@@ -23,7 +23,8 @@ export class TestTurnComponent implements OnInit {
   ngOnInit() {
     this.prompt = this.turn.prompt;
     this.name = this.turn.name;
-    this.criterias.push(this.turn.testCriteria);
+    this.criterias = this.turn.criterias;
+    // this.criterias.push(this.turn.testCriteria);
     // this.criterias = this.turn.criterias;
   }
 
