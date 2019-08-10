@@ -14,9 +14,10 @@
                 Dialog:
               </span>
             </div>
-          <select [(ngModel)]= "dialog" class="custom-select">
+            <!-- (change)="loadDialog()" -->
+          <select [(ngModel)]= "dialog" class="custom-select" >
                   <option *ngFor="let d of dialogs" [ngValue]="d">
-                      {{d.name}}
+                      {{d.description}}
                   </option>
           </select>
           <div class="input-group-append">
@@ -26,13 +27,16 @@
       </div>
   </div>
   <hr>
-  <div *ngFor="let turn of dialog.turns">
-    <app-test-turn [turn]=turn></app-test-turn>
+  <div *ngIf="dialog">
+    <div *ngFor="let turn of dialog.turns">
+      <app-test-turn [turn]=turn></app-test-turn>
+    </div>
   </div>
   <hr>
   <div class="row">
     <div class="col ">
       <button type="button" class="btn btn-outline-dark float-right" (click)="addTurn()"> Add Turn</button>
+      <button type="button" class="btn btn-outline-success float-right" (click)="saveDialog()"> Save</button>
     </div>
   </div>
 </div>

@@ -14,26 +14,31 @@ import {
          RESTAURANT} from './mock-test-turn';
 
 export const TEST_TIME: TestDialog = {
-  name: 'Uhrzeitansage',
+  name: 'TEST_TIME',
+  description: 'Uhrzeitansage',
   turns: [TIME_END_TURN]
 };
 
 export const TEST_TIME_CITY: TestDialog = {
-  name: 'Uhrzeitansage für eine Stadt',
+  name: 'TEST_TIME_CITY',
+  description: 'Uhrzeitansage für eine Stadt',
   turns: [TIME_CITY_END_TURN]
 };
 
 export const TEST_TIME_DIALOG: TestDialog = {
-  name: 'Uhrzeitansage im Kontext',
+  name: 'TEST_TIME_DIALOG',
+  description: 'Uhrzeitansage im Kontext',
   turns: [TIME_NEXT_TURN, CITY_END_TURN]
 };
 
 export const TEST_BVG: TestDialog = {
-  name: 'Fahrauskunpft_der_BVG',
+  name: 'TEST_BVG',
+  description: 'Fahrauskunpft der BVG',
   turns: [OPEN_BVG, ASK_BVG, SEESTRASSE_BVG, JETZT_BVG]
 };
 
 export const TEST_VUI: TestDialog = {
-  name: 'Designing_VUI_Sample',
+  name: 'TEST_VUI',
+  description: 'Designing VUI Sample Dialog',
   turns: [PRAESIDENT, AGE_DEAD, PLACE_OF_BIRTH, RESTAURANT]
 };

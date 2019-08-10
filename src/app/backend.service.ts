@@ -26,16 +26,21 @@ export class BackendService {
     return this.http.get<any>( requestUrl );
   }
 
+  loadDialogs():  Promise<any> {
+    const requestUrl = this.backendUrl + 'dialog';
+    return this.http.get<any>( requestUrl ).toPromise();
+  }
+
   getDialog(name: string): Promise<any> {
     const requestUrl = this.backendUrl + 'dialog/' + name;
     return this.http.get<any>( requestUrl ).toPromise();
   }
 
-  addDialog(testdialog: TestDialog): Observable<any> {
-    console.log('Add :' + JSON.stringify(testdialog));
+  addDialog(testdialog: TestDialog): Promise<any> {
+    // console.log('Add :' + JSON.stringify(testdialog));
     const requestUrl = this.backendUrl + 'dialog';
-    console.log('to :' + requestUrl);
-    return this.http.post<any>( requestUrl, JSON.stringify(testdialog), httpOptions );
+    // console.log('to :' + requestUrl);
+    return this.http.post<any>( requestUrl, JSON.stringify(testdialog), httpOptions ).toPromise();
   }
 
   addTestTurn(testresult: TestResult): Observable<any> {
