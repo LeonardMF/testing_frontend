@@ -37,6 +37,7 @@ import { ResultComponent } from './result/result.component';
 import { TestTurnComponent } from './test-turn/test-turn.component';
 import { EditorComponent } from './editor/editor.component';
 import { ReviewComponent } from './review/review.component';
+import { DialogSelectorComponent } from './dialog-selector/dialog-selector.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ReviewComponent } from './review/review.component';
     ResultComponent,
     TestTurnComponent,
     EditorComponent,
-    ReviewComponent
+    ReviewComponent,
+    DialogSelectorComponent
   ],
   imports: [
     BrowserModule,

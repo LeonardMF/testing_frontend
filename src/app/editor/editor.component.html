@@ -6,26 +6,7 @@
         <br>
     </div>
   </div>
-  <div class="row">
-      <div class="col lg-1" >
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                Dialog:
-              </span>
-            </div>
-            <!-- (change)="loadDialog()" -->
-          <select [(ngModel)]= "dialog" class="custom-select" >
-                  <option *ngFor="let d of dialogs" [ngValue]="d">
-                      {{d.description}}
-                  </option>
-          </select>
-          <div class="input-group-append">
-            <button type="button" class="btn btn-outline-dark" (click)="addDialog()"> + </button>
-          </div>
-        </div>
-      </div>
-  </div>
+  <app-dialog-selector (selectDialogOn)="onSelectDialog($event)"></app-dialog-selector>
   <hr>
   <div *ngIf="dialog">
     <div *ngFor="let turn of dialog.turns">

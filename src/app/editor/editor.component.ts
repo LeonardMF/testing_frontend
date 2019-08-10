@@ -12,25 +12,11 @@ import { BackendService } from '../backend.service';
 })
 export class EditorComponent implements OnInit {
 
-  dialogs: TestDialog[] = [];
   dialog: TestDialog;
 
   constructor( private backendService: BackendService ) { }
 
-  ngOnInit() {
-    // this.loadMockDialogs();
-    this.loadDialogs();
-  }
-
-  addDialog(): void {
-    this.dialog = new TestDialog();
-    this.dialog.name = prompt('Please enter a dialog name:');
-    this.dialog.description  = prompt('Please enter a dialog description:');
-    const firstTurn = new TestTurn();
-    firstTurn.criterias = [];
-    this.dialog.turns.push(firstTurn);
-    this.dialogs.push(this.dialog);
-  }
+  ngOnInit() { }
 
   addTurn(): void {
     const turn = new TestTurn();
@@ -41,10 +27,15 @@ export class EditorComponent implements OnInit {
   }
 
   save(): void {
-    console.log('saving...');
-    console.log(this.dialog.turns);
+    // console.log('saving...');
+    // console.log(this.dialog.turns);
     this.saveDialog();
   }
+
+  onSelectDialog( dialog): void {
+    this.dialog = dialog;
+  }
+
   // save dialog
   async saveDialog() {
     try {
@@ -56,29 +47,4 @@ export class EditorComponent implements OnInit {
     }
   }
 
-  // load dialog
-  // async loadDialog( ) {
-  //   try {
-  //     this.dialog = await this.backendService.getDialog(this.dialog.name);
-  //   } catch (error) {
-  //     console.log('Error: ' + error);
-  //   }
-  // }
-
-  // load dialogs
-  loadDialogs(): void {
-    this.backendService.getDialogs().subscribe((dialogs: TestDialog[]) => {
-      this.dialogs = dialogs;
-      this.dialog = this.dialogs[2];
-    });
-  }
-
-  loadMockDialogs(): void {
-    this.dialogs.push(TEST_TIME_DIALOG);
-    this.dialogs.push(TEST_VUI);
-    this.dialogs.push(TEST_BVG);
-    this.dialogs.push(TEST_TIME);
-    this.dialogs.push(TEST_TIME_CITY);
-    this.dialog = this.dialogs[3];
-}
 }
