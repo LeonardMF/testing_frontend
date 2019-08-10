@@ -30,7 +30,10 @@ export class TestTurnComponent implements OnInit {
 
   addCriteria(): void {
     const criteria = new Criteria();
-    const entity = new CriteriaEntity;
+    const entity = new CriteriaEntity();
+    if (!this.criterias) {
+      this.criterias = [];
+    }
     criteria.entities.push(entity);
     this.criterias.push(criteria);
   }

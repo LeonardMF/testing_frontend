@@ -18,20 +18,25 @@ export class EditorComponent implements OnInit {
   constructor( private backendService: BackendService ) { }
 
   ngOnInit() {
-    //this.loadMockDialogs();
-    this.loadDialogs();
+    this.loadMockDialogs();
+    // this.loadDialogs();
   }
 
   addDialog(): void {
     this.dialog = new TestDialog();
     this.dialog.name = prompt('Please enter a dialog name:');
+    this.dialog.description  = prompt('Please enter a dialog description:');
+    const firstTurn = new TestTurn();
+    firstTurn.criterias = [];
+    this.dialog.turns.push(firstTurn);
     this.dialogs.push(this.dialog);
   }
 
   addTurn(): void {
     const turn = new TestTurn();
     turn.name = prompt('Please enter a turn name:');
-    turn.testCriteria = new Criteria;
+    // turn.testCriteria = new Criteria();
+    turn.criterias = [new Criteria()];
     this.dialog.turns.push(turn);
   }
 
