@@ -28,6 +28,14 @@ export class TestTurnComponent implements OnInit {
     // this.criterias = this.turn.criterias;
   }
 
+  changeName(): void {
+    this.turn.name = this.name;
+  }
+
+  changePrompt(): void {
+    this.turn.prompt = this.prompt;
+  }
+
   addCriteria(): void {
     const criteria = new Criteria();
     const entity = new CriteriaEntity();
@@ -36,6 +44,7 @@ export class TestTurnComponent implements OnInit {
     }
     criteria.entities.push(entity);
     this.criterias.push(criteria);
+    this.turn.criterias = this.criterias;
   }
 
 }

@@ -9,6 +9,7 @@
               </span>
               </div>
             <input [(ngModel)]="prompt"
+                    (change)="changePrompt()"
                     type="text"
                     class="form-control"
                     required
@@ -24,6 +25,7 @@
             </span>
             </div>
           <input [(ngModel)]="name"
+                  (change)="changeName()"
                   type="text"
                   class="form-control"
                   placeholder="{{name}}"/>

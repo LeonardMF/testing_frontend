@@ -7,7 +7,7 @@
                 Entity:
               </span>
             </div>
-            <input #name [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{entity.name}}"/>
+            <input #name [attr.disabled]="disabled? true:null" type="text" class="form-control" [(ngModel)]="entity.name"/>
         </div>
       </div>
     <div class="col col-lg-4" >
@@ -18,7 +18,7 @@
                 minConfidence:
               </span>
             </div>
-            <input #confidence [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{entity.minConfidence}}"/>
+            <input #confidence [attr.disabled]="disabled? true:null" type="number" class="form-control" [(ngModel)]="entity.minConfidence"/>
         </div>
       </div>
     <div class="col col-lg-4" >
@@ -29,7 +29,7 @@
               Value:
             </span>
           </div>
-          <input #value [attr.disabled]="disabled == true ? true : null" type="text" class="form-control" value="{{entity.value}}"/>
+          <input #value [attr.disabled]="disabled == true ? true : null" type="text" class="form-control" [(ngModel)]="entity.value"/>
       </div>
     </div>
 </div>

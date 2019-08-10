@@ -10,7 +10,7 @@
                           Intent:
                         </span>
                       </div>
-                      <input #name [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{criteria.intent}}"/>
+                      <input #name [attr.disabled]="disabled? true:null" type="text" class="form-control" [(ngModel)]="criteria.intent"/>
 
                   <div *ngIf="!disabled" class="input-group-append">
                       <button type="button" class="btn btn-outline-dark" (click)="addEntity()"> + </button>
@@ -25,7 +25,7 @@
                           minConfidence:
                         </span>
                       </div>
-                      <input #confidence [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{criteria.minConfidence}}"/>
+                      <input #confidence [attr.disabled]="disabled? true:null" type="number" class="form-control" [(ngModel)]="criteria.minConfidence"/>
                   </div>
                 </div>
             <div class="col col-lg-4" >
@@ -36,7 +36,7 @@
                         Next:
                       </span>
                     </div>
-                    <input #next [attr.disabled]="disabled? true:null" type="text" class="form-control" placeholder="{{criteria.nextTurn}}"/>
+                    <input #next [attr.disabled]="disabled? true:null" type="text" class="form-control" [(ngModel)]="criteria.nextTurn"/>
                 </div>
               </div>
           </div>

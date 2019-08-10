@@ -18,8 +18,8 @@ export class EditorComponent implements OnInit {
   constructor( private backendService: BackendService ) { }
 
   ngOnInit() {
-    this.loadMockDialogs();
-    // this.loadDialogs();
+    // this.loadMockDialogs();
+    this.loadDialogs();
   }
 
   addDialog(): void {
@@ -40,6 +40,11 @@ export class EditorComponent implements OnInit {
     this.dialog.turns.push(turn);
   }
 
+  save(): void {
+    console.log('saving...');
+    console.log(this.dialog.turns);
+    this.saveDialog();
+  }
   // save dialog
   async saveDialog() {
     try {
@@ -74,6 +79,6 @@ export class EditorComponent implements OnInit {
     this.dialogs.push(TEST_BVG);
     this.dialogs.push(TEST_TIME);
     this.dialogs.push(TEST_TIME_CITY);
-    this.dialog = this.dialogs[0];
+    this.dialog = this.dialogs[3];
 }
 }
