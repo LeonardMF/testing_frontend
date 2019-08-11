@@ -26,6 +26,7 @@ export class ResultComponent implements OnInit {
 
   @Input() result: Result;
   @Input() criteria: Criteria;
+  // @Input() criterias: Criteria[];
 
   missingEntities: CriteriaEntity[] = [];
   next: string;
@@ -38,7 +39,7 @@ export class ResultComponent implements OnInit {
     // this.result.intent.nextTurn = this.criteria.nextTurn;
   }
 
-  validate(): boolean {
+  validate(): string {
     this.result.intent.nextTurn = this.criteria.nextTurn;
     const intentFlag = this.checkIntent();
     const confidenceFlag = this.checkConfidence();
@@ -59,11 +60,11 @@ export class ResultComponent implements OnInit {
     if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
       this.result.nextTurnFlag = true;
       this.showResult();
-      return true;
+      return this.criteria.nextTurn;
     } else {
       this.result.nextTurnFlag = false;
       this.showResult();
-      return false;
+      return 'error';
     }
   }
 

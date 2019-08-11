@@ -36,6 +36,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   @Input() wakeword;
   @Input() prompt;
   @Input() testCriteria: Criteria;
+  @Input() criterias: Criteria[];
 
   @Output() nluAnalyseOn = new EventEmitter();
 
@@ -114,7 +115,14 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     this.ref.detectChanges();
   }
 
-  validate(): boolean {
+  validate(): string {
+    for ( const c of this.criterias) {
+      if ( this.testResult.intent.name === c.intent) {
+        console.log( 'Criteria: ');
+        console.log( c );
+        this.testCriteria = c;
+      }
+    }
     return this.resultComponent.validate();
   }
 }

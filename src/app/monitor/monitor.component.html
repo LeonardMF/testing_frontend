@@ -1,7 +1,7 @@
 <div class="container">
   <br>
   <app-dialog-selector (selectDialogOn)="onSelectDialog($event)" (testDialogOn)="onTestDialog($event)" ></app-dialog-selector>
-  <app-test-case [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria" (nluAnalyseOn)="onNluAnalyse()"></app-test-case>
+  <app-test-case [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria" [criterias]="criterias"  (nluAnalyseOn)="onNluAnalyse()"></app-test-case>
   <hr>
   <div class="row">
     <div class="col-4">
@@ -12,8 +12,18 @@
       <button type="button" class="btn btn-outline-info float-center" (click)="save()">Save</button>
     </div>
     <div class="col-4">
-        <button type="button" class="btn btn-outline-danger float-right" (click)="back()">Back</button>
-        <button type="button" class="btn btn-outline-success float-right" (click)="next()">Next</button>
-    </div>
+
+        <div class="input-group mb-2">
+            <!-- (change)="changeNextTurn()" -->
+        <select [(ngModel)]= "nextTurn" class="custom-select">
+                <option *ngFor="let next of nextTurns" [ngValue]="next">
+                    {{next}}
+                </option>
+        </select>
+        <div class="input-group-append">
+          <button type="button" class="btn btn-outline-success" (click)="next()">Next</button>
+       </div>
+       <button type="button" class="btn btn-outline-danger float-right" (click)="back()">Back</button>
+      </div>
   </div>
 </div>

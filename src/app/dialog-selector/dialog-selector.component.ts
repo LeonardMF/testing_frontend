@@ -67,7 +67,7 @@ export class DialogSelectorComponent implements OnInit {
     this.dialogs.push(TEST_BVG);
     this.dialogs.push(TEST_TIME);
     this.dialogs.push(TEST_TIME_CITY);
-    this.dialog = this.dialogs[3];
+    this.dialog = this.dialogs[1];
     this.selectDialogOn.emit(this.dialog);
   }
 

@@ -25,6 +25,10 @@ export class MonitorComponent implements OnInit {
   wakeword: string;
   prompt: string;
   testCriteria: Criteria;
+  criterias: Criteria[];
+
+  nextTurn: string;
+  nextTurns: string[];
 
   constructor( private ref: ChangeDetectorRef,
                private backendService: BackendService ) {}
@@ -45,9 +49,17 @@ export class MonitorComponent implements OnInit {
     this.wakeword = testCase.wakeword;
     this.prompt = testCase.prompt;
     this.testCriteria = testCase.testCriteria;
+    this.criterias = testCase.criterias;
+    this.nextTurns = [];
+    for (const c of this.criterias) {
+      this.nextTurns.push(c.nextTurn);
+      this.nextTurn = this.nextTurns[0];
+    }
+    this.ref.detectChanges();
   }
 
-  onTestDialog(dialog): void {
+  onTestDialog( dialog ): void {
+    this.back();
     this.testCaseComponent.speak();
   }
 
@@ -65,6 +77,11 @@ export class MonitorComponent implements OnInit {
     this.testCaseComponent.clear();
   }
 
+  validate(): boolean {
+    this.nextTurn = this.testCaseComponent.validate();
+    return true;
+  }
+
   save(): void {
     // write result to DB
     const testresult = new TestResult;
@@ -79,18 +96,11 @@ export class MonitorComponent implements OnInit {
     });
   }
 
-  validate(): boolean {
-    return this.testCaseComponent.validate();
-  }
-
   next(): boolean {
-    if (this.testCriteria.nextTurn === 'next') {
-      this.clear();
-      this.testTurnIndex += 1;
-      // console.log((this.testTurns[this.testTurnIndex]));
-      if (this.testTurns[this.testTurnIndex]) {
-        this.setTestTurn(this.testTurns[this.testTurnIndex]);
-        this.ref.detectChanges();
+    for ( const turn of this.testTurns) {
+      if (turn.name === this.nextTurn) {
+        this.clear();
+        this.setTestTurn(turn);
         return true;
       }
     }

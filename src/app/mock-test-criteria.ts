@@ -65,28 +65,28 @@ export const DEPARTURE_TIME_CRITERIA: Criteria = {
 // VUI
 export const PRAESIDENT_CRITERIA: Criteria = {
   intent: 'getPresident',
-  minConfidence: 0.75,
+  minConfidence: 0.5,
   nextTurn: 'age_dead',
   entities: [LINCOLN_NAME_ENTITY]
 };
 
 export const AGE_DEAD_CRITERIA: Criteria = {
   intent: 'getAgeDead',
-  minConfidence: 0.75,
+  minConfidence: 0.5,
   nextTurn: 'place_of_birth',
   entities: [LINCOLN_NAME_ENTITY, LINCOLN_AGE_DEAD_ENTITY]
 };
 
 export const CITY_BORN_CRITERIA: Criteria = {
   intent: 'getCityBorn',
-  minConfidence: 0.75,
+  minConfidence: 0.5,
   nextTurn: 'restaurant',
   entities: [HODGENVILLE_CITY_ENTITY]
 };
 
 export const RESTAURANT_CRITERIA: Criteria = {
   intent: 'getRestaurant',
-  minConfidence: 0.75,
+  minConfidence: 0.5,
   nextTurn: 'end',
   entities: [HODGENVILLE_CITY_ENTITY]
 };

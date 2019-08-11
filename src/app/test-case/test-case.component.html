@@ -11,7 +11,9 @@
       <h3>Criteria</h3>
     </div>
   </div>
-  <app-criteria [criteria]=testCriteria [disabled]=disabled></app-criteria>
+  <div *ngFor="let criteria of criterias">
+      <app-criteria [criteria]=criteria [disabled]=disabled></app-criteria>
+  </div>
 </div>
 
 <div *ngIf="testResultFlag && testResult" >

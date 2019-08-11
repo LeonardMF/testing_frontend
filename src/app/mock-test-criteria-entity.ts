@@ -38,7 +38,7 @@ export const STATION_TO_ENTITY: CriteriaEntity = {
 
 // VUI
 export const LINCOLN_NAME_ENTITY: CriteriaEntity = {
-  name: 'entity',
+  name: 'name',
   minConfidence: 0.75,
   value: 'abraham lincoln',
   flag: false
