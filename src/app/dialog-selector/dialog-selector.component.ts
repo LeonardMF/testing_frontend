@@ -12,14 +12,16 @@ import { TestTurn } from '../test-turn/test-turn';
 export class DialogSelectorComponent implements OnInit {
 
   @Output() selectDialogOn = new EventEmitter<TestDialog>();
+  @Output() testDialogOn = new EventEmitter<TestDialog>();
+
   dialogs: TestDialog[] = [];
   dialog: TestDialog;
 
   constructor(private backendService: BackendService) { }
 
   ngOnInit() {
-    // this.loadMockDialogs();
-    this.loadDialogs();
+    this.loadMockDialogs();
+    // this.loadDialogs();
   }
 
   addDialog(): void {
@@ -32,6 +34,11 @@ export class DialogSelectorComponent implements OnInit {
     this.dialogs.push(this.dialog);
     this.selectDialogOn.emit(this.dialog);
   }
+
+  testDialog(): void {
+    this.testDialogOn.emit(this.dialog);
+  }
+
   changeDialog(): void {
     this.selectDialogOn.emit(this.dialog);
   }

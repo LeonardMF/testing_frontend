@@ -7,11 +7,6 @@ import { TestTurn } from '../test-turn/test-turn';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
 import { BackendService } from '../backend.service';
-import { TEST_TIME,
-         TEST_TIME_CITY,
-         TEST_TIME_DIALOG,
-         TEST_VUI,
-         TEST_BVG} from '../mock-test-dialog';
 
 @Component({
   selector: 'app-monitor',
@@ -36,16 +31,14 @@ export class MonitorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.testDialog = TEST_TIME_DIALOG;
-    // this.testDialog = TEST_BVG;
-    // this.testDialog = TEST_VUI;
-    // console.log(JSON.stringify(this.testDialog));
-    // this.backendService.addDialog(this.testDialog).subscribe((data: any) => {
-    //   console.log(data);
-    // });
+  }
+
+  onSelectDialog( dialog): void {
+    this.testDialog = dialog;
     this.dialogName = this.testDialog.name;
     this.testTurns = this.testDialog.turns;
     this.setTestTurn(this.testTurns[this.testTurnIndex]);
+    this.clear();
   }
 
   setTestTurn(testCase): void {
@@ -54,7 +47,7 @@ export class MonitorComponent implements OnInit {
     this.testCriteria = testCase.testCriteria;
   }
 
-  start(): void {
+  onTestDialog(dialog): void {
     this.testCaseComponent.speak();
   }
 
@@ -62,7 +55,7 @@ export class MonitorComponent implements OnInit {
     if ( this.validate()) {
       setTimeout(() => {
         if (this.next()) {
-          this.start();
+          this.testCaseComponent.speak();
         }
       }, 2000);
     }
