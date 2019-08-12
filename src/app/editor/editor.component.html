@@ -6,7 +6,7 @@
         <br>
     </div>
   </div>
-  <app-dialog-selector (selectDialogOn)="onSelectDialog($event)"></app-dialog-selector>
+  <app-dialog-selector [editorMode]="true" (selectDialogOn)="onSelectDialog($event)"></app-dialog-selector>
   <hr>
   <div *ngIf="dialog">
     <div *ngFor="let turn of dialog.turns">

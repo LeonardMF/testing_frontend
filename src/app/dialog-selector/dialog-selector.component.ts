@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { BackendService } from '../backend.service';
 import { TestDialog } from '../test-dialog';
 import { TEST_TIME_DIALOG, TEST_VUI, TEST_TIME, TEST_BVG, TEST_TIME_CITY } from '../mock-test-dialog';
@@ -11,6 +11,7 @@ import { TestTurn } from '../test-turn/test-turn';
 })
 export class DialogSelectorComponent implements OnInit {
 
+  @Input() editorMode: boolean;
   @Output() selectDialogOn = new EventEmitter<TestDialog>();
   @Output() testDialogOn = new EventEmitter<TestDialog>();
 

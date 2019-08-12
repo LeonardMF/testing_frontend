@@ -12,10 +12,10 @@
                   {{d.description}}
               </option>
       </select>
-      <!-- <div class="input-group-append">
+      <div *ngIf="editorMode" class="input-group-append">
         <button type="button" class="btn btn-outline-dark" (click)="testDialog()"> + </button>
-      </div> -->
-      <div class="input-group-append">
+      </div>
+      <div *ngIf="!editorMode" class="input-group-append">
         <button type="button" class="btn btn-outline-success float-right" (click)="testDialog()">Test</button>
     </div>
     </div>
