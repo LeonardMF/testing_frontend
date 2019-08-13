@@ -86,14 +86,14 @@ export class MonitorComponent implements OnInit {
     // write result to DB
     const testresult = new TestResult;
 
-    testresult.wakeword = this.testCaseComponent.wakeword;
-    testresult.prompt = this.testCaseComponent.prompt;
-    testresult.response =  this.testCaseComponent.response;
-    testresult.criteria = this.testCaseComponent.testCriteria;
-    // testresult.result = this.testCaseComponent.testResult;
-    this.backendService.addTestTurn(testresult).subscribe((data: any) => {
-      console.log(data);
-    });
+    // testresult.wakeword = this.testCaseComponent.wakeword;
+    // testresult.prompt = this.testCaseComponent.prompt;
+    // testresult.response =  this.testCaseComponent.response;
+    // testresult.criteria = this.testCaseComponent.testCriteria;
+    // // testresult.result = this.testCaseComponent.testResult;
+    // this.backendService.addTestTurn(testresult).subscribe((data: any) => {
+    //   console.log(data);
+    // });
   }
 
   next(): boolean {

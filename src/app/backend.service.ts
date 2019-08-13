@@ -3,8 +3,6 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TestDialog } from './test-dialog';
 import { catchError } from 'rxjs/internal/operators/catchError';
-import { RasaNluIntent } from './rasa-nlu-intent/rasa-nlu-intent';
-import { RasaNluEntity } from './rasa-nlu-entity/rasa-nlu-entity';
 import { TestResult } from './test-result';
 
 
@@ -26,10 +24,10 @@ export class BackendService {
     return this.http.get<any>( requestUrl );
   }
 
-  loadDialogs():  Promise<any> {
-    const requestUrl = this.backendUrl + 'dialog';
-    return this.http.get<any>( requestUrl ).toPromise();
-  }
+  // loadDialogs():  Promise<any> {
+  //   const requestUrl = this.backendUrl + 'dialog';
+  //   return this.http.get<any>( requestUrl ).toPromise();
+  // }
 
   getDialog(name: string): Promise<any> {
     const requestUrl = this.backendUrl + 'dialog/' + name;
@@ -43,11 +41,19 @@ export class BackendService {
     return this.http.post<any>( requestUrl, JSON.stringify(testdialog), httpOptions ).toPromise();
   }
 
-  addTestTurn(testresult: TestResult): Observable<any> {
+  postResult(testresult: TestResult): Promise<any> {
+    const requestUrl = this.backendUrl + 'result';
+    return this.http.post<any>( requestUrl, JSON.stringify(testresult), httpOptions ).toPromise();
+  }
 
-    const requestUrl = this.backendUrl + 'testturn';
+  getResults():  Observable<any> {
+    const requestUrl = this.backendUrl + 'result';
+    return this.http.get<any>( requestUrl );
+  }
 
-    return this.http.post<any>( requestUrl, JSON.stringify(testresult), httpOptions );
+  getResult(id: string): Promise<any> {
+    const requestUrl = this.backendUrl + 'result/' + id;
+    return this.http.get<any>( requestUrl ).toPromise();
   }
 
 }

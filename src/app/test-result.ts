@@ -1,11 +1,11 @@
 import { Criteria } from './criteria/criteria';
 import { Result } from './result/result';
+import { TestCase } from './test-case';
 
 export class TestResult {
-
-  wakeword: string;
-  prompt: string;
-  response: string;
-  criteria: Criteria;
-  result: Result;
+  dialogName: string;
+  dialogDescription: string;
+  assistant: string;
+  datetime: string;
+  testcases: TestCase[];
 }
