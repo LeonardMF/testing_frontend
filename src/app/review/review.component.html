@@ -26,6 +26,7 @@
       </div>
   </div>
   <hr>
+  <div *ngIf="testResult">
   <div *ngFor="let testCase of testResult.testcases">
 
       <div class="row">
@@ -90,16 +91,13 @@
                     class="form-control"
                     required
                     value="{{testCase.response}}"/>
+      </div>
     </div>
   </div>
+  <app-result [criteria]=testCase.criteria [result]=testCase.result></app-result>
+  <hr>
+  </div>
 </div>
-    <app-result [criteria]=testCase.criteria [result]=testCase.result></app-result>
-    <hr>
-  </div>
-  <!-- <div *ngFor="let turn of dialog.turns">
-    <app-test-turn [turn]=turn></app-test-turn>
-  </div>
-  <hr> -->
 </div>
 
 
