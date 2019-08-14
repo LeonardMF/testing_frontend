@@ -3,7 +3,6 @@
   <div class="row">
     <div class="col">
         <h3>Review</h3>
-        <button type="button" class="btn btn-outline-info float-center" (click)="saveResult()">Save</button>
         <br>
     </div>
   </div>
@@ -12,22 +11,22 @@
         <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">
-                Test:
+                Test Result:
               </span>
             </div>
-          <select [(ngModel)]= "test" class="custom-select">
-                  <option *ngFor="let t of tests" [ngValue]="t">
-                      {{t}}
+          <select [(ngModel)]= "testResult" class="custom-select" (change)="changeTestResult()">
+                  <option *ngFor="let t of testResults" [ngValue]="t">
+                      {{t.dialogDescription}} | {{t.assistant}}
                   </option>
           </select>
           <div class="input-group-append">
-            <button type="button" class="btn btn-outline-dark" (click)="showTest()"> show </button>
+            <button type="button" class="btn btn-outline-dark" (click)="saveResult()"> save </button>
           </div>
         </div>
       </div>
   </div>
   <hr>
-  <div *ngFor="let testCase of testcases">
+  <div *ngFor="let testCase of testResult.testcases">
 
       <div class="row">
           <div class="col" >

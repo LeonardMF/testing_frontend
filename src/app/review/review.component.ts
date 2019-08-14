@@ -10,6 +10,7 @@ import { Criteria } from '../criteria/criteria';
 import { TIME_LISSABON_GOOLGE, TIME_GOOLGE, TIME_LISSABON_ALEXA, TIME_ALEXA } from '../mock-test-case';
 import { TestCase } from '../test-case';
 import { BackendService } from '../backend.service';
+import { TEST_TIME_DIALOG_GOOGLE, TEST_TIME_DIALOG_ALEXA } from '../mock-test-result';
 
 @Component({
   selector: 'app-review',
@@ -24,31 +25,15 @@ export class ReviewComponent implements OnInit, AfterViewInit {
   @ViewChildren(ResultComponent)
   private resultComponents: QueryList<ResultComponent>;
 
-
-  // turn: TestTurn = TIME_NEXT_TURN;
-  criteria: Criteria;
-  time_result: Result;
-  right_result: Result;
-  wrong_result: Result;
-
-  testcases_google: TestCase[] = [TIME_GOOLGE, TIME_LISSABON_GOOLGE];
-  testcases_alexa: TestCase[] = [TIME_ALEXA, TIME_LISSABON_ALEXA];
-
-  testcases: TestCase[] = this.testcases_google;
-
-  results: TestResult[];
-  result: TestResult;
-
-  tests = ['TIME_DIALOG_GOOGLE', 'TIME_DIALOG_ALEXA'];
-  test = 'TIME_DIALOG_GOOGLE';
-  assistant = 'GOOGLE';
+  testResults: TestResult[] = [TEST_TIME_DIALOG_GOOGLE, TEST_TIME_DIALOG_ALEXA];
+  testResult: TestResult = this.testResults[0];
 
   constructor(private ref: ChangeDetectorRef,
               private backendService: BackendService) { }
 
   ngOnInit() {
-    this.loadResults();
-    this.getResult('5d52a499142f04fb86095db5');
+    // this.loadResults();
+    // this.getResult('5d52a499142f04fb86095db5');
 
   }
 
@@ -58,19 +43,9 @@ export class ReviewComponent implements OnInit, AfterViewInit {
     this.showResult();
   }
 
-  showTest(): void {
-    if (this.test === 'TIME_DIALOG_GOOGLE') {
-      this.assistant = 'GOOGLE';
-      this.testcases = this.testcases_google;
-      this.ref.detectChanges();
-      this.showResult();
-    }
-    if (this.test === 'TIME_DIALOG_ALEXA') {
-      this.assistant = 'ALEXA';
-      this.testcases = this.testcases_alexa;
-      this.ref.detectChanges();
-      this.showResult();
-    }
+  changeTestResult(): void {
+    this.ref.detectChanges();
+    this.showResult();
   }
 
   showResult(): void {
@@ -79,19 +54,17 @@ export class ReviewComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // load dialogs
   loadResults(): void {
-    this.backendService.getResults().subscribe((results: TestResult[]) => {
-      this.results = results;
-      console.log(this.results);
+    this.backendService.getResults().subscribe((testResults: TestResult[]) => {
+      this.testResults = testResults;
+      console.log(this.testResults);
     });
   }
 
-  // load dialogs
   async getResult(id) {
     try {
-      this.result = await this.backendService.getResult(id);
-      console.log(this.result);
+      this.testResult = await this.backendService.getResult(id);
+      console.log(this.testResult);
     } catch (error) {
       console.log('Error: ' + error);
     }
@@ -101,14 +74,8 @@ export class ReviewComponent implements OnInit, AfterViewInit {
   // save dialog
   async saveResult() {
     try {
-      const testresult = new TestResult;
-      testresult.dialogName = 'TIME_DIALOG';
-      testresult.dialogDescription = 'Uhrzeitansage im Kontext';
-      testresult.assistant = this.assistant;
-      testresult.datetime = Date.now().toString();
-      testresult.testcases = this.testcases;
-      console.log(JSON.stringify(testresult));
-      const resultData = await this.backendService.postResult(testresult);
+      console.log(JSON.stringify(this.testResult));
+      const resultData = await this.backendService.postResult(this.testResult);
       console.log(resultData);
       // this.ref.detectChanges();
     } catch (error) {
