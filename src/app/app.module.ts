@@ -27,7 +27,6 @@ import { RasaNluResponseComponent } from './rasa-nlu-response/rasa-nlu-response.
 import { WakewordComponent } from './wakeword/wakeword.component';
 import { ResponseComponent } from './response/response.component';
 
-import { TestCaseEditorComponent } from './test-case-editor/test-case-editor.component';
 import { MonitorComponent } from './monitor/monitor.component';
 
 import { CriteriaComponent } from './criteria/criteria.component';
@@ -56,7 +55,6 @@ import { DialogSelectorComponent } from './dialog-selector/dialog-selector.compo
     WakewordComponent,
     ResponseComponent,
     RasaNluResponseComponent,
-    TestCaseEditorComponent,
     MonitorComponent,
     CriteriaComponent,
     CriteriaEntityComponent,
