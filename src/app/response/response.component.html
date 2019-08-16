@@ -11,7 +11,6 @@
                 type="text"
                 class="form-control"
                 required
-                (change)="changeListenResult()"
                 (keyup.enter)="changeListenResult()"
                 placeholder="{{listenResult}}"/>
         <div *ngIf="!listenButtonOn" class="input-group-append">

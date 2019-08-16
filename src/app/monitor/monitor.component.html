@@ -1,7 +1,9 @@
 <div class="container">
   <br>
   <app-dialog-selector (selectDialogOn)="onSelectDialog($event)" (testDialogOn)="onTestDialog($event)" ></app-dialog-selector>
-  <app-test-case [wakeword]="wakeword" [prompt]="prompt" [testCriteria]="testCriteria" [criterias]="criterias"  (nluAnalyseOn)="onNluAnalyse()"></app-test-case>
+  <!-- <div *ngIf="testCase"> -->
+    <app-test-case [testCase]="testCase" [criterias]="criterias" (nluAnalyseOn)="onNluAnalyse($event)"></app-test-case>
+  <!-- </div> -->
   <hr>
   <div class="row">
     <div class="col-4">

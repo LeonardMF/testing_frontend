@@ -7,6 +7,7 @@ import { TestTurn } from '../test-turn/test-turn';
 
 import { TestCaseComponent } from '../test-case/test-case.component';
 import { BackendService } from '../backend.service';
+import { TestCase } from '../test-case/test-case';
 
 @Component({
   selector: 'app-monitor',
@@ -15,25 +16,29 @@ import { BackendService } from '../backend.service';
 })
 export class MonitorComponent implements OnInit {
   @ViewChild(TestCaseComponent)
+
   private testCaseComponent: TestCaseComponent;
 
   testDialog: TestDialog;
   dialogName: string;
+
   testTurns: TestTurn[] = [];
   testTurnIndex = 0;
 
-  wakeword: string;
-  prompt: string;
-  testCriteria: Criteria;
+  testCases: TestCase[] = [];
+  testCase: TestCase = new TestCase;
   criterias: Criteria[];
 
   nextTurn: string;
   nextTurns: string[];
 
+  testResult: TestResult = new TestResult;
+
   constructor( private ref: ChangeDetectorRef,
                private backendService: BackendService ) {}
 
   ngOnInit() {
+    this.testResult.testcases = [];
 
   }
 
@@ -41,15 +46,20 @@ export class MonitorComponent implements OnInit {
     this.testDialog = dialog;
     this.dialogName = this.testDialog.name;
     this.testTurns = this.testDialog.turns;
-    this.setTestTurn(this.testTurns[this.testTurnIndex]);
+    for (const turn of this.testTurns) {
+      if (turn.name === 'start') {
+        this.setTestCase(turn);
+      }
+    }
     this.clear();
   }
 
-  setTestTurn(testCase): void {
-    this.wakeword = testCase.wakeword;
-    this.prompt = testCase.prompt;
-    this.testCriteria = testCase.testCriteria;
-    this.criterias = testCase.criterias;
+  setTestCase(testTurn): void {
+    console.log('setTestCase');
+    this.testCase.wakeword = testTurn.wakeword;
+    this.testCase.prompt = testTurn.prompt;
+    this.testCase.criteria = testTurn.testCriteria;
+    this.criterias = testTurn.criterias;
     this.nextTurns = [];
     for (const c of this.criterias) {
       this.nextTurns.push(c.nextTurn);
@@ -63,7 +73,10 @@ export class MonitorComponent implements OnInit {
     this.testCaseComponent.speak();
   }
 
-  onNluAnalyse(): void {
+  onNluAnalyse(testCase): void {
+    console.log('onNluAnalyse');
+    console.log('TESTCASE: ');
+    console.log(testCase);
     if ( this.validate()) {
       setTimeout(() => {
         if (this.next()) {
@@ -83,14 +96,13 @@ export class MonitorComponent implements OnInit {
   }
 
   save(): void {
-    // write result to DB
-    const testresult = new TestResult;
-
-    // testresult.wakeword = this.testCaseComponent.wakeword;
-    // testresult.prompt = this.testCaseComponent.prompt;
-    // testresult.response =  this.testCaseComponent.response;
-    // testresult.criteria = this.testCaseComponent.testCriteria;
-    // // testresult.result = this.testCaseComponent.testResult;
+    // this.testResult.dialogName =
+    // this.testResult.dialogDescription =
+    // this.testResult.assistant =
+    // this.testResult.datetime =
+    // this.testResult.testcases =
+    this.testResult.testcases.push(this.testCase);
+    console.log(this.testResult.testcases);
     // this.backendService.addTestTurn(testresult).subscribe((data: any) => {
     //   console.log(data);
     // });
@@ -100,7 +112,7 @@ export class MonitorComponent implements OnInit {
     for ( const turn of this.testTurns) {
       if (turn.name === this.nextTurn) {
         this.clear();
-        this.setTestTurn(turn);
+        this.setTestCase(turn);
         return true;
       }
     }
@@ -109,10 +121,11 @@ export class MonitorComponent implements OnInit {
 
   back(): void {
     this.clear();
-    this.testTurnIndex = 0;
-    if (this.testTurns[this.testTurnIndex]) {
-      this.setTestTurn(this.testTurns[this.testTurnIndex]);
-      this.ref.detectChanges();
+    for (const turn of this.testTurns) {
+      if (turn.name === 'start') {
+        this.setTestCase(turn);
+      }
     }
+    this.ref.detectChanges();
   }
 }

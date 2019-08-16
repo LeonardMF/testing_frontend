@@ -1,5 +1,5 @@
 
-import { TestCase } from './test-case';
+import { TestCase } from './test-case/test-case';
 
 import { TIME_END_CRITERIA,
          TIME_NEXT_CRITERIA,

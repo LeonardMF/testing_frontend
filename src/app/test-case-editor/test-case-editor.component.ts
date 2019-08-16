@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { TestCase } from '../test-case';
+import { TestCase } from '../test-case/test-case';
 import { TestCaseService } from '../test-case-editor/test-case.service';
 import { BackendService } from '../backend.service';
 import { TIME_CITY_END_CRITERIA } from '../mock-test-criteria';

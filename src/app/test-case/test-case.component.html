@@ -1,11 +1,11 @@
 <hr>
 
-<app-wakeword [wakeword]="wakeword" (setWakewordOn)="onSetWakeword($event)" ></app-wakeword>
-<app-prompt [wakeword]="wakeword" [prompt]="prompt" (stopSpeakOn)="onStopSpeak($event)" ></app-prompt>
+<app-wakeword [wakeword]="testCase.wakeword" (setWakewordOn)="onSetWakeword($event)" ></app-wakeword>
+<app-prompt [wakeword]="testCase.wakeword" [prompt]="testCase.prompt" (stopSpeakOn)="onStopSpeak($event)" ></app-prompt>
 <app-response (listenResultOn)="onListenResult($event)"></app-response>
 
 <hr>
-<div *ngIf="!testResultFlag">
+<div *ngIf="!resultFlag">
   <div class="row">
     <div class="col">
       <h3>Criteria</h3>
@@ -16,13 +16,13 @@
   </div>
 </div>
 
-<div *ngIf="testResultFlag && testResult" >
+<div *ngIf="resultFlag && result" >
     <div class="row">
         <div class="col">
           <h3>Result</h3>
         </div>
     </div>
-  <app-result [criteria]=testCriteria [result]=testResult></app-result>
+  <app-result [criteria]=testCase.criteria [result]=result></app-result>
 </div>
 
 

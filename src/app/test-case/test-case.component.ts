@@ -15,6 +15,8 @@ import { PromptComponent } from '../prompt/prompt.component';
 import { CriteriaEntity } from '../criteria-entity/criteria-entity';
 import { Result } from '../result/result';
 import { ResultComponent } from '../result/result.component';
+import { TestCase } from './test-case';
+import { TestTurn } from '../test-turn/test-turn';
 
 @Component({
   selector: 'app-test-case',
@@ -32,13 +34,10 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   @ViewChild(ResultComponent)
   private resultComponent: ResultComponent;
 
-  // Set default values
-  @Input() wakeword;
-  @Input() prompt;
-  @Input() testCriteria: Criteria;
+  @Input() testCase: TestCase;
   @Input() criterias: Criteria[];
 
-  @Output() nluAnalyseOn = new EventEmitter();
+  @Output() nluAnalyseOn = new EventEmitter<TestCase>();
 
   title: string;
   description: string;
@@ -51,8 +50,8 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   response: string;
   intent: RasaNluIntent;
 
-  testResult: Result;
-  testResultFlag = false;
+  result: Result = new Result;
+  resultFlag = false;
 
   constructor(
     private ref: ChangeDetectorRef,
@@ -60,14 +59,14 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.clear();
+    // this.clear();
   }
 
   ngOnDestroy(): void {
   }
 
   onSetWakeword(wakeword): void {
-    this.wakeword = wakeword;
+    this.testCase.wakeword = wakeword;
     // console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
     this.clear();
@@ -88,41 +87,41 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     this.clear();
   }
 
-  onListenResult(result): void {
-    this.response = result;
+  onListenResult(response): void {
+    this.testCase.response = response;
     const rasaCoreQuery = new RasaCoreQuery();
-    rasaCoreQuery.text = result;
-    // console.log(rasaCoreQuery.text);
-    // rasaNluQuery.project =  'current';
+    rasaCoreQuery.text = response;
+
     this.rasaNluService.post(rasaCoreQuery).subscribe((rasaNluResponse: RasaNluResponse) => {
 
-      this.testResult.intent = rasaNluResponse.intent;
-      this.testResult.entities = rasaNluResponse.entities;
+      this.result.intent = rasaNluResponse.intent;
+      this.result.entities = rasaNluResponse.entities;
+      // rasaNluResponse.intent_ranking;
 
-      if (this.testResult.intent.name) {
-        this.testResultFlag = true;
+      if (this.result.intent.name) {
+        this.resultFlag = true;
         this.ref.detectChanges();
-        this.nluAnalyseOn.emit();
+        this.nluAnalyseOn.emit(this.testCase);
       }
     });
   }
 
   clear(): void {
-    this.testResult = new Result();
-    this.testResultFlag = false;
-    this.response = '';
-    this.responseComponent.listenResult = this.response;
+    this.result = new Result();
+    this.resultFlag = false;
+    this.responseComponent.listenResult = '';
     this.ref.detectChanges();
   }
 
   validate(): string {
     for ( const c of this.criterias) {
-      if ( this.testResult.intent.name === c.intent) {
-        console.log( 'Criteria: ');
-        console.log( c );
-        this.testCriteria = c;
+      if ( this.result.intent.name === c.intent) {
+        // console.log( 'Criteria: ');
+        // console.log( c );
+        this.testCase.criteria = c;
       }
     }
+    // console.log(this.resultComponent);
     return this.resultComponent.validate();
   }
 }
