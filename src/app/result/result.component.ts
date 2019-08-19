@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectorRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, ChangeDetectorRef, Input, Output, EventEmitter } from '@angular/core';
 
 import { Result } from '../result/result';
 import { Criteria } from '../criteria/criteria';
@@ -26,7 +26,7 @@ export class ResultComponent implements OnInit {
 
   @Input() result: Result;
   @Input() criteria: Criteria;
-  // @Input() criterias: Criteria[];
+  @Output() resultOn = new EventEmitter<Result>();
 
   missingEntities: CriteriaEntity[] = [];
   next: string;
@@ -38,6 +38,7 @@ export class ResultComponent implements OnInit {
     // this.criteria = TIME_CITY_END_CRITERIA;
     // this.result.intent.nextTurn = this.criteria.nextTurn;
   }
+
 
   validate(): string {
     this.result.intent.nextTurn = this.criteria.nextTurn;
@@ -60,6 +61,7 @@ export class ResultComponent implements OnInit {
     if ( intentFlag && confidenceFlag && this.missingEntities.length === 0 && confidenceEntitiesFlag && valueEntitiesFlag) {
       this.result.nextTurnFlag = true;
       this.showResult();
+      this.resultOn.emit(this.result);
       return this.criteria.nextTurn;
     } else {
       this.result.nextTurnFlag = false;

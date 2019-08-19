@@ -22,7 +22,7 @@
           <h3>Result</h3>
         </div>
     </div>
-  <app-result [criteria]=testCase.criteria [result]=result></app-result>
+  <app-result [criteria]=testCase.criteria [result]=result (resultOn)="onResult($event)"></app-result>
 </div>
 
 

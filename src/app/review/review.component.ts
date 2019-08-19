@@ -23,7 +23,7 @@ export class ReviewComponent implements OnInit {
               private backendService: BackendService) { }
 
   ngOnInit() {
-    this.loadMockResults();
+    this.loadResults();
   }
 
   changeTestResult(): void {

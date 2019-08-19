@@ -21,6 +21,7 @@ export class MonitorComponent implements OnInit {
 
   testDialog: TestDialog;
   dialogName: string;
+  dialogId: string;
 
   testTurns: TestTurn[] = [];
   testTurnIndex = 0;
@@ -39,7 +40,6 @@ export class MonitorComponent implements OnInit {
 
   ngOnInit() {
     this.testResult.testcases = [];
-
   }
 
   onSelectDialog( dialog): void {
@@ -55,7 +55,6 @@ export class MonitorComponent implements OnInit {
   }
 
   setTestCase(testTurn): void {
-    console.log('setTestCase');
     this.testCase.wakeword = testTurn.wakeword;
     this.testCase.prompt = testTurn.prompt;
     this.testCase.criteria = testTurn.testCriteria;
@@ -73,10 +72,7 @@ export class MonitorComponent implements OnInit {
     this.testCaseComponent.speak();
   }
 
-  onNluAnalyse(testCase): void {
-    console.log('onNluAnalyse');
-    console.log('TESTCASE: ');
-    console.log(testCase);
+  onNluAnalyse(): void {
     if ( this.validate()) {
       setTimeout(() => {
         if (this.next()) {
@@ -84,6 +80,14 @@ export class MonitorComponent implements OnInit {
         }
       }, 2000);
     }
+  }
+
+  onTestCase(testCase: TestCase): void {
+    console.log('log');
+    console.log(JSON.stringify(testCase));
+
+    const tC = Object.assign(new TestCase(), testCase);
+    this.testCases.push(tC);
   }
 
   clear(): void {
@@ -95,17 +99,18 @@ export class MonitorComponent implements OnInit {
     return true;
   }
 
-  save(): void {
-    // this.testResult.dialogName =
-    // this.testResult.dialogDescription =
-    // this.testResult.assistant =
-    // this.testResult.datetime =
-    // this.testResult.testcases =
-    this.testResult.testcases.push(this.testCase);
-    console.log(this.testResult.testcases);
-    // this.backendService.addTestTurn(testresult).subscribe((data: any) => {
-    //   console.log(data);
-    // });
+  async save() {
+    this.testResult.dialogName = this.testDialog.name,
+    this.testResult.dialogDescription = this.testDialog.description,
+    this.testResult.assistant = 'Leo';
+    this.testResult.datetime = new Date().toString();
+    this.testResult.testcases = this.testCases;
+    console.log(this.testCases);
+    const dialogData = this.backendService.postResult(this.testResult);
+    dialogData.then((data) => {
+      this.dialogId = data._id;
+      console.log(this.dialogId);
+    });
   }
 
   next(): boolean {

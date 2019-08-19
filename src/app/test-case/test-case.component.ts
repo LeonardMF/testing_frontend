@@ -2,21 +2,17 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, ViewChild, Input, ViewChildren, QueryList, Output, EventEmitter} from '@angular/core';
 
 import { RasaNluIntent } from '../rasa-nlu-intent/rasa-nlu-intent';
-import { RasaNluEntity } from '../rasa-nlu-entity/rasa-nlu-entity';
 import { RasaNluService } from '../rasa-nlu/rasa-nlu.service';
 import { RasaNluResponse } from '../rasa-nlu/rasa-nlu-response';
-
 import { RasaCoreQuery } from '../rasa-core/rasa-core-query';
-import { ResponseComponent } from '../response/response.component';
+
 import { Criteria } from '../criteria/criteria';
-import { RasaNluIntentComponent } from '../rasa-nlu-intent/rasa-nlu-intent.component';
-import { RasaNluEntityComponent } from '../rasa-nlu-entity/rasa-nlu-entity.component';
-import { PromptComponent } from '../prompt/prompt.component';
-import { CriteriaEntity } from '../criteria-entity/criteria-entity';
 import { Result } from '../result/result';
-import { ResultComponent } from '../result/result.component';
 import { TestCase } from './test-case';
-import { TestTurn } from '../test-turn/test-turn';
+
+import { ResponseComponent } from '../response/response.component';
+import { PromptComponent } from '../prompt/prompt.component';
+import { ResultComponent } from '../result/result.component';
 
 @Component({
   selector: 'app-test-case',
@@ -37,7 +33,8 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   @Input() testCase: TestCase;
   @Input() criterias: Criteria[];
 
-  @Output() nluAnalyseOn = new EventEmitter<TestCase>();
+  @Output() nluAnalyseOn = new EventEmitter();
+  @Output() testCaseOn = new EventEmitter<TestCase>();
 
   title: string;
   description: string;
@@ -75,6 +72,11 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   onStopSpeak(): void {
     this.responseComponent.startListen();
     this.ref.detectChanges();
+  }
+
+  onResult(result): void {
+    this.testCase.result = result;
+    this.testCaseOn.emit(this.testCase);
   }
 
   speak(): void {
@@ -121,7 +123,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
         this.testCase.criteria = c;
       }
     }
-    // console.log(this.resultComponent);
+
     return this.resultComponent.validate();
   }
 }
