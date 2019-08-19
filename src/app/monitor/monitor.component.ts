@@ -83,9 +83,6 @@ export class MonitorComponent implements OnInit {
   }
 
   onTestCase(testCase: TestCase): void {
-    console.log('log');
-    console.log(JSON.stringify(testCase));
-
     const tC = Object.assign(new TestCase(), testCase);
     this.testCases.push(tC);
   }
@@ -105,11 +102,11 @@ export class MonitorComponent implements OnInit {
     this.testResult.assistant = 'Leo';
     this.testResult.datetime = new Date().toString();
     this.testResult.testcases = this.testCases;
-    console.log(this.testCases);
+    // console.log(this.testCases);
     const dialogData = this.backendService.postResult(this.testResult);
     dialogData.then((data) => {
       this.dialogId = data._id;
-      console.log(this.dialogId);
+      console.log('Dialog saved (id): ' + this.dialogId);
     });
   }
 
