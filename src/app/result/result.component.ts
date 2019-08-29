@@ -65,6 +65,7 @@ export class ResultComponent implements OnInit {
       return this.criteria.nextTurn;
     } else {
       this.result.nextTurnFlag = false;
+      this.resultOn.emit(this.result);
       this.showResult();
       return 'error';
     }

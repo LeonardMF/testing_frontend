@@ -97,9 +97,10 @@ export class MonitorComponent implements OnInit {
   }
 
   async save() {
-    this.testResult.dialogName = this.testDialog.name,
-    this.testResult.dialogDescription = this.testDialog.description,
-    this.testResult.assistant = 'Leo';
+    this.testResult.dialogName = this.testDialog.name;
+    this.testResult.dialogDescription = this.testDialog.description;
+    //
+    this.testResult.assistant = this.testCases[0].wakeword;
     this.testResult.datetime = new Date().toString();
     this.testResult.testcases = this.testCases;
     // console.log(this.testCases);
