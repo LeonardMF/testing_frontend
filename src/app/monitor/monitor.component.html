@@ -2,7 +2,7 @@
   <br>
   <app-dialog-selector (selectDialogOn)="onSelectDialog($event)" (testDialogOn)="onTestDialog($event)" ></app-dialog-selector>
   <!-- <div *ngIf="testCase"> -->
-    <app-test-case [testCase]="testCase" [criterias]="criterias" (nluAnalyseOn)="onNluAnalyse()" (testCaseOn)="onTestCase($event)"></app-test-case>
+    <app-test-case [testCase]="testCase" [criterias]="criterias" (nluAnalyseOn)="onNluAnalyse()" (changeWakewordOn)="onChangeWakeword($event)" (testCaseOn)="onTestCase($event)"></app-test-case>
   <!-- </div> -->
   <hr>
   <div class="row">

@@ -13,7 +13,7 @@ export class DialogSelectorComponent implements OnInit {
 
   @Input() editorMode: boolean;
   @Output() selectDialogOn = new EventEmitter<TestDialog>();
-  @Output() testDialogOn = new EventEmitter<TestDialog>();
+  @Output() testDialogOn = new EventEmitter();
 
   dialogs: TestDialog[] = [];
   dialog: TestDialog;
@@ -37,7 +37,7 @@ export class DialogSelectorComponent implements OnInit {
   }
 
   testDialog(): void {
-    this.testDialogOn.emit(this.dialog);
+    this.testDialogOn.emit();
   }
 
   changeDialog(): void {
@@ -68,7 +68,7 @@ export class DialogSelectorComponent implements OnInit {
     this.dialogs.push(TEST_BVG);
     this.dialogs.push(TEST_TIME);
     this.dialogs.push(TEST_TIME_CITY);
-    this.dialog = this.dialogs[1];
+    this.dialog = this.dialogs[0];
     this.selectDialogOn.emit(this.dialog);
   }
 

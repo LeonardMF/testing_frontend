@@ -31,13 +31,13 @@ export class PromptComponent implements OnInit, OnDestroy {
     });
 
     this.speakStartEvent = this.speakService.startEvent.subscribe( () => {
-      console.log('Speak: start');
+      // console.log('Speak: start');
       this.speakButtonOn = true;
       this.ref.detectChanges();
     });
 
     this.speakStopEvent = this.speakService.stopEvent.subscribe( () => {
-      console.log('Speak: stop');
+      // console.log('Speak: stop');
       if (this.wakeFlag) {
         this.speakService.setAudioOff();
         this.startSpeak();
@@ -58,14 +58,14 @@ export class PromptComponent implements OnInit, OnDestroy {
   startSpeak(): void {
     if (this.wakeword === 'Hey Siri') {
       if (this.wakeFlag === false) {
-        console.log('Wakeword: ' + this.wakeword);
+        // console.log('Wakeword: ' + this.wakeword);
         this.wakeFlag = true;
         this.speakService.setAudioOn();
         this.speakService.file = 'HeySiri';
         this.speakService.start();
       } else {
         this.wakeFlag = false;
-        console.log('Prompt: ' + this.prompt);
+        // console.log('Prompt: ' + this.prompt);
         this.speakService.text = this.prompt;
         this.speakService.start();
       }
@@ -73,7 +73,7 @@ export class PromptComponent implements OnInit, OnDestroy {
       const testprompt = this.wakeword + '. ' + this.prompt;
       this.speakService.text = testprompt;
       this.speakService.start();
-      console.log('Wakeword + Prompt: ' + testprompt);
+      // console.log('Wakeword + Prompt: ' + testprompt);
     }
   }
 

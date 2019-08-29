@@ -23,17 +23,19 @@ export class MonitorComponent implements OnInit {
   dialogName: string;
   dialogId: string;
 
+  wakeword: string = '';
+
   testTurns: TestTurn[] = [];
   testTurnIndex = 0;
 
   testCases: TestCase[] = [];
-  testCase: TestCase = new TestCase;
+  testCase: TestCase = new TestCase();
   criterias: Criteria[];
 
   nextTurn: string;
   nextTurns: string[];
 
-  testResult: TestResult = new TestResult;
+  testResult: TestResult = new TestResult();
 
   constructor( private ref: ChangeDetectorRef,
                private backendService: BackendService ) {}
@@ -54,8 +56,17 @@ export class MonitorComponent implements OnInit {
     this.clear();
   }
 
+  onChangeWakeword( wakeword ): void {
+    this.wakeword = wakeword;
+  }
+
   setTestCase(testTurn): void {
-    this.testCase.wakeword = testTurn.wakeword;
+    // console.log(this.wakeword);
+    if (this.wakeword === '') {
+      this.testCase.wakeword = testTurn.wakeword;
+    } else {
+      this.testCase.wakeword = this.wakeword;
+    }
     this.testCase.prompt = testTurn.prompt;
     this.testCase.criteria = testTurn.testCriteria;
     this.criterias = testTurn.criterias;
@@ -67,8 +78,8 @@ export class MonitorComponent implements OnInit {
     this.ref.detectChanges();
   }
 
-  onTestDialog( dialog ): void {
-    this.back();
+  onTestDialog(): void {
+    // this.back();
     this.testCaseComponent.speak();
   }
 

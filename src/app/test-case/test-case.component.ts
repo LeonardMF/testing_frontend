@@ -13,6 +13,7 @@ import { TestCase } from './test-case';
 import { ResponseComponent } from '../response/response.component';
 import { PromptComponent } from '../prompt/prompt.component';
 import { ResultComponent } from '../result/result.component';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-test-case',
@@ -34,6 +35,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   @Input() criterias: Criteria[];
 
   @Output() nluAnalyseOn = new EventEmitter();
+  @Output() changeWakewordOn = new EventEmitter<string>();
   @Output() testCaseOn = new EventEmitter<TestCase>();
 
   title: string;
@@ -67,6 +69,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     // console.log(this.wakeword + '. ' + this.prompt);
     this.messages = [];
     this.clear();
+    this.changeWakewordOn.emit(wakeword);
   }
 
   onStopSpeak(): void {

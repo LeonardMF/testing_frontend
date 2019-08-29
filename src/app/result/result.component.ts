@@ -78,7 +78,13 @@ export class ResultComponent implements OnInit {
     const deviceminutes = devicetime.getMinutes();
 
     const time = new Date();
-    const hours = time.getHours() - aHour;
+    let hours = time.getHours();
+
+    if (hours === 0 && aHour > 0) {
+      hours = 23;
+    } else {
+      hours -= aHour;
+    }
     const minutes = time.getMinutes();
 
     if (hours === devicehours && minutes === deviceminutes) {
