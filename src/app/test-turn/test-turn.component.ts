@@ -14,6 +14,7 @@ export class TestTurnComponent implements OnInit {
   @Input() turn: TestTurn;
 
   prompt: string;
+  wakeword: string;
   name: string;
   criterias: Criteria[];
   disabled = false;
@@ -24,6 +25,7 @@ export class TestTurnComponent implements OnInit {
     this.prompt = this.turn.prompt;
     this.name = this.turn.name;
     this.criterias = this.turn.criterias;
+    this.wakeword = this.turn.wakeword;
     // this.criterias.push(this.turn.testCriteria);
     // this.criterias = this.turn.criterias;
   }
@@ -34,6 +36,10 @@ export class TestTurnComponent implements OnInit {
 
   changePrompt(): void {
     this.turn.prompt = this.prompt;
+  }
+
+  changeWakeword(): void {
+    this.turn.wakeword = this.wakeword;
   }
 
   addCriteria(): void {

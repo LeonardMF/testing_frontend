@@ -5,15 +5,15 @@
             <div class="input-group-prepend">
               <span class="input-group-text"
                     id="inputGroup-sizing-default">
-                    Prompt:
+                    Wakeword:
               </span>
               </div>
-            <input [(ngModel)]="prompt"
-                    (change)="changePrompt()"
+            <input [(ngModel)]="wakeword"
+                    (change)="changeWakeword()"
                     type="text"
                     class="form-control"
                     required
-                    placeholder="{{prompt}}"/>
+                    placeholder="{{wakeword}}"/>
           </div>
     </div>
    <div class="col-4">
@@ -35,6 +35,25 @@
           </div>
    </div>
   </div>
+   <div class= "row">
+    <div class="col-12" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                    Prompt:
+              </span>
+              </div>
+            <input [(ngModel)]="prompt"
+                    (change)="changePrompt()"
+                    type="text"
+                    class="form-control"
+                    required
+                    placeholder="{{prompt}}"/>
+          </div>
+    </div>
+  </div>
+
   <div *ngFor="let criteria of criterias">
     <app-criteria [criteria]=criteria [disabled]=disabled></app-criteria>
   </div>
