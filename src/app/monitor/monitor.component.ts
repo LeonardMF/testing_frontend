@@ -23,7 +23,7 @@ export class MonitorComponent implements OnInit {
   dialogName: string;
   dialogId: string;
 
-  wakeword: string = '';
+  wakeword = '';
 
   testTurns: TestTurn[] = [];
   testTurnIndex = 0;
@@ -73,8 +73,8 @@ export class MonitorComponent implements OnInit {
     this.nextTurns = [];
     for (const c of this.criterias) {
       this.nextTurns.push(c.nextTurn);
-      this.nextTurn = this.nextTurns[0];
     }
+    this.nextTurn = this.nextTurns[0];
     this.ref.detectChanges();
   }
 

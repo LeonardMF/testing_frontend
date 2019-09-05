@@ -126,7 +126,8 @@ export class TestCaseComponent implements OnInit, OnDestroy {
         this.testCase.criteria = c;
       }
     }
-
+    // testcase.undefinded
+    this.ref.detectChanges();
     return this.resultComponent.validate();
   }
 }

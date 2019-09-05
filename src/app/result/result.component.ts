@@ -49,8 +49,6 @@ export class ResultComponent implements OnInit {
     this.missingEntities = checkedEntities[0];
     const confidenceEntitiesFlag = checkedEntities[1];
     const valueEntitiesFlag = checkedEntities[2];
-
-
     this.ref.detectChanges();
     this.missingEntityComponents.forEach((mEC: CriteriaEntityComponent) => {
       mEC.setEntity('failed');
