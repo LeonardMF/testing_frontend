@@ -60,13 +60,14 @@ export class MonitorComponent implements OnInit {
     this.wakeword = wakeword;
   }
 
-  setTestCase(testTurn): void {
+  setTestCase(testTurn: TestTurn): void {
     // console.log(this.wakeword);
     if (this.wakeword === '' || testTurn.wakeword === ' ') {
       this.testCase.wakeword = testTurn.wakeword;
     } else {
       this.testCase.wakeword = this.wakeword;
     }
+    this.testCase.name = testTurn.name;
     this.testCase.prompt = testTurn.prompt;
     this.testCase.criteria = testTurn.testCriteria;
     this.criterias = testTurn.criterias;
