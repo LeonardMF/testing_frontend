@@ -44,7 +44,7 @@ export class MonitorComponent implements OnInit {
     this.testResult.testcases = [];
   }
 
-  onSelectDialog( dialog): void {
+  onSelectDialog(dialog: TestDialog): void {
     this.testDialog = dialog;
     this.dialogName = this.testDialog.name;
     this.testTurns = this.testDialog.turns;
@@ -56,13 +56,13 @@ export class MonitorComponent implements OnInit {
     this.clear();
   }
 
-  onChangeWakeword( wakeword ): void {
+  onChangeWakeword(wakeword: string ): void {
     this.wakeword = wakeword;
   }
 
   setTestCase(testTurn): void {
     // console.log(this.wakeword);
-    if (this.wakeword === '') {
+    if (this.wakeword === '' || testTurn.wakeword === ' ') {
       this.testCase.wakeword = testTurn.wakeword;
     } else {
       this.testCase.wakeword = this.wakeword;

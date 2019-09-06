@@ -66,7 +66,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
 
   onSetWakeword(wakeword): void {
     this.testCase.wakeword = wakeword;
-    // console.log(this.wakeword + '. ' + this.prompt);
+    // console.log(this.testCase.wakeword + '. ' + this.testCase.prompt);
     this.messages = [];
     this.clear();
     this.changeWakewordOn.emit(wakeword);
