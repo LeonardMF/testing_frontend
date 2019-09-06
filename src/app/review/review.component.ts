@@ -19,6 +19,8 @@ export class ReviewComponent implements OnInit {
   testResults: TestResult[] = [];
   testResult: TestResult;
 
+  editFlag = false;
+
   constructor(private ref: ChangeDetectorRef,
               private backendService: BackendService) { }
 
@@ -43,7 +45,12 @@ export class ReviewComponent implements OnInit {
       this.testResult = this.testResults[0];
       this.ref.detectChanges();
       this.showResult();
+      this.ref.detectChanges();
     });
+  }
+
+  editResult(): void {
+    this.editFlag = true;
   }
 
   loadMockResults(): void {
@@ -68,6 +75,7 @@ export class ReviewComponent implements OnInit {
       console.log(JSON.stringify(this.testResult));
       const resultData = await this.backendService.postResult(this.testResult);
       console.log(resultData);
+      this.editFlag = false;
       // this.ref.detectChanges();
     } catch (error) {
       console.log('Error: ' + error);

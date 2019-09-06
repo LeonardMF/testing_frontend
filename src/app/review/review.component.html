@@ -19,7 +19,10 @@
                       {{t.dialogDescription}} | {{t.assistant}}
                   </option>
           </select>
-          <div class="input-group-append">
+          <div *ngIf="!editFlag" class="input-group-append">
+            <button type="button" class="btn btn-outline-dark" (click)="editResult()"> edit </button>
+          </div>
+          <div *ngIf="editFlag" class="input-group-append">
             <button type="button" class="btn btn-outline-dark" (click)="saveResult()"> save </button>
           </div>
         </div>
@@ -38,7 +41,7 @@
                         Wakeword:
                   </span>
                   </div>
-                <input  [attr.disabled]="true"
+                <input  [attr.disabled]="!editFlag? true:null"
                         type="text"
                         class="form-control"
                         required
@@ -53,7 +56,7 @@
                     Name:
                 </span>
                 </div>
-              <input  [attr.disabled]="true"
+              <input  [attr.disabled]="!editFlag? true:null"
                       type="text"
                       class="form-control"
                       placeholder="{{testCase.name}}"/>
