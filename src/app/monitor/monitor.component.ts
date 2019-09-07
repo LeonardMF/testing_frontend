@@ -100,6 +100,7 @@ export class MonitorComponent implements OnInit {
   }
 
   clear(): void {
+    this.testResult = new TestResult();
     this.testCaseComponent.clear();
   }
 

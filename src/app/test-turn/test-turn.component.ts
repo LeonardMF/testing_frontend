@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Criteria } from '../criteria/criteria';
-import { TIME_NEXT_CRITERIA, TIME_END_CRITERIA } from '../mock-test-criteria';
 import { TestTurn } from './test-turn';
-import { CriteriaEntity } from '../criteria-entity/criteria-entity';
 
 @Component({
   selector: 'app-test-turn',
@@ -26,8 +24,6 @@ export class TestTurnComponent implements OnInit {
     this.name = this.turn.name;
     this.criterias = this.turn.criterias;
     this.wakeword = this.turn.wakeword;
-    // this.criterias.push(this.turn.testCriteria);
-    // this.criterias = this.turn.criterias;
   }
 
   changeName(): void {

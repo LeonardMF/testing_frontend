@@ -57,7 +57,7 @@ export class DialogSelectorComponent implements OnInit {
   loadDialogs(): void {
     this.backendService.getDialogs().subscribe((dialogs: TestDialog[]) => {
       this.dialogs = dialogs;
-      this.dialog = this.dialogs[2];
+      this.dialog = this.dialogs[0];
       this.selectDialogOn.emit(this.dialog);
     });
   }
