@@ -1,5 +1,23 @@
 <div class="border">
   <div class= "row">
+      <div class="col-4">
+          <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text"
+                      id="inputGroup-sizing-default">
+                    Turn:
+                </span>
+                </div>
+              <input [(ngModel)]="name"
+                      (change)="changeName()"
+                      type="text"
+                      class="form-control"
+                      placeholder="{{name}}"/>
+              <div class="input-group-append">
+                  <button type="button" class="btn btn-outline-dark" (click)="addCriteria()"> + </button>
+                </div>
+              </div>
+       </div>
     <div class="col-8" >
         <div class="input-group mb-3">
             <div class="input-group-prepend">
@@ -16,24 +34,7 @@
                     placeholder="{{wakeword}}"/>
           </div>
     </div>
-   <div class="col-4">
-      <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <span class="input-group-text"
-                  id="inputGroup-sizing-default">
-                Name:
-            </span>
-            </div>
-          <input [(ngModel)]="name"
-                  (change)="changeName()"
-                  type="text"
-                  class="form-control"
-                  placeholder="{{name}}"/>
-          <div class="input-group-append">
-              <button type="button" class="btn btn-outline-dark" (click)="addCriteria()"> + </button>
-            </div>
-          </div>
-   </div>
+
   </div>
    <div class= "row">
     <div class="col-12" >
