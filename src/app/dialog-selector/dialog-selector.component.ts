@@ -21,8 +21,8 @@ export class DialogSelectorComponent implements OnInit {
   constructor(private backendService: BackendService) { }
 
   ngOnInit() {
-    this.loadMockDialogs();
-    // this.loadDialogs();
+    // this.loadMockDialogs();
+    this.loadDialogs();
   }
 
   addDialog(): void {
