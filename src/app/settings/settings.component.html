@@ -6,4 +6,76 @@
         <br>
     </div>
   </div>
+  <div class="row">
+    <div class="col col-lg-5" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                ASR:
+              </span>
+            </div>
+          <select [(ngModel)]="asr"
+                  class="custom-select"
+                  (change)="setASR()" >
+            <option value="ASRHtml5" selected>Html5</option>
+            <option value="ASRMicrosoft">Microsoft</option>
+          </select>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col col-lg-5" >
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                TTS:
+              </span>
+            </div>
+          <select [(ngModel)]="tts"
+                  class="custom-select"
+                  (change)="setTTS()" >
+            <option value="TTSHtml5" selected>Html5</option>
+            <option value="TTSAmazon">Amazon</option>
+            <option value="TTSMicrosoft">Microsoft</option>
+          </select>
+        </div>
+      </div>
+  </div>
+  <div class="row">
+    <div class="col col-lg-5" >
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+              <span class="input-group-text"
+                    id="inputGroup-sizing-default">
+                Sprache:
+              </span>
+        </div>
+          <select [(ngModel)]="language"
+                  class="custom-select"
+                  (change)="setLanguage()" >
+            <option value="de" selected>Deutsch</option>
+            <option value="en">English</option>
+          </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col col-lg-5" >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+                <span class="input-group-text"
+                      id="inputGroup-sizing-default">
+                  Stimme:
+                </span>
+          </div>
+            <select [(ngModel)]="voice"
+                    class="custom-select"
+                    (change)="setVoice()" >
+              <option *ngFor="let voice of voiceList" [value]="voice">{{voice}}</option>
+            </select>
+      </div>
+    </div>
+  </div>
 </div>
