@@ -204,6 +204,11 @@ export class ResultComponent implements OnInit {
         e.setEntity('failed');
       }
     });
+
+    this.missingEntityComponents.forEach( (me) => {
+        me.setEntity('failed');
+    });
+
     this.ref.detectChanges();
   }
 }
